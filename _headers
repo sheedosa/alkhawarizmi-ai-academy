@@ -1,0 +1,9 @@
+# Netlify headers. Static assets are content-stable; cache for a week.
+# (Filenames aren't content-hashed, so avoid "immutable".)
+/assets/*
+  Cache-Control: public, max-age=604800
+
+/assets/styles.css
+  Cache-Control: public, max-age=604800
+/assets/app.js
+  Cache-Control: public, max-age=604800
