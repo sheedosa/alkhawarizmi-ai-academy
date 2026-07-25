@@ -1,5 +1,5 @@
 /* AlKhwarizmi AI Academy — site runtime.
-   Language toggle (EN/AR + RTL), mobile menu, form submission. */
+   Language toggle (EN/AR + RTL), story tabs, mobile menu, mailto form submission. */
 (function () {
   'use strict';
 
@@ -43,6 +43,20 @@
     try { localStorage.setItem('wa-lang', l); } catch (e) { /* private mode */ }
   }
 
+  function setTab(t) {
+    var k = document.getElementById('wa-panelK'), m = document.getElementById('wa-panelM');
+    var bk = document.getElementById('wa-tabK'), bm = document.getElementById('wa-tabM');
+    if (!k || !m || !bk || !bm) return;
+    // Class-driven state: CSS owns appearance so media queries can restack panels
+    k.classList.toggle('off', t !== 'k');
+    m.classList.toggle('on', t === 'm');
+    bk.classList.toggle('active', t === 'k');
+    bm.classList.toggle('active', t === 'm');
+    bk.setAttribute('aria-selected', t === 'k' ? 'true' : 'false');
+    bm.setAttribute('aria-selected', t === 'm' ? 'true' : 'false');
+    bk.tabIndex = t === 'k' ? 0 : -1;
+    bm.tabIndex = t === 'm' ? 0 : -1;
+  }
 
   function closeMenu() {
     var header = document.getElementById('wa-nav');
@@ -74,6 +88,8 @@
 
   var handlers = {
     toggleLang: function () { applyLang(lang === 'ar' ? 'en' : 'ar'); },
+    setTabK: function () { setTab('k'); },
+    setTabM: function () { setTab('m'); },
     toggleMenu: toggleMenu,
     submitStudent: function (e) { submit(e, 'Student Registration'); },
     submitDiploma: function (e) { submit(e, 'Diploma Application'); },
@@ -96,6 +112,19 @@
         var f = handlers[el.getAttribute('data-dc-onsubmit')]; if (f) f(e);
       });
     });
+
+    // Tablist arrow-key support (LTR/RTL aware enough: two tabs, both arrows cycle)
+    var tablist = document.querySelector('[role="tablist"]');
+    if (tablist) {
+      tablist.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        var active = document.querySelector('[role="tab"].active');
+        var next = active && active.id === 'wa-tabK' ? 'm' : 'k';
+        setTab(next);
+        document.getElementById(next === 'k' ? 'wa-tabK' : 'wa-tabM').focus();
+      });
+    }
 
     // Mobile menu: close on link click, Escape, outside click, desktop resize
     var menu = document.getElementById('wa-menu');
