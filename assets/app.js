@@ -41,6 +41,9 @@
       btn.setAttribute('lang', l === 'ar' ? 'en' : 'ar');
     }
     try { localStorage.setItem('wa-lang', l); } catch (e) { /* private mode */ }
+    // Counts and the status line are JS-composed, so re-render them in the new language.
+    updateCounts();
+    announce(progCards().filter(function (c) { return !c.hidden; }).length);
   }
 
   function setTab(t) {
@@ -56,6 +59,60 @@
     bm.setAttribute('aria-selected', t === 'm' ? 'true' : 'false');
     bk.tabIndex = t === 'k' ? 0 : -1;
     bm.tabIndex = t === 'm' ? 0 : -1;
+  }
+
+  /* ---------- Programs category filter ---------- */
+
+  var AR_DIGITS = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  function localiseNum(n) {
+    var s = String(n);
+    return lang === 'ar' ? s.replace(/[0-9]/g, function (d) { return AR_DIGITS[+d]; }) : s;
+  }
+
+  function progCards() {
+    return [].slice.call(document.querySelectorAll('#prog-grid .card'));
+  }
+
+  // Counts are derived from the DOM so they can never go stale when courses are added.
+  function updateCounts() {
+    var cards = progCards();
+    if (!cards.length) return;
+    document.querySelectorAll('.cat').forEach(function (btn) {
+      var cat = btn.getAttribute('data-cat');
+      var n = cat === 'all' ? cards.length : cards.filter(function (c) {
+        return c.getAttribute('data-cat') === cat;
+      }).length;
+      var el = btn.querySelector('.cat-count');
+      if (el) el.textContent = localiseNum(n);
+    });
+  }
+
+  function announce(n) {
+    var el = document.getElementById('prog-status');
+    if (!el) return;
+    // Template lives on data-tpl-* (not data-en) so applyLang cannot overwrite the composed text.
+    var tpl = el.getAttribute(lang === 'ar' ? 'data-tpl-ar' : 'data-tpl-en') || '';
+    el.textContent = tpl.replace('{n}', localiseNum(n));
+  }
+
+  function setCat(cat) {
+    var shown = 0;
+    progCards().forEach(function (c) {
+      var match = cat === 'all' || c.getAttribute('data-cat') === cat;
+      c.hidden = !match;
+      if (match) shown++;
+    });
+    document.querySelectorAll('.cat').forEach(function (b) {
+      var on = b.getAttribute('data-cat') === cat;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    announce(shown);
+  }
+
+  function activeCat() {
+    var b = document.querySelector('.cat.active');
+    return b ? b.getAttribute('data-cat') : 'all';
   }
 
   function closeMenu() {
@@ -90,6 +147,9 @@
     toggleLang: function () { applyLang(lang === 'ar' ? 'en' : 'ar'); },
     setTabK: function () { setTab('k'); },
     setTabM: function () { setTab('m'); },
+    // One handler serves all category tiles — the listener is bound per element,
+    // so currentTarget resolves to the tile that was clicked.
+    setCat: function (e) { setCat(e.currentTarget.getAttribute('data-cat')); },
     toggleMenu: toggleMenu,
     submitStudent: function (e) { submit(e, 'Student Registration'); },
     submitDiploma: function (e) { submit(e, 'Diploma Application'); },
@@ -123,6 +183,30 @@
         var next = active && active.id === 'wa-tabK' ? 'm' : 'k';
         setTab(next);
         document.getElementById(next === 'k' ? 'wa-tabK' : 'wa-tabM').focus();
+      });
+    }
+
+    // Category tiles: initial counts, plus roving keyboard navigation.
+    // Scoped to .cat-row so it cannot collide with the Story tablist listener above.
+    updateCounts();
+    var catRow = document.querySelector('.cat-row');
+    if (catRow) {
+      catRow.addEventListener('keydown', function (e) {
+        var keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+        if (keys.indexOf(e.key) === -1) return;
+        var tiles = [].slice.call(catRow.querySelectorAll('.cat'));
+        var i = tiles.indexOf(document.activeElement);
+        if (i === -1) return;
+        e.preventDefault();
+        var next;
+        if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tiles.length - 1;
+        else {
+          // In RTL, ArrowRight moves to the previous tile.
+          var forward = (e.key === 'ArrowRight') !== (document.documentElement.dir === 'rtl');
+          next = (i + (forward ? 1 : -1) + tiles.length) % tiles.length;
+        }
+        tiles[next].focus();
       });
     }
 

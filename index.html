@@ -98,7 +98,7 @@
   <!-- ============ STATS ============ -->
   <div id="wa-stats">
     <div style="background:#F3FBF8;border-radius:16px;padding:26px;text-align:center"><div style="font:700 34px var(--fd);color:#111128" data-en="1st" data-ar="الأول">1st</div><div style="font:400 13px var(--fb);color:#5A5F76;margin-top:3px" data-en="AI academy in Libya" data-ar="أكاديمية ذكاء اصطناعي في ليبيا">AI academy in Libya</div></div>
-    <div style="background:#F5F4FB;border-radius:16px;padding:26px;text-align:center"><div style="font:700 34px var(--fd);color:#111128" data-en="7+" data-ar="+٧">7+</div><div style="font:400 13px var(--fb);color:#5A5F76;margin-top:3px" data-en="Programs &amp; tracks" data-ar="برامج ومسارات">Programs &amp; tracks</div></div>
+    <div style="background:#F5F4FB;border-radius:16px;padding:26px;text-align:center"><div style="font:700 34px var(--fd);color:#111128" data-en="8" data-ar="٨">8</div><div style="font:400 13px var(--fb);color:#5A5F76;margin-top:3px" data-en="Programs &amp; tracks" data-ar="برامج ومسارات">Programs &amp; tracks</div></div>
     <div style="background:#F3FBF8;border-radius:16px;padding:26px;text-align:center"><div style="font:700 34px var(--fd);color:#111128" data-en="8 mo" data-ar="٨ أشهر">8 mo</div><div style="font:400 13px var(--fb);color:#5A5F76;margin-top:3px" data-en="Accredited flagship diploma" data-ar="دبلوم رئيسي معتمد">Accredited flagship diploma</div></div>
     <div style="background:#F5F4FB;border-radius:16px;padding:26px;text-align:center"><div style="font:700 34px var(--fd);color:#111128" data-en="All ages" data-ar="للجميع">All ages</div><div style="font:400 13px var(--fb);color:#5A5F76;margin-top:3px" data-en="Kids to executives" data-ar="من الأطفال إلى المدراء">Kids to executives</div></div>
   </div>
@@ -190,90 +190,139 @@
   </section>
 
   <!-- ============ PROGRAMS ============ -->
-  <section id="programs">
+  <section id="programs" aria-labelledby="programs-h">
     <div class="eyebrow" data-en="OUR PROGRAMS" data-ar="برامجنا">OUR PROGRAMS</div>
-    <h2 data-en="Seven pathways to AI excellence" data-ar="سبعة مسارات نحو التميز في الذكاء الاصطناعي">Seven pathways to AI excellence</h2>
-    <div style="font:400 15.5px/1.7 var(--fb);color:#5A5F76;max-width:600px;margin:0 auto 48px" data-en="From executives to children — a program designed for every stage of your AI journey." data-ar="من التنفيذيين إلى الأطفال — برنامج مصمم لكل مرحلة من رحلتك في الذكاء الاصطناعي.">From executives to children — a program designed for every stage of your AI journey.</div>
+    <h2 id="programs-h" data-en="Find your program" data-ar="اختر برنامجك">Find your program</h2>
+    <div style="font:400 15.5px/1.7 var(--fb);color:#5A5F76;max-width:600px;margin:0 auto 36px" data-en="Choose a category to see the courses it includes." data-ar="اختر فئة لعرض الدورات التي تتضمنها.">Choose a category to see the courses it includes.</div>
 
-    <div class="grid-3">
-      <div class="card" style="position:relative;overflow:hidden">
-        <span style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#09C98E,#534CB6)"></span>
+    <div class="cat-row" role="group" aria-label="Course categories">
+        <button class="cat active" type="button" data-dc-onclick="setCat" data-cat="all" aria-pressed="true">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span data-en="All" data-ar="الكل">All</span>
+          <span class="cat-count"></span>
+        </button>
+        <button class="cat" type="button" data-dc-onclick="setCat" data-cat="diploma" aria-pressed="false">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+          <span data-en="Diploma" data-ar="الدبلوم">Diploma</span>
+          <span class="cat-count"></span>
+        </button>
+        <button class="cat" type="button" data-dc-onclick="setCat" data-cat="productivity" aria-pressed="false">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span data-en="Productivity" data-ar="الإنتاجية">Productivity</span>
+          <span class="cat-count"></span>
+        </button>
+        <button class="cat" type="button" data-dc-onclick="setCat" data-cat="executive" aria-pressed="false">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          <span data-en="Executive" data-ar="التنفيذيون">Executive</span>
+          <span class="cat-count"></span>
+        </button>
+        <button class="cat" type="button" data-dc-onclick="setCat" data-cat="kids" aria-pressed="false">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+          <span data-en="Kids" data-ar="الأطفال">Kids</span>
+          <span class="cat-count"></span>
+        </button>
+        <button class="cat" type="button" data-dc-onclick="setCat" data-cat="public" aria-pressed="false">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span data-en="Public" data-ar="الجمهور">Public</span>
+          <span class="cat-count"></span>
+        </button>
+        <button class="cat" type="button" data-dc-onclick="setCat" data-cat="politicians" aria-pressed="false">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"></line><line x1="6" y1="18" x2="6" y2="11"></line><line x1="10" y1="18" x2="10" y2="11"></line><line x1="14" y1="18" x2="14" y2="11"></line><line x1="18" y1="18" x2="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg>
+          <span data-en="Politicians" data-ar="السياسيون">Politicians</span>
+          <span class="cat-count"></span>
+        </button>
+    </div>
+    <p id="prog-status" class="sr-only" role="status" aria-live="polite" data-tpl-en="Programs shown: {n}" data-tpl-ar="البرامج المعروضة: {n}"></p>
+
+    <div id="prog-grid" class="grid-3">
+      <div class="card" data-cat="diploma">
         <span style="font:600 11px var(--fd);letter-spacing:.12em;color:#087A50;background:rgba(9,201,142,.09);padding:5px 12px;border-radius:30px;align-self:flex-start" data-en="FLAGSHIP" data-ar="البرنامج الرئيسي">FLAGSHIP</span>
         <div style="font:700 20px var(--fd);color:#111128" data-en="AI Practitioner Diploma" data-ar="دبلوم ممارس الذكاء الاصطناعي">AI Practitioner Diploma</div>
-        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Become a certified AI practitioner ready to solve real-world business problems — a comprehensive, fully accredited program with job-ready skills." data-ar="كن ممارسًا معتمدًا للذكاء الاصطناعي جاهزًا لحل مشاكل الأعمال الحقيقية — برنامج شامل معتمد بالكامل بمهارات جاهزة للعمل.">Become a certified AI practitioner ready to solve real-world business problems — a comprehensive, fully accredited program with job-ready skills.</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="The full practitioner track. 640 hours of supervised, project-based training over eight months, ending in a certified qualification." data-ar="المسار الكامل للممارس. ٦٤٠ ساعة من التدريب العملي المُشرف عليه على مدى ثمانية أشهر، تنتهي بمؤهل معتمد.">The full practitioner track. 640 hours of supervised, project-based training over eight months, ending in a certified qualification.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <span class="chip" data-en="8 months" data-ar="٨ أشهر">8 months</span>
-          <span class="chip" data-en="Fully accredited" data-ar="معتمد بالكامل">Fully accredited</span>
-          <span class="chip" data-en="Job-ready" data-ar="مهارات جاهزة للعمل">Job-ready</span>
+          <span class="chip" data-en="4 hrs/day" data-ar="٤ ساعات يومياً">4 hrs/day</span>
+          <span class="chip" data-en="640 hours" data-ar="٦٤٠ ساعة">640 hours</span>
         </div>
-        <a class="scp5" href="mailto:info@alkhawarizmi.ai?subject=Quote%20Request%20-%20AI%20Practitioner%20Diploma" style="font:600 13.5px var(--fd);color:#fff;background:#111128;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Get a quote →" data-ar="← احصل على عرض سعر">Get a quote →</a>
+        <a class="scp6" href="mailto:info@alkhawarizmi.ai?subject=Application%20-%20AI%20Practitioner%20Diploma" style="font:600 13.5px var(--fd);color:#fff;background:linear-gradient(120deg,#0A8256,#2E7A8C,#534CB6);padding:13px;border-radius:12px;text-align:center;margin-top:6px;box-shadow:0 8px 20px rgba(9,201,142,.22)" data-en="Apply now →" data-ar="← تقدم الآن">Apply now →</a>
       </div>
 
-      <div class="card" style="position:relative;overflow:hidden">
-        <span style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#534CB6,#09C98E)"></span>
-        <span style="font:600 11px var(--fd);letter-spacing:.12em;color:#534CB6;background:rgba(83,76,182,.08);padding:5px 12px;border-radius:30px;align-self:flex-start" data-en="MOST POPULAR" data-ar="الأكثر طلباً">MOST POPULAR</span>
-        <div style="font:700 20px var(--fd);color:#111128" data-en="AI Creator &amp; Productivity Studio" data-ar="استوديو الإبداع والإنتاجية">AI Creator &amp; Productivity Studio</div>
-        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Two intensive weeks mastering the AI tools reshaping creative and technical work — coding assistants, video, image and voice generation — leave with a finished portfolio." data-ar="أسبوعان مكثفان لإتقان أدوات الذكاء الاصطناعي التي تعيد تشكيل العمل الإبداعي والتقني — مساعدو البرمجة وتوليد الفيديو والصور والصوت — وتخرج بملف أعمال جاهز.">Two intensive weeks mastering the AI tools reshaping creative and technical work — coding assistants, video, image and voice generation — leave with a finished portfolio.</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="chip" data-en="2 weeks" data-ar="أسبوعان">2 weeks</span>
-          <span class="chip" data-en="20+ AI tools" data-ar="+٢٠ أداة">20+ AI tools</span>
-          <span class="chip" data-en="Portfolio" data-ar="ملف أعمال">Portfolio</span>
-        </div>
-        <a class="scp6" href="mailto:info@alkhawarizmi.ai?subject=Quote%20Request%20-%20AI%20Creator%20%26%20Productivity%20Studio" style="font:600 13.5px var(--fd);color:#fff;background:linear-gradient(120deg,#0A8256,#2E7A8C,#534CB6);padding:13px;border-radius:12px;text-align:center;margin-top:6px;box-shadow:0 8px 20px rgba(9,201,142,.22)" data-en="Claim your seat →" data-ar="← احجز مقعدك">Claim your seat →</a>
-      </div>
-
-      <div class="card">
-        <span style="font:600 11px var(--fd);letter-spacing:.12em;color:#3D4257;background:#F2F4F9;padding:5px 12px;border-radius:30px;align-self:flex-start" data-en="LEADERSHIP" data-ar="قيادة">LEADERSHIP</span>
+      <div class="card" data-cat="executive">
         <div style="font:700 20px var(--fd);color:#111128" data-en="Executive AI Path" data-ar="المسار التنفيذي للذكاء الاصطناعي">Executive AI Path</div>
-        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Strategic AI leadership for VPs, directors and C-suite executives — lead confidently in the AI era across six industry tracks." data-ar="القيادة الاستراتيجية للذكاء الاصطناعي لنواب الرؤساء والمديرين التنفيذيين — قُد بثقة في عصر الذكاء الاصطناعي عبر ستة مسارات صناعية.">Strategic AI leadership for VPs, directors and C-suite executives — lead confidently in the AI era across six industry tracks.</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="chip" data-en="5 days" data-ar="٥ أيام">5 days</span>
-          <span class="chip" data-en="14 modules + 5 labs" data-ar="١٤ وحدة + ٥ مختبرات">14 modules + 5 labs</span>
-          <span class="chip" data-en="Board-ready" data-ar="مخرجات للمجلس">Board-ready</span>
-        </div>
-        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Quote%20Request%20-%20Executive%20AI%20Path" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Get a quote →" data-ar="← احصل على عرض سعر">Get a quote →</a>
-      </div>
-
-      <div class="card">
-        <span style="font:600 11px var(--fd);letter-spacing:.12em;color:#087A50;background:rgba(9,201,142,.09);padding:5px 12px;border-radius:30px;align-self:flex-start" data-en="AGES 10–16" data-ar="الأعمار ١٠–١٦">AGES 10–16</span>
-        <div style="font:700 20px var(--fd);color:#111128" data-en="AI for Kids" data-ar="الذكاء الاصطناعي للأطفال">AI for Kids</div>
-        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Prepare the next generation for a future where AI is the new electricity — fun, hands-on programs that spark curiosity and build real skills." data-ar="إعداد الجيل القادم لمستقبل يكون فيه الذكاء الاصطناعي هو الكهرباء الجديدة — برامج ممتعة وعملية تشعل الفضول وتبني مهارات حقيقية.">Prepare the next generation for a future where AI is the new electricity — fun, hands-on programs that spark curiosity and build real skills.</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="chip" data-en="2 weeks" data-ar="أسبوعان">2 weeks</span>
-          <span class="chip" data-en="Fun &amp; interactive" data-ar="ممتع وتفاعلي">Fun &amp; interactive</span>
-        </div>
-        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Quote%20Request%20-%20AI%20for%20Kids" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Get a quote →" data-ar="← احصل على عرض سعر">Get a quote →</a>
-      </div>
-
-      <div class="card">
-        <span style="font:600 11px var(--fd);letter-spacing:.12em;color:#3D4257;background:#F2F4F9;padding:5px 12px;border-radius:30px;align-self:flex-start" data-en="COMMUNITY" data-ar="المجتمع">COMMUNITY</span>
-        <div style="font:700 20px var(--fd);color:#111128" data-en="AI for Public" data-ar="الذكاء الاصطناعي للجمهور">AI for Public</div>
-        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Build an AI-literate Libyan community, one week at a time — open to everyone, no technical background required." data-ar="بناء مجتمع ليبي متعلم في الذكاء الاصطناعي، أسبوعاً بعد أسبوع — مفتوح للجميع دون خلفية تقنية.">Build an AI-literate Libyan community, one week at a time — open to everyone, no technical background required.</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Where AI creates value, what it costs, and how to lead an adoption plan. For directors and senior managers." data-ar="أين يخلق الذكاء الاصطناعي قيمة، وما تكلفته، وكيف تقود خطة تبنّيه. للمديرين والقيادات العليا.">Where AI creates value, what it costs, and how to lead an adoption plan. For directors and senior managers.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <span class="chip" data-en="1 week" data-ar="أسبوع واحد">1 week</span>
-          <span class="chip" data-en="Hands-on workshops" data-ar="ورش عمل عملية">Hands-on workshops</span>
+          <span class="chip" data-en="3 hrs/day" data-ar="٣ ساعات يومياً">3 hrs/day</span>
+          <span class="chip" data-en="15 hours" data-ar="١٥ ساعة">15 hours</span>
         </div>
-        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Quote%20Request%20-%20Community%20Workshops" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Get a quote →" data-ar="← احصل على عرض سعر">Get a quote →</a>
+        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Enquiry%20-%20Executive%20AI%20Path" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Enquire →" data-ar="← استفسر">Enquire →</a>
       </div>
 
-      <div class="card">
-        <span style="font:600 11px var(--fd);letter-spacing:.12em;color:#534CB6;background:rgba(83,76,182,.08);padding:5px 12px;border-radius:30px;align-self:flex-start" data-en="POLICY" data-ar="السياسات">POLICY</span>
-        <div style="font:700 20px var(--fd);color:#111128" data-en="AI for Politicians" data-ar="الذكاء الاصطناعي للسياسيين">AI for Politicians</div>
-        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Strategic AI insights for national leadership and policy development in the digital era — designed for decision-makers." data-ar="رؤى استراتيجية للذكاء الاصطناعي للقيادة الوطنية وتطوير السياسات في العصر الرقمي — مصمم لصناع القرار.">Strategic AI insights for national leadership and policy development in the digital era — designed for decision-makers.</div>
+      <div class="card" data-cat="productivity">
+        <div style="font:700 20px var(--fd);color:#111128" data-en="AI for Marketing &amp; Content" data-ar="الذكاء الاصطناعي للتسويق والمحتوى">AI for Marketing &amp; Content</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Use AI to plan campaigns, write copy, and produce images and video. Built for marketers and content creators." data-ar="استخدم الذكاء الاصطناعي لتخطيط الحملات وكتابة المحتوى وإنتاج الصور والفيديو. مصمم لفرق التسويق وصناع المحتوى.">Use AI to plan campaigns, write copy, and produce images and video. Built for marketers and content creators.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="chip" data-en="1 week" data-ar="أسبوع واحد">1 week</span>
+          <span class="chip" data-en="2 hrs/day" data-ar="ساعتان يومياً">2 hrs/day</span>
+          <span class="chip" data-en="10 hours" data-ar="١٠ ساعات">10 hours</span>
+        </div>
+        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Enquiry%20-%20AI%20for%20Marketing%20and%20Content" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Enquire →" data-ar="← استفسر">Enquire →</a>
+      </div>
+
+      <div class="card" data-cat="public">
+        <div style="font:700 20px var(--fd);color:#111128" data-en="AI for Everyone" data-ar="الذكاء الاصطناعي للجميع">AI for Everyone</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="A plain-language introduction to AI and the tools people use day to day. Open to everyone, no technical background required." data-ar="مقدمة بلغة بسيطة عن الذكاء الاصطناعي والأدوات التي يستخدمها الناس يومياً. مفتوح للجميع دون خلفية تقنية.">A plain-language introduction to AI and the tools people use day to day. Open to everyone, no technical background required.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="chip" data-en="1 week" data-ar="أسبوع واحد">1 week</span>
+          <span class="chip" data-en="2 hrs/day" data-ar="ساعتان يومياً">2 hrs/day</span>
+          <span class="chip" data-en="10 hours" data-ar="١٠ ساعات">10 hours</span>
+        </div>
+        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Enquiry%20-%20AI%20for%20Everyone" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Enquire →" data-ar="← استفسر">Enquire →</a>
+      </div>
+
+      <div class="card" data-cat="politicians">
+        <div style="font:700 20px var(--fd);color:#111128" data-en="AI for Policy &amp; Leadership" data-ar="الذكاء الاصطناعي للسياسات والقيادة">AI for Policy &amp; Leadership</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="How AI reshapes public services, regulation and national strategy. For policymakers and public-sector leaders." data-ar="كيف يعيد الذكاء الاصطناعي تشكيل الخدمات العامة والتنظيم والاستراتيجية الوطنية. لصناع القرار وقادة القطاع العام.">How AI reshapes public services, regulation and national strategy. For policymakers and public-sector leaders.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <span class="chip" data-en="3 days" data-ar="٣ أيام">3 days</span>
-          <span class="chip" data-en="Geopolitical AI strategy" data-ar="استراتيجية جيوسياسية">Geopolitical AI strategy</span>
+          <span class="chip" data-en="3 hrs/day" data-ar="٣ ساعات يومياً">3 hrs/day</span>
+          <span class="chip" data-en="9 hours" data-ar="٩ ساعات">9 hours</span>
         </div>
-        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Quote%20Request%20-%20AI%20for%20Politicians" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Get a quote →" data-ar="← احصل على عرض سعر">Get a quote →</a>
+        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Enquiry%20-%20AI%20for%20Policy%20and%20Leadership" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Enquire →" data-ar="← استفسر">Enquire →</a>
       </div>
 
-      <div class="band-card">
-        <div style="display:flex;flex-direction:column;gap:8px;max-width:640px">
-          <span style="font:600 11px var(--fd);letter-spacing:.12em;color:#087A50" data-en="CUSTOM AI TRAINING" data-ar="تدريب مخصص للذكاء الاصطناعي">CUSTOM AI TRAINING</span>
-          <div style="font:700 20px var(--fd);color:#111128" data-en="Tailored programs for your organization" data-ar="برامج مصممة خصيصاً لمؤسستك">Tailored programs for your organization</div>
-          <div style="font:400 14px/1.65 var(--fb);color:#5A5F76" data-en="Personalized curriculum, flexible schedule, and use-case-driven learning designed for your industry or domain." data-ar="منهج شخصي وجدول مرن وتعلم مدفوع بحالات الاستخدام، مصمم لصناعتك أو مجالك.">Personalized curriculum, flexible schedule, and use-case-driven learning designed for your industry or domain.</div>
+      <div class="card" data-cat="kids">
+        <div style="font:700 20px var(--fd);color:#111128" data-en="Kids — Level 1 (Juniors)" data-ar="الأطفال — المستوى الأول (الصغار)">Kids — Level 1 (Juniors)</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="An introduction to how AI works, built around games and hands-on projects. No prior computer skills needed." data-ar="مقدمة لكيفية عمل الذكاء الاصطناعي، من خلال الألعاب والمشاريع العملية. لا تتطلب مهارات حاسوب سابقة.">An introduction to how AI works, built around games and hands-on projects. No prior computer skills needed.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="chip" data-en="2 weeks" data-ar="أسبوعان">2 weeks</span>
+          <span class="chip" data-en="2 hrs/day" data-ar="ساعتان يومياً">2 hrs/day</span>
+          <span class="chip" data-en="20 hours" data-ar="٢٠ ساعة">20 hours</span>
         </div>
-        <a class="scp5" href="mailto:info@alkhawarizmi.ai?subject=Custom%20AI%20Training%20Request" style="flex:none;font:600 13.5px var(--fd);color:#fff;background:#111128;padding:14px 28px;border-radius:30px" data-en="Discuss requirements →" data-ar="← ناقش المتطلبات">Discuss requirements →</a>
+        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Enquiry%20-%20Kids%20Level%201%20Juniors" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Enquire →" data-ar="← استفسر">Enquire →</a>
+      </div>
+
+      <div class="card" data-cat="kids">
+        <div style="font:700 20px var(--fd);color:#111128" data-en="Kids — Level 2 (Seniors)" data-ar="الأطفال — المستوى الثاني (الكبار)">Kids — Level 2 (Seniors)</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Builds on Level 1. Students design and build their own AI project, then present it." data-ar="يبني على المستوى الأول. يصمم الطلاب مشروع ذكاء اصطناعي خاصاً بهم ويقدمونه.">Builds on Level 1. Students design and build their own AI project, then present it.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="chip" data-en="2 weeks" data-ar="أسبوعان">2 weeks</span>
+          <span class="chip" data-en="2 hrs/day" data-ar="ساعتان يومياً">2 hrs/day</span>
+          <span class="chip" data-en="20 hours" data-ar="٢٠ ساعة">20 hours</span>
+        </div>
+        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Enquiry%20-%20Kids%20Level%202%20Seniors" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Enquire →" data-ar="← استفسر">Enquire →</a>
+      </div>
+
+      <div class="card" data-cat="kids" data-bundle>
+        <div style="font:700 20px var(--fd);color:#111128" data-en="Kids — Full Program" data-ar="الأطفال — البرنامج الكامل">Kids — Full Program</div>
+        <div style="font:400 14px/1.65 var(--fb);color:#5A5F76;flex:1" data-en="Both levels back to back over four weeks, from first principles to a finished project." data-ar="المستويان معاً على مدى أربعة أسابيع، من الأساسيات إلى مشروع مكتمل.">Both levels back to back over four weeks, from first principles to a finished project.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="chip" data-en="4 weeks" data-ar="٤ أسابيع">4 weeks</span>
+          <span class="chip" data-en="2 hrs/day" data-ar="ساعتان يومياً">2 hrs/day</span>
+          <span class="chip" data-en="40 hours" data-ar="٤٠ ساعة">40 hours</span>
+          <span class="chip" data-en="Level 1 + Level 2" data-ar="المستوى الأول + الثاني">Level 1 + Level 2</span>
+        </div>
+        <a class="scp7" href="mailto:info@alkhawarizmi.ai?subject=Enquiry%20-%20Kids%20Full%20Program" style="font:600 13.5px var(--fd);color:#111128;background:#F2F4F9;padding:13px;border-radius:12px;text-align:center;margin-top:6px" data-en="Enquire →" data-ar="← استفسر">Enquire →</a>
       </div>
     </div>
   </section>
@@ -316,15 +365,17 @@
         <div class="field">
           <label class="label" for="student-program" data-en="Select program" data-ar="اختر البرنامج">Select program</label>
           <select id="student-program" name="program" class="scp9 input">
-            <option value="" data-en="Choose a program..." data-ar="اختر برنامجاً...">Choose a program...</option>
-            <option value="diploma" data-en="AI Practitioner Diploma" data-ar="دبلوم ممارس الذكاء الاصطناعي">AI Practitioner Diploma</option>
-            <option value="creator" data-en="AI Creator &amp; Productivity Studio" data-ar="استوديو الإبداع والإنتاجية">AI Creator &amp; Productivity Studio</option>
-            <option value="executive" data-en="Executive AI Path" data-ar="المسار التنفيذي">Executive AI Path</option>
-            <option value="kids" data-en="AI for Kids" data-ar="الذكاء الاصطناعي للأطفال">AI for Kids</option>
-            <option value="public" data-en="AI for Public" data-ar="الذكاء الاصطناعي للجمهور">AI for Public</option>
-            <option value="politicians" data-en="AI for Politicians" data-ar="الذكاء الاصطناعي للسياسيين">AI for Politicians</option>
-            <option value="custom" data-en="Custom Training" data-ar="تدريب مخصص">Custom Training</option>
-          </select>
+          <option value="" data-en="Choose a program..." data-ar="اختر برنامجاً...">Choose a program...</option>
+          <option value="DIP-01" data-en="AI Practitioner Diploma" data-ar="دبلوم ممارس الذكاء الاصطناعي">AI Practitioner Diploma</option>
+          <option value="EXE-01" data-en="Executive AI Path" data-ar="المسار التنفيذي للذكاء الاصطناعي">Executive AI Path</option>
+          <option value="PROD-01" data-en="AI for Marketing &amp; Content" data-ar="الذكاء الاصطناعي للتسويق والمحتوى">AI for Marketing &amp; Content</option>
+          <option value="PUB-01" data-en="AI for Everyone" data-ar="الذكاء الاصطناعي للجميع">AI for Everyone</option>
+          <option value="POL-01" data-en="AI for Policy &amp; Leadership" data-ar="الذكاء الاصطناعي للسياسات والقيادة">AI for Policy &amp; Leadership</option>
+          <option value="KJ-01" data-en="Kids — Level 1 (Juniors)" data-ar="الأطفال — المستوى الأول (الصغار)">Kids — Level 1 (Juniors)</option>
+          <option value="KS-01" data-en="Kids — Level 2 (Seniors)" data-ar="الأطفال — المستوى الثاني (الكبار)">Kids — Level 2 (Seniors)</option>
+          <option value="K-40" data-en="Kids — Full Program" data-ar="الأطفال — البرنامج الكامل">Kids — Full Program</option>
+          <option value="CUSTOM" data-en="Custom AI Training" data-ar="تدريب مخصص للذكاء الاصطناعي">Custom AI Training</option>
+        </select>
         </div>
         <div class="field" style="flex:1">
           <label class="label" for="student-message" data-en="Message (optional)" data-ar="رسالة (اختياري)">Message (optional)</label>
@@ -418,11 +469,14 @@
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="font:700 13px var(--fd);letter-spacing:.1em;color:#fff;margin-bottom:4px" data-en="PROGRAMS" data-ar="البرامج">PROGRAMS</div>
         <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI Practitioner Diploma" data-ar="دبلوم ممارس الذكاء الاصطناعي">AI Practitioner Diploma</a>
-        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI Creator &amp; Productivity Studio" data-ar="استوديو الإبداع والإنتاجية">AI Creator &amp; Productivity Studio</a>
-        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Executive AI Path" data-ar="المسار التنفيذي">Executive AI Path</a>
-        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Kids" data-ar="الذكاء الاصطناعي للأطفال">AI for Kids</a>
-        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Politicians" data-ar="الذكاء الاصطناعي للسياسيين">AI for Politicians</a>
-        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Custom AI Training" data-ar="تدريب مخصص">Custom AI Training</a>
+        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Executive AI Path" data-ar="المسار التنفيذي للذكاء الاصطناعي">Executive AI Path</a>
+        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Marketing &amp; Content" data-ar="الذكاء الاصطناعي للتسويق والمحتوى">AI for Marketing &amp; Content</a>
+        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Everyone" data-ar="الذكاء الاصطناعي للجميع">AI for Everyone</a>
+        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Policy &amp; Leadership" data-ar="الذكاء الاصطناعي للسياسات والقيادة">AI for Policy &amp; Leadership</a>
+        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids — Level 1 (Juniors)" data-ar="الأطفال — المستوى الأول (الصغار)">Kids — Level 1 (Juniors)</a>
+        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids — Level 2 (Seniors)" data-ar="الأطفال — المستوى الثاني (الكبار)">Kids — Level 2 (Seniors)</a>
+        <a class="scpc" href="#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids — Full Program" data-ar="الأطفال — البرنامج الكامل">Kids — Full Program</a>
+        <a class="scpc" href="mailto:info@alkhawarizmi.ai?subject=Custom%20AI%20Training%20Request" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Custom AI Training" data-ar="تدريب مخصص للذكاء الاصطناعي">Custom AI Training</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="font:700 13px var(--fd);letter-spacing:.1em;color:#fff;margin-bottom:4px" data-en="ACADEMY" data-ar="الأكاديمية">ACADEMY</div>
