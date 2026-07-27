@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sheedosa.github.io/alkhawarizmi-ai-academy/sitemap.xml
