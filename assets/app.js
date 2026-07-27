@@ -1,10 +1,11 @@
-/* AlKhwarizmi AI Academy — site runtime.
-   Language toggle (EN/AR + RTL), story tabs, mobile menu, mailto form submission. */
+/* AlKhwarizmi AI Academy site runtime.
+   Language toggle (EN/AR + RTL), story tabs, course filter,
+   mobile menu, register-interest form. */
 (function () {
   'use strict';
 
   var LOGO_ALT = { en: 'AlKhwarizmi AI Academy', ar: 'أكاديمية الخوارزمي للذكاء الاصطناعي' };
-  var TOGGLE_LABEL = { en: 'التبديل إلى العربية — Switch to Arabic', ar: 'Switch to English — التبديل إلى الإنجليزية' };
+  var TOGGLE_LABEL = { en: 'التبديل إلى العربية / Switch to Arabic', ar: 'Switch to English / التبديل إلى الإنجليزية' };
   var lang = 'en';
 
   function applyLang(l) {
@@ -115,6 +116,85 @@
     return b ? b.getAttribute('data-cat') : 'all';
   }
 
+  /* ---------- Register-interest form ---------- */
+
+  // Submissions relay through FormSubmit to the academy inbox. Static hosting
+  // cannot send mail directly; swapping providers is a one-line change here.
+  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@alkhawarizmi.ai';
+
+  function fieldVal(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function btnLabel(btn) {
+    return btn.getAttribute(lang === 'ar' ? 'data-ar' : 'data-en') || 'Register my interest';
+  }
+
+  function showThanks() {
+    var form = document.getElementById('reg-form');
+    var thanks = document.getElementById('reg-thanks');
+    if (form) form.hidden = true;
+    if (thanks) { thanks.hidden = false; thanks.focus(); }
+  }
+
+  // Course cards link to the form and preselect themselves, so the visitor
+  // does not have to re-state which course they were looking at.
+  function pickProgram(e) {
+    var val = e.currentTarget.getAttribute('data-program');
+    var sel = document.getElementById('reg-program');
+    if (sel && val) sel.value = val;
+  }
+
+  function submitInterest(e) {
+    e.preventDefault();
+    var form = document.getElementById('reg-form');
+    if (!form) return;
+    // novalidate is set on the form so we control when messages appear
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    var btn = document.getElementById('reg-submit');
+    var errEl = document.getElementById('reg-error');
+    var sel = document.getElementById('reg-program');
+    var program = sel && sel.selectedOptions[0] ? sel.selectedOptions[0].textContent.trim() : '';
+
+    if (errEl) errEl.hidden = true;
+    if (btn) {
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = lang === 'ar' ? 'جارٍ الإرسال…' : 'Sending…';
+    }
+
+    fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: 'New interest registration from the website',
+        _captcha: 'false',
+        _template: 'table',
+        Name: fieldVal('reg-name'),
+        Email: fieldVal('reg-email'),
+        Phone: fieldVal('reg-phone'),
+        Program: program,
+        Message: fieldVal('reg-message'),
+        Language: lang === 'ar' ? 'Arabic' : 'English'
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function () {
+      showThanks();
+    }).catch(function () {
+      // Never fail silently: surface the error and offer the direct email route.
+      if (errEl) errEl.hidden = false;
+      if (btn) {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = btnLabel(btn);
+      }
+    });
+  }
+
   function closeMenu() {
     var header = document.getElementById('wa-nav');
     var btn = document.querySelector('.nav-toggle');
@@ -130,18 +210,6 @@
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
-  function submit(e, kind) {
-    e.preventDefault();
-    var body = [].slice.call(e.target.querySelectorAll('input,select,textarea')).map(function (el) {
-      var lb = (el.labels && el.labels[0]) ||
-               (el.closest('div') ? el.closest('div').querySelector('label') : null);
-      var v = el.tagName === 'SELECT' ? (el.selectedOptions[0] ? el.selectedOptions[0].textContent : '') : el.value;
-      return (lb ? lb.textContent + ': ' : '') + v;
-    }).join('\n');
-    window.location.href = 'mailto:info@alkhawarizmi.ai?subject=' +
-      encodeURIComponent(kind + ' — AlKhwarizmi AI Academy') +
-      '&body=' + encodeURIComponent(body + '\n');
-  }
 
   var handlers = {
     toggleLang: function () { applyLang(lang === 'ar' ? 'en' : 'ar'); },
@@ -151,9 +219,8 @@
     // so currentTarget resolves to the tile that was clicked.
     setCat: function (e) { setCat(e.currentTarget.getAttribute('data-cat')); },
     toggleMenu: toggleMenu,
-    submitStudent: function (e) { submit(e, 'Student Registration'); },
-    submitDiploma: function (e) { submit(e, 'Diploma Application'); },
-    submitInstructor: function (e) { submit(e, 'Instructor Application'); }
+    pickProgram: pickProgram,
+    submitInterest: submitInterest,
   };
 
   function boot() {
