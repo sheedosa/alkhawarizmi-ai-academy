@@ -169,8 +169,32 @@ input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #
 /* First reduced-motion block on the site: keep the state change, drop the movement. */
 @media (prefers-reduced-motion: reduce) {
   .camp-seat.just-taken { animation: none; }
-  .camp-pick, .cat, .nav-toggle span { transition: none; }
+  .camp-pick, .mon-pick, .cat, .nav-toggle span { transition: none; }
 }
+
+/* ---------- Sponsorship: rolling 12-month availability ---------- */
+.spon-lead { font: 400 15.5px/1.7 var(--fb); color: var(--muted); max-width: 620px; margin: 0 auto 10px; }
+.mon-summary { font: 600 13px var(--fd); color: #087A50; margin: 0 0 26px; min-height: 16px; }
+.mon-summary.is-unknown { color: var(--soft); font-weight: 400; }
+
+.mon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; text-align: start; }
+.mon-cell { padding: 16px 16px 14px; gap: 8px; box-sizing: border-box; }
+.mon-cell.sel { border-color: #0A8256; box-shadow: 0 14px 34px rgba(10,130,86,.16); }
+.mon-head { display: flex; align-items: baseline; gap: 6px; }
+.mon-name { font: 700 15px var(--fd); color: var(--ink); }
+.mon-year { font: 400 12px var(--fb); color: var(--soft); }
+
+/* State is carried by text and a left rule, never by colour alone. */
+.mon-state { font: 600 12.5px var(--fd); margin: 0; padding-inline-start: 10px; border-inline-start: 3px solid #E7EAF3; color: var(--soft); }
+.mon-cell.is-open .mon-state { border-inline-start-color: #0A8256; color: #087A50; }
+.mon-cell.is-reserved .mon-state { border-inline-start-color: #B0851F; color: #8A6712; }
+.mon-cell.is-taken .mon-state { border-inline-start-color: #C6CAD6; color: var(--soft); }
+.mon-cell.is-taken { background: #FAFBFD; }
+
+.mon-pick { margin-top: auto; font: 600 12.5px var(--fd); color: var(--ink); background: #F2F4F9; border: 1px solid #E7EAF3; padding: 9px; border-radius: 10px; cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.mon-pick:hover { background: #E9ECF4; }
+.mon-pick[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.mon-pick[disabled] { opacity: .45; cursor: not-allowed; }
 
 /* ---------- Sponsor a cohort ---------- */
 #sponsor { scroll-margin-top: 90px; }
@@ -278,6 +302,7 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   .camp-band > div { padding: 52px 20px; }
   .camp-body { padding: 52px 20px 64px; }
   .camp-grid { gap: 12px; }
+  .mon-grid { gap: 10px; }
   .spon-band > div { padding: 56px 20px; }
   .spon-body { padding: 56px 20px 64px; }
   #wa-band { padding: 20px 20px 0; }

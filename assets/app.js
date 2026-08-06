@@ -46,6 +46,11 @@
     updateCounts();
     announce(progCards().filter(function (c) { return !c.hidden; }).length);
     updateSeats(false);
+    labelMonths();
+    updateMonths();
+    // Offline banners are JS-composed too, so re-render them in the new language.
+    if (!SITE_ENDPOINT || campCounts === null) offlineMsg('camp-status', true);
+    if (!SITE_ENDPOINT || sponsorMonths === null) offlineMsg('sponsor-status', true);
   }
 
   function setTab(t) {
@@ -246,29 +251,64 @@
         Phone: fieldVal('sponsor-phone'),
         Email: fieldVal('sponsor-email'),
         Tier: selText('sponsor-tier'),
+        Month: selText('sponsor-month'),
         Audience: fieldVal('sponsor-audience'),
         Language: lang === 'ar' ? 'Arabic' : 'English'
       }
     });
   }
 
-  /* ---------- Summer camp: live seat map ---------- */
+  /* ---------- Live availability (camp seats + sponsorship months) ---------- */
 
-  // TODO: set CAMP_ENDPOINT to the Apps Script Web App URL (see camp-backend.gs).
-  // While it is empty the seat map shows an honest "unknown" state and the
-  // booking form falls back to the email relay, so no booking is ever lost.
-  var CAMP_ENDPOINT = '';
+  // TODO: set SITE_ENDPOINT to the Apps Script Web App URL (see camp-backend.gs).
+  // One URL serves both features. While it is empty both widgets show an honest
+  // "unknown" state and the forms fall back to the email relay, so nothing is lost.
+  var SITE_ENDPOINT = '';
+
+  // One request feeds both widgets. Two independent pollers would double the
+  // Apps Script executions per visitor, and the daily runtime budget is finite.
+  var availPollTimer = null;
+  var availInView = false;        // true while EITHER live section is on screen
+  var availPolls = 0;
+  var AVAIL_POLL_MS = 45000;
+  var AVAIL_MAX_POLLS = 40;       // stop after ~30 min
 
   var SEATS_PER_DAY = 40;
   var campCounts = null;          // null means "we genuinely do not know"
-  var campPollTimer = null;
-  var campInView = false;
-  var campPolls = 0;
-  var CAMP_POLL_MS = 45000;
-  var CAMP_MAX_POLLS = 40;        // stop after ~30 min; Apps Script has daily quotas
+  var sponsorMonths = null;       // null means the same
+
+  function els(sel) {
+    return [].slice.call(document.querySelectorAll(sel));
+  }
 
   function campDayEls() {
-    return [].slice.call(document.querySelectorAll('.camp-day'));
+    return els('.camp-day');
+  }
+
+  // Shared tri-state label renderer. Picks the right data-tpl-* variant for the
+  // current language and state, then substitutes tokens. Used by both widgets.
+  function renderStateLabel(label, state, tokens) {
+    if (!label) return;
+    var ar = lang === 'ar';
+    var attr = state === 'normal'
+      ? (ar ? 'data-tpl-ar' : 'data-tpl-en')
+      : 'data-tpl-' + state + (ar ? '-ar' : '-en');
+    var tpl = label.getAttribute(attr) || '';
+    for (var k in tokens) {
+      if (tokens.hasOwnProperty(k)) {
+        // split/join, not replace: replace() with a string only swaps the first hit
+        tpl = tpl.split('{' + k + '}').join(localiseNum(tokens[k]));
+      }
+    }
+    label.textContent = tpl;
+  }
+
+  function offlineMsg(id, on) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = on
+      ? (el.getAttribute(lang === 'ar' ? 'data-tpl-offline-ar' : 'data-tpl-offline-en') || '')
+      : '';
   }
 
   // Build the seat dots once. They are decorative (container is aria-hidden),
@@ -313,56 +353,143 @@
       if (label) {
         label.classList.toggle('is-unknown', !known);
         label.classList.toggle('is-full', known && left === 0);
-        var tpl;
-        if (!known) tpl = label.getAttribute(lang === 'ar' ? 'data-tpl-unknown-ar' : 'data-tpl-unknown-en');
-        else if (left === 0) tpl = label.getAttribute(lang === 'ar' ? 'data-tpl-full-ar' : 'data-tpl-full-en');
-        else tpl = label.getAttribute(lang === 'ar' ? 'data-tpl-ar' : 'data-tpl-en');
-        label.textContent = (tpl || '')
-          .replace('{n}', localiseNum(left))
-          .replace('{total}', localiseNum(SEATS_PER_DAY));
+        var state = !known ? 'unknown' : (left === 0 ? 'full' : 'normal');
+        renderStateLabel(label, state, { n: left, total: SEATS_PER_DAY });
       }
       if (pick) pick.disabled = !!(known && left === 0);
     });
   }
 
-  function campOffline(on) {
-    var el = document.getElementById('camp-status');
-    if (!el) return;
-    el.textContent = on
-      ? (el.getAttribute(lang === 'ar' ? 'data-tpl-offline-ar' : 'data-tpl-offline-en') || '')
-      : '';
+  /* ---------- Sponsorship months ---------- */
+
+  var MONTHS = {
+    en: ['January','February','March','April','May','June',
+         'July','August','September','October','November','December'],
+    // Forms most widely understood in Libya. Owner to confirm.
+    ar: ['يناير','فبراير','مارس','أبريل','مايو','يونيو',
+         'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر']
+  };
+
+  function monthCellEls() {
+    return els('.mon-cell');
   }
 
-  function loadSeatCounts(animate) {
-    if (!CAMP_ENDPOINT) { campCounts = null; updateSeats(false); campOffline(true); return; }
-    fetch(CAMP_ENDPOINT + '?action=counts', { method: 'GET' })
+  // Rolling 12 months from the current month, so the grid never goes stale.
+  // Keys are YYYY-MM to match the sheet; labels are looked up per language.
+  function buildMonths() {
+    var cells = monthCellEls();
+    if (!cells.length) return;
+    var now = new Date();
+    cells.forEach(function (cell, i) {
+      var d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+      var mm = d.getMonth() + 1;
+      cell.setAttribute('data-month', d.getFullYear() + '-' + (mm < 10 ? '0' + mm : mm));
+      cell.setAttribute('data-mindex', d.getMonth());
+      cell.setAttribute('data-year', d.getFullYear());
+    });
+    labelMonths();
+  }
+
+  // Month names are language-dependent, so this re-runs on every toggle.
+  function labelMonths() {
+    var names = MONTHS[lang === 'ar' ? 'ar' : 'en'];
+    monthCellEls().forEach(function (cell) {
+      var idx = parseInt(cell.getAttribute('data-mindex'), 10);
+      var yr = cell.getAttribute('data-year');
+      var nameEl = cell.querySelector('.mon-name');
+      var yrEl = cell.querySelector('.mon-year');
+      if (nameEl && !isNaN(idx)) nameEl.textContent = names[idx];
+      if (yrEl && yr) yrEl.textContent = localiseNum(yr);
+    });
+
+    // Keep the form's month select in step with the grid, preserving any choice.
+    var sel = document.getElementById('sponsor-month');
+    if (!sel) return;
+    var chosen = sel.value;
+    while (sel.options.length > 1) sel.remove(1);   // keep the "No preference" option
+    monthCellEls().forEach(function (cell) {
+      var idx = parseInt(cell.getAttribute('data-mindex'), 10);
+      var yr = cell.getAttribute('data-year');
+      var opt = document.createElement('option');
+      opt.value = cell.getAttribute('data-month');
+      opt.textContent = names[idx] + ' ' + localiseNum(yr);
+      sel.appendChild(opt);
+    });
+    if (chosen) sel.value = chosen;
+  }
+
+  function updateMonths() {
+    var open = 0, known = 0;
+    monthCellEls().forEach(function (cell) {
+      var key = cell.getAttribute('data-month');
+      var status = sponsorMonths ? (sponsorMonths[key] || 'available') : null;
+      var label = cell.querySelector('.mon-state');
+      var pick = cell.querySelector('.mon-pick');
+
+      cell.classList.toggle('is-taken', status === 'taken');
+      cell.classList.toggle('is-reserved', status === 'reserved');
+      cell.classList.toggle('is-open', status === 'available');
+      cell.classList.toggle('is-unknown', status === null);
+
+      if (status !== null) { known++; if (status === 'available') open++; }
+      renderStateLabel(label, status === null ? 'unknown' : status, {});
+      if (pick) pick.disabled = (status === 'taken');
+    });
+
+    // ONE aggregate live region. Announcing 12 cells individually would flood
+    // a screen reader on every poll.
+    var sum = document.getElementById('sponsor-avail');
+    if (sum) {
+      renderStateLabel(sum, known ? 'normal' : 'unknown', { n: open, total: monthCellEls().length });
+    }
+  }
+
+  /* ---------- Shared transport + poll ---------- */
+
+  function applyAvailability(d, animate) {
+    if (d && d.camp && d.camp.counts) {
+      if (typeof d.camp.capacity === 'number' && d.camp.capacity > 0) SEATS_PER_DAY = d.camp.capacity;
+      campCounts = d.camp.counts;
+    }
+    if (d && d.sponsor && d.sponsor.months) sponsorMonths = d.sponsor.months;
+    updateSeats(!!animate);
+    updateMonths();
+    offlineMsg('camp-status', false);
+    offlineMsg('sponsor-status', false);
+  }
+
+  function clearAvailability() {
+    // Never invent availability. Fall back to the unknown state on both widgets.
+    campCounts = null;
+    sponsorMonths = null;
+    updateSeats(false);
+    updateMonths();
+    offlineMsg('camp-status', true);
+    offlineMsg('sponsor-status', true);
+  }
+
+  function loadAvailability(animate) {
+    if (!SITE_ENDPOINT) { clearAvailability(); return; }
+    fetch(SITE_ENDPOINT + '?action=counts', { method: 'GET' })
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (d) {
-        if (!d || !d.counts) throw new Error('bad payload');
-        if (typeof d.seatsPerDay === 'number' && d.seatsPerDay > 0) SEATS_PER_DAY = d.seatsPerDay;
-        campCounts = d.counts;
-        updateSeats(!!animate);
-        campOffline(false);
+        if (!d || (!d.camp && !d.sponsor)) throw new Error('bad payload');
+        applyAvailability(d, animate);
       })
-      .catch(function () {
-        // Never invent availability. Fall back to the unknown state.
-        campCounts = null;
-        updateSeats(false);
-        campOffline(true);
-      });
+      .catch(clearAvailability);
   }
 
-  function campPollStart() {
-    if (campPollTimer || !CAMP_ENDPOINT) return;
-    campPollTimer = setInterval(function () {
-      if (document.hidden || !campInView) return;   // idle while unseen
-      if (++campPolls > CAMP_MAX_POLLS) { campPollStop(); return; }
-      loadSeatCounts(true);
-    }, CAMP_POLL_MS);
+  function availPollStart() {
+    if (availPollTimer || !SITE_ENDPOINT) return;
+    availPollTimer = setInterval(function () {
+      if (document.hidden || !availInView) return;   // idle while unseen
+      if (++availPolls > AVAIL_MAX_POLLS) { availPollStop(); return; }
+      loadAvailability(true);
+    }, AVAIL_POLL_MS);
   }
 
-  function campPollStop() {
-    if (campPollTimer) { clearInterval(campPollTimer); campPollTimer = null; }
+  function availPollStop() {
+    if (availPollTimer) { clearInterval(availPollTimer); availPollTimer = null; }
   }
 
   function pickDay(e) {
@@ -378,6 +505,22 @@
     var wrap = document.getElementById('camp-form-wrap');
     if (wrap) wrap.scrollIntoView({ block: 'start' });
     var first = document.getElementById('camp-attendee');
+    if (first) first.focus();
+  }
+
+  function pickMonth(e) {
+    var key = e.currentTarget.closest('.mon-cell').getAttribute('data-month');
+    monthCellEls().forEach(function (cell) {
+      var on = cell.getAttribute('data-month') === key;
+      cell.classList.toggle('sel', on);
+      var b = cell.querySelector('.mon-pick');
+      if (b) b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var sel = document.getElementById('sponsor-month');
+    if (sel) sel.value = key;
+    var wrap = document.getElementById('sponsor-form-wrap');
+    if (wrap) wrap.scrollIntoView({ block: 'start' });
+    var first = document.getElementById('sponsor-org');
     if (first) first.focus();
   }
 
@@ -398,7 +541,7 @@
     var day = document.getElementById('camp-day');
 
     // No booking backend yet: fall back to the email relay so the lead still lands.
-    if (!CAMP_ENDPOINT) {
+    if (!SITE_ENDPOINT) {
       sendLead({
         form: form, btn: btn, err: errEl, thanks: thanks,
         payload: {
@@ -429,7 +572,7 @@
     }
 
     // text/plain keeps this a simple request: Apps Script cannot answer a CORS preflight.
-    fetch(CAMP_ENDPOINT, {
+    fetch(SITE_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
@@ -447,7 +590,7 @@
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     }).then(function (d) {
-      if (d && d.counts) { campCounts = d.counts; updateSeats(true); campOffline(false); }
+      if (d && d.counts) { campCounts = d.counts; updateSeats(true); offlineMsg('camp-status', false); }
       if (d && d.error === 'full') {
         // The day filled while they were typing. Say so; do not fake a success.
         if (fullEl) fullEl.hidden = false;
@@ -500,6 +643,7 @@
     submitSponsor: submitSponsor,
     pickDay: pickDay,
     submitBooking: submitBooking,
+    pickMonth: pickMonth,
   };
 
   function boot() {
@@ -532,26 +676,31 @@
       });
     }
 
-    // Summer camp seat map. Counts load once unconditionally so they always
-    // appear; the observer only gates the ongoing poll, which is the expensive part.
+    // Live availability. Counts load once unconditionally so they always appear;
+    // the observer only gates the ongoing poll, which is the expensive part.
     buildSeats();
+    buildMonths();
     updateSeats(false);
-    var campSection = document.getElementById('camp');
-    if (campSection) {
-      loadSeatCounts(false);
+    updateMonths();
+    var liveSections = [document.getElementById('camp'), document.getElementById('sponsor')]
+      .filter(Boolean);
+    if (liveSections.length) {
+      loadAvailability(false);
       if (window.IntersectionObserver) {
-        new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) {
-            campInView = en.isIntersecting;
-            if (en.isIntersecting) campPollStart();
-          });
-        }, { rootMargin: '200px' }).observe(campSection);
+        var seen = {};
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { seen[en.target.id] = en.isIntersecting; });
+          // In view if EITHER live section is showing.
+          availInView = liveSections.some(function (el) { return seen[el.id]; });
+          if (availInView) availPollStart(); else availPollStop();
+        }, { rootMargin: '200px' });
+        liveSections.forEach(function (el) { io.observe(el); });
       } else {
-        campInView = true;
-        campPollStart();
+        availInView = true;
+        availPollStart();
       }
       document.addEventListener('visibilitychange', function () {
-        if (!document.hidden && campInView) loadSeatCounts(true);
+        if (!document.hidden && availInView) loadAvailability(true);
       });
     }
 
