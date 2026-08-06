@@ -140,7 +140,10 @@ input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #
 
 /* Seat map. Purely visual: the container is aria-hidden and the real
    information is the .camp-left count, so these are not touch targets. */
-.camp-seats { display: grid; grid-template-columns: repeat(auto-fill, minmax(11px, 1fr)); gap: 4px; }
+/* 8 columns exactly, because 40 seats must divide evenly: auto-fill picked a
+   column count from the available width and stranded 4 seats on a ragged row.
+   The cap stops the dots ballooning when the card goes full width on mobile. */
+.camp-seats { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; max-width: 200px; }
 .camp-seat { aspect-ratio: 1; border-radius: 3px; background: #E7EAF3; }
 .camp-seat.free { background: rgba(10,130,86,.22); }
 /* Taken seats differ by fill AND shape, never colour alone */
@@ -177,7 +180,9 @@ input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #
 .mon-summary { font: 600 13px var(--fd); color: #087A50; margin: 0 0 26px; min-height: 16px; }
 .mon-summary.is-unknown { color: var(--soft); font-weight: 400; }
 
-.mon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; text-align: start; }
+/* Explicit column counts, all divisors of 12, so the grid is always a clean
+   rectangle. auto-fit chose 7 columns and left a ragged row of 5. */
+.mon-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; text-align: start; }
 .mon-cell { padding: 16px 16px 14px; gap: 8px; box-sizing: border-box; }
 .mon-cell.sel { border-color: #0A8256; box-shadow: 0 14px 34px rgba(10,130,86,.16); }
 .mon-head { display: flex; align-items: baseline; gap: 6px; }
@@ -262,6 +267,7 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
 .menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 @media (max-width: 1100px) {
+  .mon-grid { grid-template-columns: repeat(4, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
   #contact > div:first-child { grid-template-columns: 1fr 1fr; }
 }
@@ -284,6 +290,7 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
 }
 
 @media (max-width: 768px) {
+  .mon-grid { grid-template-columns: repeat(3, 1fr); }
   .grid-3 { grid-template-columns: 1fr; }
   #contact > div:first-child { grid-template-columns: 1fr; }
   #top { padding: 56px 40px 56px; }
@@ -302,7 +309,7 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   .camp-band > div { padding: 52px 20px; }
   .camp-body { padding: 52px 20px 64px; }
   .camp-grid { gap: 12px; }
-  .mon-grid { gap: 10px; }
+  .mon-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .spon-band > div { padding: 56px 20px; }
   .spon-body { padding: 56px 20px 64px; }
   #wa-band { padding: 20px 20px 0; }
