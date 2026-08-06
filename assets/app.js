@@ -45,6 +45,7 @@
     // Counts and the status line are JS-composed, so re-render them in the new language.
     updateCounts();
     announce(progCards().filter(function (c) { return !c.hidden; }).length);
+    updateSeats(false);
   }
 
   function setTab(t) {
@@ -116,9 +117,9 @@
     return b ? b.getAttribute('data-cat') : 'all';
   }
 
-  /* ---------- Register-interest form ---------- */
+  /* ---------- Lead forms (register interest, sponsor a cohort) ---------- */
 
-  // Submissions relay through FormSubmit to the academy inbox. Static hosting
+  // Both forms relay through FormSubmit to the academy inbox. Static hosting
   // cannot send mail directly; swapping providers is a one-line change here.
   var FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@alkhawarizmi.ai';
 
@@ -128,14 +129,64 @@
   }
 
   function btnLabel(btn) {
-    return btn.getAttribute(lang === 'ar' ? 'data-ar' : 'data-en') || 'Register my interest';
+    return btn.getAttribute(lang === 'ar' ? 'data-ar' : 'data-en') || 'Send';
   }
 
-  function showThanks() {
-    var form = document.getElementById('reg-form');
-    var thanks = document.getElementById('reg-thanks');
+  function selText(id) {
+    var sel = document.getElementById(id);
+    return sel && sel.selectedOptions[0] ? sel.selectedOptions[0].textContent.trim() : '';
+  }
+
+  // Where the visitor came from, for attributing enquiries.
+  function leadSource() {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var utm = ['utm_source', 'utm_medium', 'utm_campaign']
+        .map(function (k) { return q.get(k); })
+        .filter(Boolean).join(' / ');
+      return utm || document.referrer || 'direct';
+    } catch (e) { return 'direct'; }
+  }
+
+  function swapToThanks(form, thanks) {
     if (form) form.hidden = true;
     if (thanks) { thanks.hidden = false; thanks.focus(); }
+  }
+
+  // Shared transport for every lead form: validation, busy state, POST,
+  // success swap and error recovery. Callers supply their own nodes + payload.
+  function sendLead(o) {
+    var form = o.form;
+    if (!form) return;
+    // novalidate is set on the forms so we control when messages appear
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    var btn = o.btn, errEl = o.err, thanks = o.thanks;
+    if (errEl) errEl.hidden = true;
+    if (btn) {
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = lang === 'ar' ? 'جارٍ الإرسال…' : 'Sending…';
+    }
+
+    fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(o.payload)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function () {
+      swapToThanks(form, thanks);
+    }).catch(function () {
+      // Never fail silently: surface the error and offer the direct email route.
+      if (errEl) errEl.hidden = false;
+      if (btn) {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = btnLabel(btn);
+      }
+    });
   }
 
   // Course cards link to the form and preselect themselves, so the visitor
@@ -148,44 +199,269 @@
 
   function submitInterest(e) {
     e.preventDefault();
-    var form = document.getElementById('reg-form');
+    sendLead({
+      form: document.getElementById('reg-form'),
+      btn: document.getElementById('reg-submit'),
+      err: document.getElementById('reg-error'),
+      thanks: document.getElementById('reg-thanks'),
+      payload: {
+        _subject: 'New interest registration from the website',
+        _captcha: 'false',
+        _template: 'table',
+        form_type: 'interest',
+        source: leadSource(),
+        Name: fieldVal('reg-name'),
+        Email: fieldVal('reg-email'),
+        Phone: fieldVal('reg-phone'),
+        Program: selText('reg-program'),
+        Message: fieldVal('reg-message'),
+        Language: lang === 'ar' ? 'Arabic' : 'English'
+      }
+    });
+  }
+
+  function submitSponsor(e) {
+    e.preventDefault();
+    var form = document.getElementById('sponsor-form');
     if (!form) return;
-    // novalidate is set on the form so we control when messages appear
+    // Honeypot: a real visitor never sees this field, so anything in it is a bot.
+    // Behave exactly like success so the bot learns nothing, but send nothing.
+    if (fieldVal('sponsor-company-website')) {
+      swapToThanks(form, document.getElementById('sponsor-thanks'));
+      return;
+    }
+    sendLead({
+      form: form,
+      btn: document.getElementById('sponsor-submit'),
+      err: document.getElementById('sponsor-error'),
+      thanks: document.getElementById('sponsor-thanks'),
+      payload: {
+        _subject: 'New sponsorship enquiry from the website',
+        _captcha: 'false',
+        _template: 'table',
+        form_type: 'sponsor',
+        source: leadSource(),
+        Organisation: fieldVal('sponsor-org'),
+        Contact: fieldVal('sponsor-contact'),
+        Phone: fieldVal('sponsor-phone'),
+        Email: fieldVal('sponsor-email'),
+        Tier: selText('sponsor-tier'),
+        Audience: fieldVal('sponsor-audience'),
+        Language: lang === 'ar' ? 'Arabic' : 'English'
+      }
+    });
+  }
+
+  /* ---------- Summer camp: live seat map ---------- */
+
+  // TODO: set CAMP_ENDPOINT to the Apps Script Web App URL (see camp-backend.gs).
+  // While it is empty the seat map shows an honest "unknown" state and the
+  // booking form falls back to the email relay, so no booking is ever lost.
+  var CAMP_ENDPOINT = '';
+
+  var SEATS_PER_DAY = 40;
+  var campCounts = null;          // null means "we genuinely do not know"
+  var campPollTimer = null;
+  var campInView = false;
+  var campPolls = 0;
+  var CAMP_POLL_MS = 45000;
+  var CAMP_MAX_POLLS = 40;        // stop after ~30 min; Apps Script has daily quotas
+
+  function campDayEls() {
+    return [].slice.call(document.querySelectorAll('.camp-day'));
+  }
+
+  // Build the seat dots once. They are decorative (container is aria-hidden),
+  // so they are safe to generate after boot without event wiring.
+  function buildSeats() {
+    campDayEls().forEach(function (day) {
+      var grid = day.querySelector('.camp-seats');
+      if (!grid || grid.childNodes.length) return;
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < SEATS_PER_DAY; i++) {
+        var s = document.createElement('span');
+        s.className = 'camp-seat unknown';
+        frag.appendChild(s);
+      }
+      grid.appendChild(frag);
+    });
+  }
+
+  // Paint seats + counts from campCounts. Derived from state each time, so it is
+  // idempotent and safe to re-run on language switch.
+  function updateSeats(animateNew) {
+    campDayEls().forEach(function (day) {
+      var key = day.getAttribute('data-day');
+      var seats = [].slice.call(day.querySelectorAll('.camp-seat'));
+      var label = day.querySelector('.camp-left');
+      var pick = day.querySelector('.camp-pick');
+      var known = campCounts && typeof campCounts[key] === 'number';
+      var taken = known ? Math.max(0, Math.min(SEATS_PER_DAY, campCounts[key])) : 0;
+      var left = SEATS_PER_DAY - taken;
+
+      seats.forEach(function (s, i) {
+        var cls = !known ? 'unknown' : (i < taken ? 'taken' : 'free');
+        var was = s.className.indexOf('taken') !== -1;
+        if (s.className.indexOf(cls) === -1) {
+          s.className = 'camp-seat ' + cls;
+          if (animateNew && cls === 'taken' && !was) {
+            s.classList.add('just-taken');
+          }
+        }
+      });
+
+      if (label) {
+        label.classList.toggle('is-unknown', !known);
+        label.classList.toggle('is-full', known && left === 0);
+        var tpl;
+        if (!known) tpl = label.getAttribute(lang === 'ar' ? 'data-tpl-unknown-ar' : 'data-tpl-unknown-en');
+        else if (left === 0) tpl = label.getAttribute(lang === 'ar' ? 'data-tpl-full-ar' : 'data-tpl-full-en');
+        else tpl = label.getAttribute(lang === 'ar' ? 'data-tpl-ar' : 'data-tpl-en');
+        label.textContent = (tpl || '')
+          .replace('{n}', localiseNum(left))
+          .replace('{total}', localiseNum(SEATS_PER_DAY));
+      }
+      if (pick) pick.disabled = !!(known && left === 0);
+    });
+  }
+
+  function campOffline(on) {
+    var el = document.getElementById('camp-status');
+    if (!el) return;
+    el.textContent = on
+      ? (el.getAttribute(lang === 'ar' ? 'data-tpl-offline-ar' : 'data-tpl-offline-en') || '')
+      : '';
+  }
+
+  function loadSeatCounts(animate) {
+    if (!CAMP_ENDPOINT) { campCounts = null; updateSeats(false); campOffline(true); return; }
+    fetch(CAMP_ENDPOINT + '?action=counts', { method: 'GET' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) {
+        if (!d || !d.counts) throw new Error('bad payload');
+        if (typeof d.seatsPerDay === 'number' && d.seatsPerDay > 0) SEATS_PER_DAY = d.seatsPerDay;
+        campCounts = d.counts;
+        updateSeats(!!animate);
+        campOffline(false);
+      })
+      .catch(function () {
+        // Never invent availability. Fall back to the unknown state.
+        campCounts = null;
+        updateSeats(false);
+        campOffline(true);
+      });
+  }
+
+  function campPollStart() {
+    if (campPollTimer || !CAMP_ENDPOINT) return;
+    campPollTimer = setInterval(function () {
+      if (document.hidden || !campInView) return;   // idle while unseen
+      if (++campPolls > CAMP_MAX_POLLS) { campPollStop(); return; }
+      loadSeatCounts(true);
+    }, CAMP_POLL_MS);
+  }
+
+  function campPollStop() {
+    if (campPollTimer) { clearInterval(campPollTimer); campPollTimer = null; }
+  }
+
+  function pickDay(e) {
+    var key = e.currentTarget.getAttribute('data-day');
+    campDayEls().forEach(function (day) {
+      var on = day.getAttribute('data-day') === key;
+      day.classList.toggle('sel', on);
+      var b = day.querySelector('.camp-pick');
+      if (b) b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var sel = document.getElementById('camp-day');
+    if (sel) sel.value = key;
+    var wrap = document.getElementById('camp-form-wrap');
+    if (wrap) wrap.scrollIntoView({ block: 'start' });
+    var first = document.getElementById('camp-attendee');
+    if (first) first.focus();
+  }
+
+  function submitBooking(e) {
+    e.preventDefault();
+    var form = document.getElementById('camp-form');
+    if (!form) return;
+    if (fieldVal('camp-company-website')) {
+      swapToThanks(form, document.getElementById('camp-thanks'));
+      return;
+    }
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
-    var btn = document.getElementById('reg-submit');
-    var errEl = document.getElementById('reg-error');
-    var sel = document.getElementById('reg-program');
-    var program = sel && sel.selectedOptions[0] ? sel.selectedOptions[0].textContent.trim() : '';
+    var btn = document.getElementById('camp-submit');
+    var errEl = document.getElementById('camp-error');
+    var fullEl = document.getElementById('camp-full');
+    var thanks = document.getElementById('camp-thanks');
+    var day = document.getElementById('camp-day');
+
+    // No booking backend yet: fall back to the email relay so the lead still lands.
+    if (!CAMP_ENDPOINT) {
+      sendLead({
+        form: form, btn: btn, err: errEl, thanks: thanks,
+        payload: {
+          _subject: 'New summer camp booking from the website',
+          _captcha: 'false',
+          _template: 'table',
+          form_type: 'camp',
+          source: leadSource(),
+          Day: selText('camp-day'),
+          Attendee: fieldVal('camp-attendee'),
+          Age: fieldVal('camp-age'),
+          Guardian: fieldVal('camp-guardian'),
+          Phone: fieldVal('camp-phone'),
+          Email: fieldVal('camp-email'),
+          Notes: fieldVal('camp-notes'),
+          Language: lang === 'ar' ? 'Arabic' : 'English'
+        }
+      });
+      return;
+    }
 
     if (errEl) errEl.hidden = true;
+    if (fullEl) fullEl.hidden = true;
     if (btn) {
       btn.disabled = true;
       btn.setAttribute('aria-busy', 'true');
       btn.textContent = lang === 'ar' ? 'جارٍ الإرسال…' : 'Sending…';
     }
 
-    fetch(FORM_ENDPOINT, {
+    // text/plain keeps this a simple request: Apps Script cannot answer a CORS preflight.
+    fetch(CAMP_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
-        _subject: 'New interest registration from the website',
-        _captcha: 'false',
-        _template: 'table',
-        Name: fieldVal('reg-name'),
-        Email: fieldVal('reg-email'),
-        Phone: fieldVal('reg-phone'),
-        Program: program,
-        Message: fieldVal('reg-message'),
-        Language: lang === 'ar' ? 'Arabic' : 'English'
+        day: day ? day.value : '',
+        attendee: fieldVal('camp-attendee'),
+        age: fieldVal('camp-age'),
+        guardian: fieldVal('camp-guardian'),
+        phone: fieldVal('camp-phone'),
+        email: fieldVal('camp-email'),
+        notes: fieldVal('camp-notes'),
+        source: leadSource(),
+        language: lang === 'ar' ? 'Arabic' : 'English'
       })
     }).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
-    }).then(function () {
-      showThanks();
+    }).then(function (d) {
+      if (d && d.counts) { campCounts = d.counts; updateSeats(true); campOffline(false); }
+      if (d && d.error === 'full') {
+        // The day filled while they were typing. Say so; do not fake a success.
+        if (fullEl) fullEl.hidden = false;
+        if (btn) {
+          btn.disabled = false;
+          btn.removeAttribute('aria-busy');
+          btn.textContent = btnLabel(btn);
+        }
+        if (day) { day.value = ''; day.focus(); }
+        return;
+      }
+      if (!d || !d.ok) throw new Error(d && d.error ? d.error : 'unknown');
+      swapToThanks(form, thanks);
     }).catch(function () {
-      // Never fail silently: surface the error and offer the direct email route.
       if (errEl) errEl.hidden = false;
       if (btn) {
         btn.disabled = false;
@@ -221,6 +497,9 @@
     toggleMenu: toggleMenu,
     pickProgram: pickProgram,
     submitInterest: submitInterest,
+    submitSponsor: submitSponsor,
+    pickDay: pickDay,
+    submitBooking: submitBooking,
   };
 
   function boot() {
@@ -250,6 +529,29 @@
         var next = active && active.id === 'wa-tabK' ? 'm' : 'k';
         setTab(next);
         document.getElementById(next === 'k' ? 'wa-tabK' : 'wa-tabM').focus();
+      });
+    }
+
+    // Summer camp seat map. Counts load once unconditionally so they always
+    // appear; the observer only gates the ongoing poll, which is the expensive part.
+    buildSeats();
+    updateSeats(false);
+    var campSection = document.getElementById('camp');
+    if (campSection) {
+      loadSeatCounts(false);
+      if (window.IntersectionObserver) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            campInView = en.isIntersecting;
+            if (en.isIntersecting) campPollStart();
+          });
+        }, { rootMargin: '200px' }).observe(campSection);
+      } else {
+        campInView = true;
+        campPollStart();
+      }
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden && campInView) loadSeatCounts(true);
       });
     }
 
@@ -299,7 +601,7 @@
       if (header && header.classList.contains('menu-open') && !e.target.closest('#wa-nav')) closeMenu();
     });
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 768) closeMenu();
+      if (window.innerWidth > 900) closeMenu(); // must match the hamburger breakpoint in styles.css
     });
   }
 

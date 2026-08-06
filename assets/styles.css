@@ -113,6 +113,103 @@ input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #
 .reg-thanks-h { font: 700 22px var(--fd); color: var(--ink); }
 .reg-thanks-b { font: 400 15px/1.65 var(--fb); color: var(--muted); max-width: 340px; }
 
+/* ---------- Summer camp ---------- */
+#camp { scroll-margin-top: 90px; }
+
+.camp-band { background: var(--ink); }
+.camp-band > div { max-width: 1160px; margin: 0 auto; padding: 68px 36px; text-align: center; }
+.camp-eyebrow { font: 600 12px var(--fd); letter-spacing: .18em; color: #09C98E; margin-bottom: 16px; }
+.camp-h { color: #fff; margin: 0 0 14px; text-wrap: balance; }
+.camp-sub { font: 400 17px/1.6 var(--fb); color: rgba(255,255,255,.75); max-width: 620px; margin: 0 auto 10px; }
+.camp-dates { font: 600 14px var(--fd); color: #09C98E; margin: 0 0 26px; }
+.camp-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.camp-fact { display: inline-flex; align-items: center; gap: 8px; font: 600 12.5px var(--fd); color: rgba(255,255,255,.85); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); padding: 9px 16px; border-radius: 30px; }
+.camp-fact svg { flex: none; stroke: #09C98E; }
+
+.camp-body { max-width: 1160px; margin: 0 auto; padding: 64px 36px 84px; text-align: center; }
+.camp-lead { font: 400 15.5px/1.7 var(--fb); color: var(--muted); max-width: 620px; margin: 0 auto 36px; }
+
+/* Day columns: five side by side on desktop, stacking on their own below ~1000px.
+   Five columns is impossible under ~700px (each would be narrower than two seats). */
+.camp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; text-align: start; }
+.camp-day { background: #fff; border: 1px solid #ECEEF5; border-radius: 18px; padding: 20px 18px; box-shadow: 0 14px 34px rgba(17,17,40,.06); display: flex; flex-direction: column; gap: 12px; }
+.camp-day.sel { border-color: #0A8256; box-shadow: 0 14px 34px rgba(10,130,86,.16); }
+.camp-day-h { display: flex; flex-direction: column; gap: 3px; }
+.camp-day-n { font: 700 15px var(--fd); color: var(--ink); }
+.camp-day-t { font: 400 13px/1.5 var(--fb); color: var(--muted); }
+
+/* Seat map. Purely visual: the container is aria-hidden and the real
+   information is the .camp-left count, so these are not touch targets. */
+.camp-seats { display: grid; grid-template-columns: repeat(auto-fill, minmax(11px, 1fr)); gap: 4px; }
+.camp-seat { aspect-ratio: 1; border-radius: 3px; background: #E7EAF3; }
+.camp-seat.free { background: rgba(10,130,86,.22); }
+/* Taken seats differ by fill AND shape, never colour alone */
+.camp-seat.taken { background: #0A8256; border-radius: 50%; }
+.camp-seat.unknown { background: #EEF0F6; }
+.camp-seat.just-taken { animation: camp-pop .28s ease; }
+@keyframes camp-pop { 0% { transform: scale(.4); opacity: .3; } 60% { transform: scale(1.18); } 100% { transform: scale(1); opacity: 1; } }
+
+.camp-left { font: 600 12.5px var(--fd); color: #087A50; margin: 0; min-height: 16px; }
+.camp-left.is-full { color: #B3261E; }
+.camp-left.is-unknown { color: var(--soft); font-weight: 400; }
+
+.camp-pick { margin-top: auto; font: 600 13px var(--fd); color: var(--ink); background: #F2F4F9; border: 1px solid #E7EAF3; padding: 11px; border-radius: 12px; cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.camp-pick:hover { background: #E9ECF4; }
+.camp-pick[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.camp-pick[disabled] { opacity: .45; cursor: not-allowed; }
+
+.camp-status { font: 400 13.5px/1.6 var(--fb); color: var(--soft); max-width: 560px; margin: 22px auto 0; }
+.camp-status:empty { display: none; }
+
+.camp-formwrap { margin-top: 44px; }
+#camp-form[hidden], #camp-thanks[hidden] { display: none; } /* .form-card sets display:flex, which beats [hidden] */
+.camp-form-h { font: 700 19px var(--fd); color: var(--ink); }
+.camp-form-sub { font: 400 13.5px/1.6 var(--fb); color: var(--muted); margin: -6px 0 4px; }
+
+/* First reduced-motion block on the site: keep the state change, drop the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .camp-seat.just-taken { animation: none; }
+  .camp-pick, .cat, .nav-toggle span { transition: none; }
+}
+
+/* ---------- Sponsor a cohort ---------- */
+#sponsor { scroll-margin-top: 90px; }
+
+/* Navy band. Greens invert on dark: #09C98E is 8.60:1 here, --green-text only 3.0:1 */
+.spon-band { background: var(--ink); }
+.spon-band > div { max-width: 1160px; margin: 0 auto; padding: 76px 36px; text-align: center; }
+.spon-eyebrow { font: 600 12px var(--fd); letter-spacing: .18em; color: #09C98E; margin-bottom: 16px; }
+.spon-h { color: #fff; margin: 0 0 16px; text-wrap: balance; }
+.spon-sub { font: 400 18px/1.6 var(--fb); color: rgba(255,255,255,.75); max-width: 640px; margin: 0 auto 14px; }
+.spon-note { font: 400 15px/1.7 var(--fb); color: rgba(255,255,255,.6); max-width: 680px; margin: 0 auto; }
+
+.spon-body { max-width: 1160px; margin: 0 auto; padding: 72px 36px 90px; text-align: center; }
+.spon-eyebrow2 { margin-top: 56px; }
+
+.spon-steps { text-align: start; }
+.spon-step { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; padding: 4px 2px; }
+.spon-num { font: 700 13px var(--fd); letter-spacing: .12em; color: #087A50; }
+.spon-step-t { font: 700 17px var(--fd); color: var(--ink); }
+.spon-step-b { font: 400 14px/1.65 var(--fb); color: var(--muted); }
+
+.spon-val { gap: 10px; }
+.spon-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 40px; }
+
+.spon-tier { gap: 12px; }
+.spon-tier-pop { border-color: rgba(8,122,80,.45); box-shadow: 0 18px 40px rgba(17,17,40,.10); }
+.spon-price { font: 700 18px var(--fd); color: #087A50; }
+.spon-feats { list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.spon-feats li { font: 400 13.5px/1.55 var(--fb); color: var(--muted); padding-inline-start: 18px; position: relative; }
+.spon-feats li::before { content: ""; position: absolute; inset-inline-start: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #087A50; }
+.spon-cta { font: 600 13.5px var(--fd); color: #fff; background: linear-gradient(120deg,#0A8256,#2E7A8C,#534CB6); padding: 13px; border-radius: 12px; text-align: center; box-shadow: 0 8px 20px rgba(9,201,142,.22); }
+
+.spon-formwrap { margin-top: 56px; }
+#sponsor-form[hidden], #sponsor-thanks[hidden] { display: none; } /* .form-card sets display:flex, which beats [hidden] */
+
+/* Honeypot. Deliberately not .sr-only: that keeps it in the accessibility tree,
+   where a screen-reader user would be told to fill the decoy. */
+.spon-hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
 #contact { background: var(--ink); color: rgba(255,255,255,.75); scroll-margin-top: 90px; }
 #contact > div:first-child { max-width: 1160px; margin: 0 auto; padding: 64px 36px 0; display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.2fr; gap: 44px; }
 #contact > div:last-child { max-width: 1160px; margin: 34px auto 0; padding: 22px 36px; border-top: 1px solid rgba(255,255,255,.1); display: flex; justify-content: space-between; gap: 16px; }
@@ -153,14 +250,16 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   #wa-panelK img, #wa-panelM img { width: 100%; height: auto; }
   #register .grid-3 { grid-template-columns: 1fr; }
   #wa-band > div { flex-direction: column; text-align: center; }
-}
-
-@media (max-width: 768px) {
+  /* Hamburger moves here from 768px: with 6 nav items the bar overflowed
+     between 769 and 900, and Arabic labels are wider than English. */
   #wa-nav { padding: 14px 20px 10px; }
   .nav-toggle { display: flex; }
   #wa-nav nav { display: none; position: absolute; top: 100%; inset-inline: 20px; flex-direction: column; align-items: stretch; gap: 6px; background: #fff; border: 1px solid #EEF0F6; border-radius: 16px; box-shadow: 0 18px 40px rgba(17,17,40,.14); padding: 14px; z-index: 70; }
   .menu-open #wa-nav nav, #wa-nav.menu-open nav { display: flex; }
   #wa-nav nav a, #wa-nav nav button { padding: 12px 14px; text-align: center; }
+}
+
+@media (max-width: 768px) {
   .grid-3 { grid-template-columns: 1fr; }
   #contact > div:first-child { grid-template-columns: 1fr; }
   #top { padding: 56px 40px 56px; }
@@ -176,6 +275,11 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   .cat-row { gap: 8px; margin-bottom: 32px; }
   .cat { min-width: 88px; padding: 13px 12px; font-size: 12px; gap: 6px; }
   #register { padding: 56px 20px 64px; }
+  .camp-band > div { padding: 52px 20px; }
+  .camp-body { padding: 52px 20px 64px; }
+  .camp-grid { gap: 12px; }
+  .spon-band > div { padding: 56px 20px; }
+  .spon-body { padding: 56px 20px 64px; }
   #wa-band { padding: 20px 20px 0; }
   #wa-band > div { padding: 32px 24px; }
   #contact > div:first-child { padding: 48px 20px 0; }
