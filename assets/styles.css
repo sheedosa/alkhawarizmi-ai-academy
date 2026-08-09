@@ -32,6 +32,19 @@ a:hover { color: var(--green-text); }
 .feat-grid > *, #wa-stats > * { min-width: 0; }
 /* Default grey flash on tap reads as a bug on a branded page. */
 a, button, [role="tab"] { -webkit-tap-highlight-color: rgba(9,201,142,.18); }
+
+/* ---------- Arabic script ---------- */
+/* Arabic is cursive: the letters of a word join up. Positive letter-spacing
+   pulls those joins apart and the word renders as loose disconnected glyphs,
+   which is what made the eyebrows look broken; the negative tracking on the
+   headings crowds them instead. Neither is legible, so all tracking is dropped
+   wherever Arabic renders. !important because much of it arrives via inline
+   styles carried over from the design prototype. */
+[dir="rtl"] * { letter-spacing: normal !important; }
+/* Arabic sitting inside an English page needs the same treatment on its own —
+   the eyebrows read "المخيم الصيفي · SUMMER CAMP", so the Latin half keeps its
+   tracking while the Arabic half must not. */
+[lang="ar"] { letter-spacing: normal !important; }
 input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #A0A5B8 (2.37:1) */
 :focus-visible { outline: 2px solid var(--green-text); outline-offset: 2px; }
 

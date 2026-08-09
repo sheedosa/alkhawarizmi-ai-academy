@@ -71,10 +71,12 @@
 
   /* ---------- Programs category filter ---------- */
 
-  var AR_DIGITS = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  // Libya, like the rest of the Maghreb, writes numbers in Western digits even
+  // in Arabic text; Eastern-Arabic numerals are a Mashriq convention. Kept as a
+  // function so seat counts, month years and course counts all still run through
+  // one place if a Mashriq audience ever needs ٠١٢٣ back.
   function localiseNum(n) {
-    var s = String(n);
-    return lang === 'ar' ? s.replace(/[0-9]/g, function (d) { return AR_DIGITS[+d]; }) : s;
+    return String(n);
   }
 
   function progCards() {
