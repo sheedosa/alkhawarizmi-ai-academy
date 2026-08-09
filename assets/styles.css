@@ -253,6 +253,24 @@ h2 { font: 700 38px/1.15 var(--fd); letter-spacing: -.02em; color: var(--ink); m
 .card { background: #fff; border: 1px solid #ECEEF5; border-radius: 18px; padding: 30px 28px 28px; box-shadow: 0 14px 34px rgba(17,17,40,.06); display: flex; flex-direction: column; gap: 12px; }
 .form-card { background: #fff; border: 1px solid #ECEEF5; border-radius: 18px; padding: 30px 28px; box-shadow: 0 14px 34px rgba(17,17,40,.06); display: flex; flex-direction: column; gap: 14px; }
 
+/* ---------- Homepage teasers linking to /summer-camp/ and /sponsor/ ---------- */
+/* Rounded panels rather than full-bleed bands like .camp-band and .spon-band:
+   the sponsor teaser sits directly above the navy footer, and a full-bleed navy
+   section would read as one continuous dark mass with it. */
+.teaser { max-width: 1160px; margin: 0 auto; padding: 30px 36px; scroll-margin-top: 90px; }
+.teaser > div { background: var(--ink); border-radius: 20px; padding: 54px 44px; text-align: center; }
+.teaser-eyebrow { font: 600 12px var(--fd); letter-spacing: .18em; color: #09C98E; margin-bottom: 14px; }
+.teaser-h { color: #fff; margin: 0 0 12px; text-wrap: balance; }
+.teaser-sub { font: 400 16.5px/1.65 var(--fb); color: rgba(255,255,255,.75); max-width: 640px; margin: 0 auto; }
+/* Stays hidden until real numbers arrive — see updateTeasers() in app.js */
+.teaser-live { font: 600 13.5px var(--fd); color: #09C98E; margin: 16px 0 0; }
+.teaser-cta { display: inline-block; margin-top: 26px; font: 600 14px var(--fd); color: #fff; background: linear-gradient(120deg, var(--green-btn), var(--teal-btn), var(--purple)); padding: 15px 32px; border-radius: 30px; box-shadow: 0 10px 26px rgba(9,201,142,.25); }
+
+/* Breadcrumb: sub-pages only, so visitors can get back without the nav */
+.crumb { max-width: 1160px; margin: 0 auto; padding: 10px 36px 0; display: flex; align-items: center; gap: 8px; font: 600 12.5px var(--fd); color: var(--soft); }
+.crumb a { color: var(--slate); }
+.crumb [aria-current] { color: var(--ink); }
+
 /* ---------- responsive layer (additive; desktop ≥1160px unchanged) ---------- */
 
 /* Fluid type: resolves to exactly 58px/38px at desktop widths — parity-safe */
@@ -312,6 +330,9 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   .mon-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .spon-band > div { padding: 56px 20px; }
   .spon-body { padding: 56px 20px 64px; }
+  .teaser { padding: 24px 20px; }
+  .teaser > div { padding: 40px 24px; }
+  .crumb { padding: 10px 20px 0; }
   #wa-band { padding: 20px 20px 0; }
   #wa-band > div { padding: 32px 24px; }
   #contact > div:first-child { padding: 48px 20px 0; }

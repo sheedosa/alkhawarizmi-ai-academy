@@ -48,6 +48,7 @@
     updateSeats(false);
     labelMonths();
     updateMonths();
+    updateTeasers();
     // Offline banners are JS-composed too, so re-render them in the new language.
     if (!SITE_ENDPOINT || campCounts === null) offlineMsg('camp-status', true);
     if (!SITE_ENDPOINT || sponsorMonths === null) offlineMsg('sponsor-status', true);
@@ -374,18 +375,34 @@
     return els('.mon-cell');
   }
 
-  // Rolling 12 months from the current month, so the grid never goes stale.
-  // Keys are YYYY-MM to match the sheet; labels are looked up per language.
+  var MONTH_WINDOW = 12;
+
+  // Rolling window of n months from the current month, so nothing ever goes
+  // stale. Keys are YYYY-MM to match the sheet. Deliberately DOM-free: the
+  // homepage teaser has to count open months with no .mon-cell grid to read.
+  function monthKeys(n) {
+    var now = new Date(), out = [];
+    for (var i = 0; i < n; i++) {
+      var d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+      var mm = d.getMonth() + 1;
+      out.push({
+        key: d.getFullYear() + '-' + (mm < 10 ? '0' + mm : mm),
+        mindex: d.getMonth(),
+        year: d.getFullYear()
+      });
+    }
+    return out;
+  }
+
+  // Stamp the rolling window onto the grid; labels are looked up per language.
   function buildMonths() {
     var cells = monthCellEls();
     if (!cells.length) return;
-    var now = new Date();
+    var months = monthKeys(cells.length);
     cells.forEach(function (cell, i) {
-      var d = new Date(now.getFullYear(), now.getMonth() + i, 1);
-      var mm = d.getMonth() + 1;
-      cell.setAttribute('data-month', d.getFullYear() + '-' + (mm < 10 ? '0' + mm : mm));
-      cell.setAttribute('data-mindex', d.getMonth());
-      cell.setAttribute('data-year', d.getFullYear());
+      cell.setAttribute('data-month', months[i].key);
+      cell.setAttribute('data-mindex', months[i].mindex);
+      cell.setAttribute('data-year', months[i].year);
     });
     labelMonths();
   }
@@ -444,6 +461,48 @@
     }
   }
 
+  /* ---------- Homepage teasers ---------- */
+
+  // The homepage carries one live figure per teaser instead of the full widget.
+  // When availability is unknown the line is HIDDEN rather than left on
+  // "Checking…": here it is a hook, not the content, and a teaser stuck on
+  // "Checking" reads worse than one that simply omits the line. The dedicated
+  // pages, where availability IS the content, keep the honest unknown state.
+  function updateTeasers() {
+    var campLine = document.getElementById('camp-teaser-live');
+    if (campLine) {
+      // Day count comes from the payload, never a hard-coded 5: the teaser must
+      // not claim a total the backend has not actually reported.
+      var days = 0, taken = 0;
+      if (campCounts) {
+        for (var k in campCounts) {
+          if (!campCounts.hasOwnProperty(k)) continue;
+          if (typeof campCounts[k] !== 'number') continue;
+          days++;
+          taken += Math.max(0, Math.min(SEATS_PER_DAY, campCounts[k]));
+        }
+      }
+      var total = days * SEATS_PER_DAY;
+      var left = total - taken;
+      campLine.hidden = !days;
+      if (days) renderStateLabel(campLine, left > 0 ? 'normal' : 'full', { n: left, total: total });
+    }
+
+    var sponLine = document.getElementById('sponsor-teaser-live');
+    if (sponLine) {
+      var months = monthKeys(MONTH_WINDOW), open = 0;
+      if (sponsorMonths) {
+        months.forEach(function (m) {
+          if ((sponsorMonths[m.key] || 'available') === 'available') open++;
+        });
+      }
+      sponLine.hidden = !sponsorMonths;
+      if (sponsorMonths) {
+        renderStateLabel(sponLine, open > 0 ? 'normal' : 'full', { n: open, total: months.length });
+      }
+    }
+  }
+
   /* ---------- Shared transport + poll ---------- */
 
   function applyAvailability(d, animate) {
@@ -454,6 +513,7 @@
     if (d && d.sponsor && d.sponsor.months) sponsorMonths = d.sponsor.months;
     updateSeats(!!animate);
     updateMonths();
+    updateTeasers();
     offlineMsg('camp-status', false);
     offlineMsg('sponsor-status', false);
   }
@@ -464,6 +524,7 @@
     sponsorMonths = null;
     updateSeats(false);
     updateMonths();
+    updateTeasers();
     offlineMsg('camp-status', true);
     offlineMsg('sponsor-status', true);
   }
@@ -676,13 +737,22 @@
       });
     }
 
-    // Live availability. Counts load once unconditionally so they always appear;
-    // the observer only gates the ongoing poll, which is the expensive part.
+    // Live availability, in one of two modes.
+    //
+    // The camp and sponsor PAGES carry the full widgets: load immediately, then
+    // poll while a widget is on screen. The HOMEPAGE carries only teaser lines,
+    // so it loads once on first scroll-into-view and never starts an interval.
+    // That is one request per homepage visit instead of one every 45 seconds
+    // against a page with no widget to paint, and visitors who bounce at the
+    // hero cost nothing at all.
     buildSeats();
     buildMonths();
     updateSeats(false);
     updateMonths();
+    updateTeasers();
     var liveSections = [document.getElementById('camp'), document.getElementById('sponsor')]
+      .filter(Boolean);
+    var teasers = [document.getElementById('camp-teaser'), document.getElementById('sponsor-teaser')]
       .filter(Boolean);
     if (liveSections.length) {
       loadAvailability(false);
@@ -702,6 +772,17 @@
       document.addEventListener('visibilitychange', function () {
         if (!document.hidden && availInView) loadAvailability(true);
       });
+    } else if (teasers.length) {
+      if (window.IntersectionObserver) {
+        var tio = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (en) { return en.isIntersecting; })) return;
+          tio.disconnect();          // one shot: the teasers never poll
+          loadAvailability(false);
+        }, { rootMargin: '200px' });
+        teasers.forEach(function (el) { tio.observe(el); });
+      } else {
+        loadAvailability(false);
+      }
     }
 
     // Category tiles: initial counts, plus roving keyboard navigation.
