@@ -788,6 +788,12 @@
     // Category tiles: initial counts, plus roving keyboard navigation.
     // Scoped to .cat-row so it cannot collide with the Story tablist listener above.
     updateCounts();
+    // ?cat=<slug> deep-links into a filtered catalogue, so the homepage and the
+    // footer can point straight at a track. Unknown slugs fall through to "All".
+    try {
+      var wanted = new URLSearchParams(window.location.search).get('cat');
+      if (wanted && document.querySelector('.cat[data-cat="' + wanted + '"]')) setCat(wanted);
+    } catch (e) { /* no URLSearchParams, stay on All */ }
     var catRow = document.querySelector('.cat-row');
     if (catRow) {
       catRow.addEventListener('keydown', function (e) {

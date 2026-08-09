@@ -253,6 +253,35 @@ h2 { font: 700 38px/1.15 var(--fd); letter-spacing: -.02em; color: var(--ink); m
 .card { background: #fff; border: 1px solid #ECEEF5; border-radius: 18px; padding: 30px 28px 28px; box-shadow: 0 14px 34px rgba(17,17,40,.06); display: flex; flex-direction: column; gap: 12px; }
 .form-card { background: #fff; border: 1px solid #ECEEF5; border-radius: 18px; padding: 30px 28px; box-shadow: 0 14px 34px rgba(17,17,40,.06); display: flex; flex-direction: column; gap: 14px; }
 
+/* ---------- Course availability ---------- */
+/* Only four of the eight courses run at launch. Availability is carried by the
+   badge TEXT; the muted card is a reinforcement, never the only signal. */
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.badge-soon { font: 600 11px var(--fd); letter-spacing: .12em; color: var(--soft); background: #F2F4F9; border: 1px solid #E7EAF3; padding: 4px 11px; border-radius: 30px; }
+.badge-open { font: 600 11px var(--fd); letter-spacing: .12em; color: var(--green-text); background: rgba(9,201,142,.09); padding: 5px 12px; border-radius: 30px; }
+.card.is-soon { background: #FCFCFE; }
+
+/* ---------- Homepage programmes: the two open tracks, then the rest ---------- */
+.prog-open { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; text-align: start; max-width: 800px; margin: 0 auto; }
+.soon-eyebrow { margin-top: 46px; }
+.soon-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.soon-tile { font: 600 13px var(--fd); color: var(--slate); background: #fff; border: 1px solid #E7EAF3; border-radius: 14px; padding: 12px 18px; transition: border-color .15s ease, color .15s ease; }
+.soon-tile:hover { border-color: var(--green-text); color: var(--ink); }
+.prog-all { display: inline-block; margin-top: 38px; font: 600 14px var(--fd); color: #fff; background: linear-gradient(120deg, var(--green-btn), var(--teal-btn), var(--purple)); padding: 15px 32px; border-radius: 30px; box-shadow: 0 10px 26px rgba(9,201,142,.25); }
+.about-more { display: inline-block; font: 600 14px var(--fd); color: var(--ink); background: #fff; border: 1px solid #DFE3EE; padding: 14px 30px; border-radius: 30px; }
+
+/* ---------- Compact register form ---------- */
+/* Replaces a 560px centred column of five stacked fields. Two rows of two, with
+   the note and button sharing the last row, roughly halves the height. */
+.reg-compact { max-width: 820px; margin: 0 auto; text-align: start; }
+.reg-compact-head { text-align: center; margin-bottom: 26px; }
+.reg-compact-h { font-size: clamp(24px, 3.2vw, 30px); margin: 0 0 8px; }
+.reg-compact-sub { font: 400 14.5px/1.6 var(--fb); color: var(--muted); max-width: 520px; margin: 0 auto; }
+.reg-compact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.reg-compact-foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.reg-compact-foot .reg-note { text-align: start; margin: 0; }
+.reg-compact-btn { flex: none; }
+
 /* ---------- Homepage teasers linking to /summer-camp/ and /sponsor/ ---------- */
 /* Rounded panels rather than full-bleed bands like .camp-band and .spon-band:
    the sponsor teaser sits directly above the navy footer, and a full-bleed navy
@@ -310,6 +339,7 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
 @media (max-width: 768px) {
   .mon-grid { grid-template-columns: repeat(3, 1fr); }
   .grid-3 { grid-template-columns: 1fr; }
+  .prog-open { grid-template-columns: 1fr; }
   #contact > div:first-child { grid-template-columns: 1fr; }
   #top { padding: 56px 40px 56px; }
 }
@@ -333,6 +363,10 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   .teaser { padding: 24px 20px; }
   .teaser > div { padding: 40px 24px; }
   .crumb { padding: 10px 20px 0; }
+  .reg-compact-grid { grid-template-columns: 1fr; }
+  /* Button above the privacy note on mobile: it is the action, not the footnote. */
+  .reg-compact-foot { flex-direction: column-reverse; align-items: stretch; }
+  .reg-compact-foot .reg-note { text-align: center; }
   #wa-band { padding: 20px 20px 0; }
   #wa-band > div { padding: 32px 24px; }
   #contact > div:first-child { padding: 48px 20px 0; }

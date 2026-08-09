@@ -187,21 +187,20 @@
 <div id="wa-root" dir="ltr">
 
   <!-- ============ NAV ============ -->
-  <!-- Duplicated across index.html, summer-camp/ and sponsor/ (no build step).
-       Sub-page copies differ only in link depth: ../assets/ and ../index.html#…
-       Change one, change all three. -->
+  <!-- Duplicated across all five pages (no build step). Sub-page copies differ only in
+       link depth (../assets/, ../about/ …). tools/check-pages.py fails if they drift. -->
   <header id="wa-nav">
     <div>
       <a href="../index.html" style="line-height:0"><img src="../assets/english_logo.svg" data-logo-en="../assets/english_logo.svg" data-logo-ar="../assets/arabic_logo.svg" alt="AlKhwarizmi AI Academy" width="100" height="38" style="height:38px;width:auto;display:block"></a>
       <button class="nav-toggle" data-dc-onclick="toggleMenu" aria-label="Menu" aria-expanded="false" aria-controls="wa-menu"><span></span><span></span><span></span></button>
       <nav id="wa-menu" aria-label="Main">
-        <a class="scp0" href="../index.html#about" style="font:600 13.5px var(--fd);color:#3D4257" data-en="About" data-ar="عن الأكاديمية">About</a>
-        <a class="scp0" href="../index.html#story" style="font:600 13.5px var(--fd);color:#3D4257" data-en="Our Story" data-ar="قصتنا">Our Story</a>
-        <a class="scp0" href="../index.html#programs" style="font:600 13.5px var(--fd);color:#3D4257" data-en="Programs" data-ar="البرامج">Programs</a>
+        <a class="scp0" href="../about/" style="font:600 13.5px var(--fd);color:#3D4257" data-en="About" data-ar="عن الأكاديمية">About</a>
+        <a class="scp0" href="../programs/" style="font:600 13.5px var(--fd);color:#3D4257" data-en="Programs" data-ar="البرامج">Programs</a>
+        <a class="scp0" href="../summer-camp/" style="font:600 13.5px var(--fd);color:#3D4257" data-en="Summer Camp" data-ar="المخيم الصيفي">Summer Camp</a>
         <a class="scp0" href="../sponsor/" aria-current="page" style="font:600 13.5px var(--fd);color:#3D4257" data-en="Sponsor" data-ar="الرعاية">Sponsor</a>
         <a class="scp0" href="#contact" style="font:600 13.5px var(--fd);color:#3D4257" data-en="Contact" data-ar="تواصل معنا">Contact</a>
         <button class="scp1" data-dc-onclick="toggleLang" lang="ar" aria-label="التبديل إلى العربية / Switch to Arabic" style="font:700 12.5px 'Noto Kufi Arabic',sans-serif;color:#111128;background:#F2F4F9;padding:9px 18px;border-radius:30px;border:0;cursor:pointer" data-en="العربية" data-ar="English">العربية</button>
-        <a class="scp2" href="../index.html#register" style="font:600 13px var(--fd);color:#fff;background:linear-gradient(120deg,#0A8256,#534CB6);padding:11px 26px;border-radius:30px;box-shadow:0 6px 18px rgba(9,201,142,.28)" data-en="Enroll" data-ar="سجل الآن">Enroll</a>
+        <a class="scp2" href="../programs/#register" style="font:600 13px var(--fd);color:#fff;background:linear-gradient(120deg,#0A8256,#534CB6);padding:11px 26px;border-radius:30px;box-shadow:0 6px 18px rgba(9,201,142,.28)" data-en="Enroll" data-ar="سجل الآن">Enroll</a>
       </nav>
     </div>
   </header>
@@ -490,9 +489,8 @@
   </main>
 
   <!-- ============ FOOTER ============ -->
-  <!-- Duplicated across index.html, summer-camp/ and sponsor/ (no build step).
-       Sub-page copies differ only in link depth: ../assets/ and ../index.html#…
-       Change one, change all three. -->
+  <!-- Duplicated across all five pages (no build step). Sub-page copies differ only in
+       link depth (../assets/, ../about/ …). tools/check-pages.py fails if they drift. -->
   <footer id="contact">
     <div>
       <div style="display:flex;flex-direction:column;gap:18px">
@@ -502,24 +500,24 @@
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="font:700 13px var(--fd);letter-spacing:.1em;color:#fff;margin-bottom:4px" data-en="PROGRAMS" data-ar="البرامج">PROGRAMS</div>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI Practitioner Diploma" data-ar="دبلوم ممارس الذكاء الاصطناعي">AI Practitioner Diploma</a>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Executive AI Path" data-ar="المسار التنفيذي للذكاء الاصطناعي">Executive AI Path</a>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Marketing &amp; Content" data-ar="الذكاء الاصطناعي للتسويق والمحتوى">AI for Marketing &amp; Content</a>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Everyone" data-ar="الذكاء الاصطناعي للجميع">AI for Everyone</a>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Policy &amp; Leadership" data-ar="الذكاء الاصطناعي للسياسات والقيادة">AI for Policy &amp; Leadership</a>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids Level 1 (Juniors)" data-ar="الأطفال المستوى الأول (الصغار)">Kids Level 1 (Juniors)</a>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids Level 2 (Seniors)" data-ar="الأطفال المستوى الثاني (الكبار)">Kids Level 2 (Seniors)</a>
-        <a class="scpc" href="../index.html#programs" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids Full Program" data-ar="الأطفال البرنامج الكامل">Kids Full Program</a>
+        <a class="scpc" href="../programs/?cat=diploma" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI Practitioner Diploma" data-ar="دبلوم ممارس الذكاء الاصطناعي">AI Practitioner Diploma</a>
+        <a class="scpc" href="../programs/?cat=executive" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Executive AI Path" data-ar="المسار التنفيذي للذكاء الاصطناعي">Executive AI Path</a>
+        <a class="scpc" href="../programs/?cat=productivity" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Marketing &amp; Content" data-ar="الذكاء الاصطناعي للتسويق والمحتوى">AI for Marketing &amp; Content</a>
+        <a class="scpc" href="../programs/?cat=public" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Everyone" data-ar="الذكاء الاصطناعي للجميع">AI for Everyone</a>
+        <a class="scpc" href="../programs/?cat=politicians" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="AI for Policy &amp; Leadership" data-ar="الذكاء الاصطناعي للسياسات والقيادة">AI for Policy &amp; Leadership</a>
+        <a class="scpc" href="../programs/?cat=kids" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids Level 1 (Juniors)" data-ar="الأطفال المستوى الأول (الصغار)">Kids Level 1 (Juniors)</a>
+        <a class="scpc" href="../programs/?cat=kids" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids Level 2 (Seniors)" data-ar="الأطفال المستوى الثاني (الكبار)">Kids Level 2 (Seniors)</a>
+        <a class="scpc" href="../programs/?cat=kids" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Kids Full Program" data-ar="الأطفال البرنامج الكامل">Kids Full Program</a>
         <a class="scpc" href="mailto:info@alkhawarizmi.ai?subject=Custom%20AI%20Training%20Request" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Custom AI Training" data-ar="تدريب مخصص للذكاء الاصطناعي">Custom AI Training</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="font:700 13px var(--fd);letter-spacing:.1em;color:#fff;margin-bottom:4px" data-en="ACADEMY" data-ar="الأكاديمية">ACADEMY</div>
-        <a class="scpc" href="../index.html#about" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="About us" data-ar="عن الأكاديمية">About us</a>
-        <a class="scpc" href="../index.html#story" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Our story" data-ar="قصتنا">Our story</a>
+        <a class="scpc" href="../about/" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="About us" data-ar="عن الأكاديمية">About us</a>
+        <a class="scpc" href="../about/#story" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Our story" data-ar="قصتنا">Our story</a>
         <a class="scpc" href="../summer-camp/" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Summer Camp" data-ar="المخيم الصيفي">Summer Camp</a>
         <a class="scpc" href="../sponsor/" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Sponsor a cohort" data-ar="ارعَ دفعة">Sponsor a cohort</a>
-        <a class="scpc" href="../index.html#register" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Enroll" data-ar="التسجيل">Enroll</a>
-        <a class="scpc" href="../index.html#register" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Join as instructor" data-ar="انضم كمدرس">Join as instructor</a>
+        <a class="scpc" href="../programs/#register" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Enroll" data-ar="التسجيل">Enroll</a>
+        <a class="scpc" href="mailto:info@alkhawarizmi.ai?subject=Instructor%20Application" style="font:400 13.5px var(--fb);color:rgba(255,255,255,.65)" data-en="Join as instructor" data-ar="انضم كمدرس">Join as instructor</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="font:700 13px var(--fd);letter-spacing:.1em;color:#fff;margin-bottom:4px" data-en="CONTACT" data-ar="تواصل معنا">CONTACT</div>
