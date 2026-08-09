@@ -45,6 +45,23 @@ a, button, [role="tab"] { -webkit-tap-highlight-color: rgba(9,201,142,.18); }
    the eyebrows read "المخيم الصيفي · SUMMER CAMP", so the Latin half keeps its
    tracking while the Arabic half must not. */
 [lang="ar"] { letter-spacing: normal !important; }
+
+/* Noto Kufi is a Kufic DISPLAY face. At the 11-13px used for chips, badges,
+   form labels, month states and card buttons its angular letterforms and loose
+   joins read as broken text — which is exactly what the small cards were
+   showing. Arabic UI text switches to Noto Sans Arabic, a proper text face;
+   Kufi stays on the large headings, where its character is the point.
+
+   Done by redefining the variable rather than restyling a hundred elements:
+   every font: shorthand here, inline ones included, resolves var(--fd) at use
+   time against the element, so overriding it on the RTL root reaches all of
+   them. Latin is untouched either way — Sora carries no Arabic glyphs and the
+   Noto subsets carry no Latin, so each script picks its own family out of the
+   same stack. Weights 400-700 of Noto Sans Arabic are requested explicitly in
+   the font URL; without that the browser fakes 600/700 by smearing 400, which
+   in Arabic looks worse than the problem being fixed. */
+[dir="rtl"] { --fd: 'Sora', 'Noto Sans Arabic', sans-serif; }
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { --fd: 'Sora', 'Noto Kufi Arabic', sans-serif; }
 input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #A0A5B8 (2.37:1) */
 :focus-visible { outline: 2px solid var(--green-text); outline-offset: 2px; }
 
