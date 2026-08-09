@@ -20,9 +20,18 @@
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
+/* iOS inflates text in landscape unless this is pinned. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body { margin: 0; background: #fff; }
 a { color: var(--ink); text-decoration: none; }
 a:hover { color: var(--green-text); }
+/* Grid and flex children default to min-width:auto and refuse to shrink below
+   their min-content, which pushed the month grid 60px past a 320px viewport.
+   Letting them shrink makes the text wrap instead of the page scroll sideways. */
+.grid-3 > *, .mon-grid > *, .camp-grid > *, .prog-open > *, .reg-compact-grid > *,
+.feat-grid > *, #wa-stats > * { min-width: 0; }
+/* Default grey flash on tap reads as a bug on a branded page. */
+a, button, [role="tab"] { -webkit-tap-highlight-color: rgba(9,201,142,.18); }
 input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #A0A5B8 (2.37:1) */
 :focus-visible { outline: 2px solid var(--green-text); outline-offset: 2px; }
 
@@ -329,11 +338,25 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   #wa-band > div { flex-direction: column; text-align: center; }
   /* Hamburger moves here from 768px: with 6 nav items the bar overflowed
      between 769 and 900, and Arabic labels are wider than English. */
-  #wa-nav { padding: 14px 20px 10px; }
-  .nav-toggle { display: flex; }
-  #wa-nav nav { display: none; position: absolute; top: 100%; inset-inline: 20px; flex-direction: column; align-items: stretch; gap: 6px; background: #fff; border: 1px solid #EEF0F6; border-radius: 16px; box-shadow: 0 18px 40px rgba(17,17,40,.14); padding: 14px; z-index: 70; }
+  #wa-nav { padding: 14px 20px 10px; padding-inline-start: max(20px, env(safe-area-inset-left)); padding-inline-end: max(20px, env(safe-area-inset-right)); }
+  .nav-toggle { display: flex; width: 44px; height: 44px; } /* primary mobile control: full 44px target */
+  /* max-height + scroll because seven items are ~430px tall and a phone in
+     landscape is shorter than that; without it the last items are unreachable. */
+  /* border-box so max-height covers the padding and border too; without it the
+     panel renders 30px taller than the cap and still runs off a landscape screen.
+     dvh over vh because iOS reports vh against the toolbar-collapsed viewport,
+     which is taller than what the user can actually see. */
+  #wa-nav nav { display: none; position: absolute; top: 100%; inset-inline: 20px; flex-direction: column; align-items: stretch; gap: 6px; background: #fff; border: 1px solid #EEF0F6; border-radius: 16px; box-shadow: 0 18px 40px rgba(17,17,40,.14); padding: 14px; z-index: 70; box-sizing: border-box; max-height: calc(100vh - 96px); max-height: calc(100dvh - 96px); overflow-y: auto; overscroll-behavior: contain; }
   .menu-open #wa-nav nav, #wa-nav.menu-open nav { display: flex; }
-  #wa-nav nav a, #wa-nav nav button { padding: 12px 14px; text-align: center; }
+  #wa-nav nav a, #wa-nav nav button { padding: 14px; text-align: center; }
+
+  /* 16px is the threshold below which iOS Safari zooms the page on focus.
+     Every form on the site sat at 14px, so every field pushed the layout. */
+  .input { font-size: 16px; }
+  .label { font-size: 13px; }
+  /* Text links are ~17px tall; WCAG 2.5.8 wants 24. Padding, not font size,
+     so the visual rhythm is unchanged. */
+  #contact a, .reg-alt a, .crumb a { display: inline-block; padding-block: 4px; }
 }
 
 @media (max-width: 768px) {
@@ -367,6 +390,19 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   /* Button above the privacy note on mobile: it is the action, not the footnote. */
   .reg-compact-foot { flex-direction: column-reverse; align-items: stretch; }
   .reg-compact-foot .reg-note { text-align: center; }
+
+  /* Order matters here, same trap as the base sheet: these are equal specificity,
+     so .mon-cell must come AFTER .card or .card silently wins. */
+  .card { padding: 24px 20px 22px; }
+  .form-card { padding: 24px 20px; }
+  /* .mon-cell asks for 16px padding in the base sheet but .card is declared later
+     and wins, so the cells carry 28px sides. Harmless on desktop, but at 320px it
+     left ~79px per track and forced the grid 60px past the viewport. Desktop keeps
+     .card's padding; only the small-screen case is corrected. */
+  .mon-cell { padding: 16px 14px 14px; gap: 8px; }
+  .chip { font-size: 12px; }              /* 11.5px is tight on a phone */
+  #contact > div:first-child { padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right)); }
+  #contact > div:last-child { padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right)); }
   #wa-band { padding: 20px 20px 0; }
   #wa-band > div { padding: 32px 24px; }
   #contact > div:first-child { padding: 48px 20px 0; }
