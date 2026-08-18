@@ -111,6 +111,8 @@ input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #
 #wa-panelK img, #wa-panelM img { width: 328px; height: 390px; object-fit: cover; border-radius: 23px; display: block; }
 
 #programs { max-width: 1160px; margin: 0 auto; padding: 80px 36px 26px; text-align: center; scroll-margin-top: 90px; }
+/* The teaching-model band sits under the catalogue and shares its container. */
+#method { max-width: 1160px; margin: 0 auto; padding: 44px 36px 20px; text-align: center; scroll-margin-top: 90px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; text-align: start; }
 
 /* Programs grid: auto-fit so filtering down to one course still fills the row.
@@ -120,8 +122,6 @@ input::placeholder, textarea::placeholder { color: var(--soft); } /* a11y: was #
    so a single filtered result keeps its natural size instead of stretching to 1160px. */
 #programs .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); justify-content: center; }
 #programs .card { box-sizing: border-box; max-width: 380px; width: 100%; margin-inline: auto; }
-/* Kids Full Program: signals a bundle of the two levels without a promotional badge */
-#programs .card[data-bundle] { border-color: rgba(8,122,80,.4); }
 #programs .card[hidden] { display: none; } /* .card sets display:flex, which beats the [hidden] UA rule */
 
 /* Category filter tiles */
@@ -298,6 +298,7 @@ h2 { font: 700 38px/1.15 var(--fd); letter-spacing: -.02em; color: var(--ink); m
 .badge-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .badge-soon { font: 600 11px var(--fd); letter-spacing: .12em; color: var(--soft); background: #F2F4F9; border: 1px solid #E7EAF3; padding: 4px 11px; border-radius: 30px; }
 .badge-open { font: 600 11px var(--fd); letter-spacing: .12em; color: var(--green-text); background: rgba(9,201,142,.09); padding: 5px 12px; border-radius: 30px; }
+.badge-consult { font: 600 11px var(--fd); letter-spacing: .12em; color: #4A44A8; background: rgba(83,76,182,.09); padding: 5px 12px; border-radius: 30px; }
 .card.is-soon { background: #FCFCFE; }
 
 /* ---------- Homepage programmes: the two open tracks, then the rest ---------- */
@@ -405,6 +406,7 @@ h2 { font-size: clamp(28px, 4.5vw, 38px); }
   #about { padding: 56px 20px; }
   #story > div { padding: 56px 20px; }
   #programs { padding: 56px 20px 20px; }
+  #method { padding: 32px 20px 16px; }
   .cat-row { gap: 8px; margin-bottom: 32px; }
   .cat { min-width: 88px; padding: 13px 12px; font-size: 12px; gap: 6px; }
   #register { padding: 56px 20px 64px; }
