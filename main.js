@@ -2,9 +2,11 @@
 (function () {
   var root = document.documentElement;
   var STORAGE_KEY = 'akaa-lang';
+  // Bilingual <title data-en="…" data-ar="…">; falls back to the current text.
+  var titleEl = document.querySelector('title');
   var TITLES = {
-    en: "AlKhwarizmi AI — Libya's first AI academy",
-    ar: 'الخوارزمي للذكاء الاصطناعي — أول أكاديمية للذكاء الاصطناعي في ليبيا',
+    en: (titleEl && titleEl.getAttribute('data-en')) || document.title,
+    ar: (titleEl && titleEl.getAttribute('data-ar')) || document.title,
   };
 
   function setLang(lang) {
@@ -82,5 +84,179 @@
     window.matchMedia('(min-width: 1101px)').addEventListener('change', function (mq) {
       if (mq.matches) closeMenu();
     });
+  }
+})();
+
+/* =====================================================================
+   Inner pages: active nav, analytics, lead forms, Insights filter, Contact
+   ===================================================================== */
+(function () {
+  var root = document.documentElement;
+  var cfg = window.AKAA_CONFIG || {};
+  var AKAA = (window.AKAA = window.AKAA || {});
+
+  // ---- Active nav item (from <body data-active="individuals|enterprise|about|insights|contact">)
+  var active = document.body.getAttribute('data-active');
+  if (active) {
+    document.querySelectorAll('[data-nav]').forEach(function (el) {
+      if (el.getAttribute('data-nav') === active) el.classList.add('is-active');
+    });
+  }
+
+  // ---- Session id (no cookies; lives for the tab) and attribution
+  function sessionId() {
+    try {
+      var k = 'akaa-sid', v = sessionStorage.getItem(k);
+      if (!v) { v = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem(k, v); }
+      return v;
+    } catch (e) { return ''; }
+  }
+  function attribution() {
+    var q = new URLSearchParams(location.search), out = {};
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) {
+      var v = q.get(k);
+      if (v) { out[k] = v; try { sessionStorage.setItem('akaa-' + k, v); } catch (e) {} }
+      else { try { out[k] = sessionStorage.getItem('akaa-' + k) || null; } catch (e) { out[k] = null; } }
+    });
+    return out;
+  }
+  attribution(); // persist UTMs on landing
+
+  // ---- Google Analytics 4 (loaded only when an id is configured)
+  if (cfg.GA4_ID) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    var s = document.createElement('script');
+    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(cfg.GA4_ID);
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', cfg.GA4_ID, { anonymize_ip: true, language: root.lang });
+  }
+  AKAA.track = function (name, params) {
+    var p = Object.assign({ lang: root.lang, page: location.pathname.split('/').pop() || 'index.html' }, params || {});
+    if (typeof window.gtag === 'function') window.gtag('event', name, p);
+    if (AKAA.debug) console.log('[track]', name, p);
+  };
+  var programme = document.body.getAttribute('data-programme');
+  if (programme) AKAA.track('view_programme', { programme: programme });
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-track]');
+    if (!el) return;
+    var parts = el.getAttribute('data-track').split(':');
+    AKAA.track(parts[0], { label: parts[1] || el.textContent.trim().slice(0, 60) });
+  });
+  document.querySelectorAll('[data-lang-toggle]').forEach(function (b) {
+    b.addEventListener('click', function () { AKAA.track('lang_toggle', { to: root.lang }); });
+  });
+
+  // ---- Lead forms: <form data-lead="studio|diploma|week|custom|policy|contact">
+  var FORM_AUDIENCE = { studio: 'individual', diploma: 'individual', week: 'organisation', custom: 'organisation', policy: 'organisation' };
+
+  function leadPayload(form) {
+    var fd = new FormData(form), data = {};
+    fd.forEach(function (v, k) { if (k !== 'website') data[k] = String(v).trim(); }); // 'website' is the honeypot
+    var kind = form.getAttribute('data-lead');
+    var att = attribution();
+    return Object.assign({
+      form: (data.programme && FORM_AUDIENCE[data.programme]) ? data.programme : kind,
+      audience: data.audience || FORM_AUDIENCE[kind] || null,
+      programme: data.programme || kind,
+      edition: data.edition || null,
+      name: data.name, email: data.email, phone: data.phone || null,
+      organisation: data.organisation || null, role: data.role || null, message: data.message || null,
+      lang: root.lang, source_page: location.pathname + location.hash, referrer: document.referrer || null,
+      session_id: sessionId(), user_agent: navigator.userAgent.slice(0, 200)
+    }, att);
+  }
+
+  function supabaseInsert(row) {
+    if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return Promise.reject(new Error('not-configured'));
+    return fetch(cfg.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: cfg.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + cfg.SUPABASE_ANON_KEY, Prefer: 'return=minimal' },
+      body: JSON.stringify(row)
+    }).then(function (r) { if (!r.ok) throw new Error('http-' + r.status); });
+  }
+
+  function mailtoFallback(row) {
+    var lines = Object.keys(row).filter(function (k) { return row[k] && !/^(session_id|user_agent|referrer)$/.test(k); })
+      .map(function (k) { return k + ': ' + row[k]; });
+    var subject = '[Website] ' + row.form + ' — ' + row.name;
+    location.href = 'mailto:info@alkhawarizmi.ai?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  document.querySelectorAll('form[data-lead]').forEach(function (form) {
+    var started = false;
+    form.addEventListener('input', function () {
+      if (!started) { started = true; AKAA.track('form_start', { form: form.getAttribute('data-lead') }); }
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var hp = form.querySelector('[name="website"]');
+      if (hp && hp.value) return; // bot
+      var row = leadPayload(form);
+      var sent = document.getElementById(form.getAttribute('data-sent'));
+      form.classList.remove('is-error'); form.classList.add('is-busy');
+      var finish = function (via) {
+        form.classList.remove('is-busy'); form.classList.add('is-sent');
+        if (sent) { sent.classList.add('is-visible'); sent.setAttribute('tabindex', '-1'); sent.focus(); }
+        AKAA.track('generate_lead', { form: row.form, programme: row.programme, audience: row.audience, via: via });
+      };
+      supabaseInsert(row).then(function () { finish('supabase'); }).catch(function (err) {
+        if (err.message === 'not-configured') { mailtoFallback(row); finish('mailto'); return; }
+        form.classList.remove('is-busy'); form.classList.add('is-error');
+        AKAA.track('form_error', { form: row.form, error: err.message });
+      });
+    });
+  });
+
+  // ---- Contact: show Organisation field only for organisations
+  var who = document.querySelectorAll('input[name="audience"]');
+  if (who.length) {
+    var orgField = document.getElementById('field-organisation');
+    var sync = function () {
+      var v = document.querySelector('input[name="audience"]:checked');
+      var isOrg = v && v.value === 'organisation';
+      if (orgField) { orgField.hidden = !isOrg; orgField.querySelector('input').required = !!isOrg; }
+    };
+    who.forEach(function (r) { r.addEventListener('change', sync); });
+    sync();
+  }
+
+  // ---- Organisations: preselect programme from the anchor the visitor arrived by
+  var progSel = document.querySelector('select[name="programme"]');
+  if (progSel) {
+    var pick = function () {
+      var h = location.hash.replace('#', '');
+      if (h && progSel.querySelector('option[value="' + h + '"]')) progSel.value = h;
+    };
+    pick(); window.addEventListener('hashchange', pick);
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function () { var h = a.getAttribute('href').slice(1); if (progSel.querySelector('option[value="' + h + '"]')) progSel.value = h; });
+    });
+  }
+
+  // ---- Insights: category filter
+  var tabs = document.querySelectorAll('.filter-tabs button[data-cat]');
+  if (tabs.length) {
+    var cards = document.querySelectorAll('[data-cat-item]');
+    var count = document.getElementById('index-count');
+    var apply = function (cat) {
+      var n = 0;
+      cards.forEach(function (c) { var show = cat === 'all' || c.getAttribute('data-cat-item') === cat; c.classList.toggle('is-hidden', !show); if (show) n++; });
+      tabs.forEach(function (t) { t.setAttribute('aria-pressed', String(t.getAttribute('data-cat') === cat)); });
+      if (count) {
+        var label = document.querySelector('.filter-tabs button[data-cat="' + cat + '"]');
+        count.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = n; });
+        count.querySelectorAll('[data-cat-name]').forEach(function (el) {
+          var l = label && label.querySelector('[data-l="' + el.getAttribute('data-cat-name') + '"]');
+          el.textContent = l ? l.textContent : '';
+        });
+      }
+      AKAA.track('filter_insights', { category: cat });
+    };
+    tabs.forEach(function (t) { t.addEventListener('click', function () { apply(t.getAttribute('data-cat')); }); });
+    apply('all');
   }
 })();

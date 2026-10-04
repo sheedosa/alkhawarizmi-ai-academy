@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AlKhwarizmi AI — Libya's first AI academy</title>
+<title data-en="AlKhwarizmi AI — Libya's first AI academy" data-ar="الخوارزمي للذكاء الاصطناعي — أول أكاديمية للذكاء الاصطناعي في ليبيا">AlKhwarizmi AI — Libya's first AI academy</title>
 <meta name="description" content="Libya's institution for AI capability. Live programmes, in Arabic, in the room, in Tripoli.">
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
@@ -32,7 +32,11 @@
 <link rel="icon" type="image/png" href="assets/mark.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
 <script src="main.js" defer></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"EducationalOrganization","name":"AlKhwarizmi AI","alternateName":"الخوارزمي للذكاء الاصطناعي","url":"https://sheedosa.github.io/alkhawarizmi-ai-academy/","logo":"https://sheedosa.github.io/alkhawarizmi-ai-academy/assets/apple-touch-icon.png","email":"info@alkhawarizmi.ai","address":{"@type":"PostalAddress","streetAddress":"Zawiat Dahmani Street","addressLocality":"Tripoli","addressCountry":"LY"},"description":"Libya's first AI academy. Live programmes, in Arabic, in the room."}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main"><span data-l="en">Skip to content</span><span data-l="ar">انتقل إلى المحتوى</span></a>
@@ -47,7 +51,7 @@
     </a>
 
     <nav class="nav" aria-label="Main">
-      <div class="nav__group" data-dropdown>
+      <div class="nav__group" data-dropdown data-nav="individuals">
         <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-individuals">
           <span data-l="en">Individuals</span><span data-l="ar">للأفراد</span><span class="chev" aria-hidden="true"></span>
         </button>
@@ -62,7 +66,7 @@
           </a>
         </div>
       </div>
-      <div class="nav__group" data-dropdown>
+      <div class="nav__group" data-dropdown data-nav="enterprise">
         <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-enterprise">
           <span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span><span class="chev" aria-hidden="true"></span>
         </button>
@@ -81,8 +85,8 @@
           </a>
         </div>
       </div>
-      <a href="about.html"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a>
-      <a href="insights.html"><span data-l="en">Insights</span><span data-l="ar">رؤى</span></a>
+      <a href="about.html" data-nav="about"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a>
+      <a href="insights.html" data-nav="insights"><span data-l="en">Insights</span><span data-l="ar">رؤى</span></a>
     </nav>
 
     <div class="header-actions">
@@ -90,7 +94,7 @@
         <span class="lang-toggle__opt lang-toggle__opt--ar"><img src="assets/flag-ly.svg" alt=""><span dir="rtl">عربي</span></span>
         <span class="lang-toggle__opt lang-toggle__opt--en"><img src="assets/flag-uk.svg" alt=""><span>EN</span></span>
       </button>
-      <a class="btn-contact" href="contact.html"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
+      <a class="btn-contact" href="contact.html" data-nav="contact" data-track="cta_click:header_contact"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu" data-menu-toggle>
         <span></span><span></span>
       </button>
@@ -108,7 +112,7 @@
     <span class="mobile-nav__title"><span data-l="en">Academy</span><span data-l="ar">الأكاديمية</span></span>
     <a href="about.html"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a>
     <a href="insights.html"><span data-l="en">Insights</span><span data-l="ar">رؤى</span></a>
-    <a class="btn-contact" href="contact.html"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
+    <a class="btn-contact" href="contact.html" data-nav="contact"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
   </nav>
 </header>
 
@@ -124,8 +128,8 @@
       <p class="hero__alt" data-l="ar" lang="en" dir="ltr">Libya's institution for AI capability.</p>
       <p class="hero__support"><span data-l="en">Live programmes, in Arabic, in the room. You leave with work you made, not notes you took.</span><span data-l="ar">برامج حيّة، بالعربية، في القاعة. تخرج بعملٍ صنعته، لا بملاحظاتٍ دوّنتها.</span></p>
       <div class="hero__ctas">
-        <a class="btn btn--outline-cyan" href="studio.html"><span data-l="en">Explore the Studio</span><span data-l="ar">استكشف الاستوديو</span></a>
-        <a class="btn btn--outline-white" href="organisations.html"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></a>
+        <a class="btn btn--outline-cyan" href="studio.html" data-track="select_route:hero_studio"><span data-l="en">Explore the Studio</span><span data-l="ar">استكشف الاستوديو</span></a>
+        <a class="btn btn--outline-white" href="organisations.html" data-track="select_route:hero_enterprise"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></a>
       </div>
       <div class="hero__facts">
         <div class="fact"><span class="fact__big"><span data-l="en">First</span><span data-l="ar">الأولى</span></span><span class="fact__label"><span data-l="en">AI academy in Libya</span><span data-l="ar">أكاديمية ذكاء اصطناعي في ليبيا</span></span></div>
@@ -148,31 +152,31 @@
       <p class="col-9-4 lede"><span data-l="en">No technical background is required for any programme except the Diploma. You bring a project, an organisation, or a decision that must be made.</span><span data-l="ar">لا خلفية تقنية مطلوبة لأي برنامج إلا الدبلوم. تأتي بمشروع، أو بمؤسسة، أو بقرار يجب اتخاذه.</span></p>
     </div>
     <div class="who__cards swipe">
-      <a class="who-card" href="studio.html">
+      <a class="who-card" href="studio.html" data-track="select_route:who_studio">
         <span class="who-card__top"><span class="who-card__n">01</span><span class="who-card__dot"></span></span>
         <span class="who-card__who"><span data-l="en">A founder or creator</span><span data-l="ar">مؤسس أو صانع محتوى</span></span>
         <span class="who-card__need"><span data-l="en">You have an idea and no developer. You want a product and a campaign in two weeks.</span><span data-l="ar">لديك فكرة ولا مطوّر لديك. تريد منتجاً وحملة في أسبوعين.</span></span>
         <span class="who-card__route"><span><span data-l="en">The Studio · 10 days</span><span data-l="ar">الاستوديو · 10 أيام</span></span><span class="arrow" aria-hidden="true">→</span></span>
       </a>
-      <a class="who-card" href="diploma.html">
+      <a class="who-card" href="diploma.html" data-track="select_route:who_diploma">
         <span class="who-card__top"><span class="who-card__n">02</span><span class="who-card__dot"></span></span>
         <span class="who-card__who"><span data-l="en">A career-changer</span><span data-l="ar">منتقل مهنياً</span></span>
         <span class="who-card__need"><span data-l="en">You want to become an AI practitioner someone will hire, not someone who has heard about it.</span><span data-l="ar">تريد أن تصير ممارساً للذكاء الاصطناعي يوظّفه أحد، لا أن تسمع عنه.</span></span>
         <span class="who-card__route"><span><span data-l="en">The Diploma · 8 months</span><span data-l="ar">الدبلوم · 8 أشهر</span></span><span class="arrow" aria-hidden="true">→</span></span>
       </a>
-      <a class="who-card" href="organisations.html#week">
+      <a class="who-card" href="organisations.html#week" data-track="select_route:who_organisations_week">
         <span class="who-card__top"><span class="who-card__n">03</span><span class="who-card__dot"></span></span>
         <span class="who-card__who"><span data-l="en">An executive</span><span data-l="ar">مدير تنفيذي</span></span>
         <span class="who-card__need"><span data-l="en">Your board is asking for an AI strategy. You want it written by your own team.</span><span data-l="ar">مجلس إدارتك يسأل عن استراتيجية الذكاء الاصطناعي. تريدها مكتوبة بأيدي فريقك.</span></span>
         <span class="who-card__route"><span><span data-l="en">The Strategy Week · 5 days</span><span data-l="ar">أسبوع الاستراتيجية · 5 أيام</span></span><span class="arrow" aria-hidden="true">→</span></span>
       </a>
-      <a class="who-card" href="organisations.html#custom">
+      <a class="who-card" href="organisations.html#custom" data-track="select_route:who_organisations_custom">
         <span class="who-card__top"><span class="who-card__n">04</span><span class="who-card__dot"></span></span>
         <span class="who-card__who"><span data-l="en">A team lead</span><span data-l="ar">قائد فريق</span></span>
         <span class="who-card__need"><span data-l="en">Your team needs training on your data and systems, not a public demo dataset.</span><span data-l="ar">فريقك يحتاج إلى تدريب على بياناتكم وأنظمتكم، لا على مجموعة بيانات تجريبية.</span></span>
         <span class="who-card__route"><span><span data-l="en">Custom Training · flexible</span><span data-l="ar">التدريب المخصّص · مرن</span></span><span class="arrow" aria-hidden="true">→</span></span>
       </a>
-      <a class="who-card" href="organisations.html#policy">
+      <a class="who-card" href="organisations.html#policy" data-track="select_route:who_organisations_policy">
         <span class="who-card__top"><span class="who-card__n">05</span><span class="who-card__dot"></span></span>
         <span class="who-card__who"><span data-l="en">A policymaker</span><span data-l="ar">صانع سياسات</span></span>
         <span class="who-card__need"><span data-l="en">Libya's AI rules will be written soon. You want to understand before you sign.</span><span data-l="ar">ستُكتب قواعد الذكاء الاصطناعي في ليبيا قريباً. تريد أن تفهم قبل أن توقّع.</span></span>
@@ -196,7 +200,7 @@
           <span class="panel__sub"><span data-l="en">Higher education and high-value courses</span><span data-l="ar">تعليم عالٍ ودورات عالية القيمة</span></span>
         </div>
         <div class="cards">
-          <a class="prog-card" href="diploma.html">
+          <a class="prog-card" href="diploma.html" data-track="select_route:routes_diploma">
             <span class="prog-card__tier"><span data-l="en">Higher education</span><span data-l="ar">تعليم عالٍ</span></span>
             <span class="prog-card__name"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></span>
             <span class="prog-card__line"><span data-l="en">Eight months. The route into the AI profession.</span><span data-l="ar">ثمانية أشهر. الطريق إلى مهنة الذكاء الاصطناعي.</span></span>
@@ -206,7 +210,7 @@
             </span>
             <span class="prog-card__link"><span data-l="en">See the Diploma →</span><span data-l="ar">اطّلع على الدبلوم ←</span></span>
           </a>
-          <a class="prog-card" href="studio.html">
+          <a class="prog-card" href="studio.html" data-track="select_route:routes_studio">
             <span class="prog-card__tier"><span data-l="en">High-value course</span><span data-l="ar">دورة عالية القيمة</span></span>
             <span class="prog-card__name"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></span>
             <span class="prog-card__line"><span data-l="en">Ten days. One portfolio you can show a client. Productivity and creative tools in one programme.</span><span data-l="ar">عشرة أيام. ملف أعمال تعرضه على عميل. أدوات الإنتاجية والإبداع في برنامج واحد.</span></span>
@@ -225,17 +229,17 @@
           <span class="panel__sub"><span data-l="en">For leadership teams and ministries</span><span data-l="ar">للفرق القيادية والوزارات</span></span>
         </div>
         <div class="rows">
-          <a class="org-row" href="organisations.html#week">
+          <a class="org-row" href="organisations.html#week" data-track="select_route:routes_week">
             <span class="org-row__name"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></span>
             <span class="org-row__meta"><span data-l="en">5 days</span><span data-l="ar">5 أيام</span></span>
             <span class="org-row__line"><span data-l="en">Nine deliverables. Your organisation. Five days.</span><span data-l="ar">تسعة مخرجات. مؤسستكم. خمسة أيام.</span></span>
           </a>
-          <a class="org-row" href="organisations.html#custom">
+          <a class="org-row" href="organisations.html#custom" data-track="select_route:routes_custom">
             <span class="org-row__name"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></span>
             <span class="org-row__meta"><span data-l="en">Flexible</span><span data-l="ar">مرن</span></span>
             <span class="org-row__line"><span data-l="en">Your data, your use cases, your curriculum.</span><span data-l="ar">بياناتكم، وحالات استخدامكم، ومنهجكم.</span></span>
           </a>
-          <a class="org-row" href="organisations.html#policy">
+          <a class="org-row" href="organisations.html#policy" data-track="select_route:routes_policy">
             <span class="org-row__name"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></span>
             <span class="org-row__meta"><span data-l="en">3 days</span><span data-l="ar">3 أيام</span></span>
             <span class="org-row__line"><span data-l="en">Three days for the people who will write the rules.</span><span data-l="ar">ثلاثة أيام لمن سيكتبون القواعد.</span></span>
@@ -302,7 +306,7 @@
     <p class="swipe-hint" aria-hidden="true"><span data-l="en">Swipe</span><span data-l="ar">اسحب</span><span class="arrow">→</span></p>
 
     <div class="studio__cta">
-      <a class="btn btn--cyan" href="studio.html"><span data-l="en">Explore the Studio</span><span data-l="ar">استكشف الاستوديو</span></a>
+      <a class="btn btn--cyan" href="studio.html" data-track="cta_click:studio_section"><span data-l="en">Explore the Studio</span><span data-l="ar">استكشف الاستوديو</span></a>
       <span class="studio__who"><span data-l="en">For students, young professionals and founders.</span><span data-l="ar">للطلبة والمهنيين الشباب والمؤسسين.</span></span>
     </div>
   </div>
@@ -331,7 +335,7 @@
       <li><span class="deliverables__n">09</span><span class="deliverables__name"><span data-l="en">Lessons-Learnt Dossier</span><span data-l="ar">ملف الدروس المستفادة</span></span></li>
     </ol>
 
-    <a class="btn btn--outline-violet" href="organisations.html#consult"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></a>
+    <a class="btn btn--outline-violet" href="organisations.html#consult" data-track="cta_click:week_consult"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></a>
   </div>
 </section>
 
@@ -486,6 +490,7 @@
       <a href="about.html"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a>
       <a href="insights.html"><span data-l="en">Insights</span><span data-l="ar">رؤى</span></a>
       <a href="contact.html"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
+      <a href="privacy.html"><span data-l="en">Privacy</span><span data-l="ar">الخصوصية</span></a>
     </nav>
     <p class="site-footer__copy"><span data-l="en">© 2026 AlKhwarizmi AI. Made in Libya.</span><span data-l="ar">© 2026 الخوارزمي للذكاء الاصطناعي. صُنع في ليبيا.</span></p>
   </div>

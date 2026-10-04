@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-en="Insights — We don't post about AI. We demonstrate it. | AlKhwarizmi AI" data-ar="رؤى — لا ننشر عن الذكاء الاصطناعي. نُظهره. | الخوارزمي للذكاء الاصطناعي">Insights — We don't post about AI. We demonstrate it. | AlKhwarizmi AI</title>
+<meta name="description" content="Live builds, frontier explainers, Arabic AI, AI at work in Libya, and reactions to what changed this week. A journal from AlKhwarizmi AI.">
+<script>
+  // Apply the saved language before first paint (shared key with the design prototype).
+  (function () {
+    try {
+      if (localStorage.getItem('akaa-lang') === 'ar') {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+      }
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Cairo:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero-v4-sm.webp" media="(max-width: 700px)">
+<link rel="preload" as="image" href="assets/hero-v4.webp" media="(min-width: 701px)">
+<meta name="theme-color" content="#24085A">
+<meta property="og:title" content="Insights — We don't post about AI. We demonstrate it. | AlKhwarizmi AI">
+<meta property="og:description" content="Live builds, frontier explainers, Arabic AI, AI at work in Libya, and reactions to what changed this week. A journal from AlKhwarizmi AI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sheedosa.github.io/alkhawarizmi-ai-academy/insights.html">
+<meta property="og:image" content="https://sheedosa.github.io/alkhawarizmi-ai-academy/assets/hero-v4.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://sheedosa.github.io/alkhawarizmi-ai-academy/insights.html">
+<link rel="icon" type="image/png" href="assets/mark.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
+<script src="main.js" defer></script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Insights", "url": "https://sheedosa.github.io/alkhawarizmi-ai-academy/insights.html", "publisher": {"@type": "EducationalOrganization", "name": "AlKhwarizmi AI", "url": "https://sheedosa.github.io/alkhawarizmi-ai-academy/"}}
+</script>
+</head>
+<body class="page-insights" data-active="insights">
+<a class="skip-link" href="#main"><span data-l="en">Skip to content</span><span data-l="ar">انتقل إلى المحتوى</span></a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.png" alt="" width="30" height="30">
+      <span class="brand__en" data-l="en" dir="ltr">AlKhwarizmi AI</span>
+      <span class="brand__ar" data-l="ar" dir="rtl">الخوارزمي للذكاء الاصطناعي</span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      <div class="nav__group" data-dropdown data-nav="individuals">
+        <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-individuals">
+          <span data-l="en">Individuals</span><span data-l="ar">للأفراد</span><span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown" id="dd-individuals">
+          <a href="diploma.html">
+            <span class="dropdown__label"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></span>
+            <span class="dropdown__sub"><span data-l="en">Higher education · 8 months</span><span data-l="ar">تعليم عالٍ · 8 أشهر</span></span>
+          </a>
+          <a href="studio.html">
+            <span class="dropdown__label"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></span>
+            <span class="dropdown__sub"><span data-l="en">High-value course · 10 days</span><span data-l="ar">دورة عالية القيمة · 10 أيام</span></span>
+          </a>
+        </div>
+      </div>
+      <div class="nav__group" data-dropdown data-nav="enterprise">
+        <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-enterprise">
+          <span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span><span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown" id="dd-enterprise">
+          <a href="organisations.html#week">
+            <span class="dropdown__label"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></span>
+            <span class="dropdown__sub"><span data-l="en">5 days · leadership teams</span><span data-l="ar">5 أيام · للفرق القيادية</span></span>
+          </a>
+          <a href="organisations.html#custom">
+            <span class="dropdown__label"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></span>
+            <span class="dropdown__sub"><span data-l="en">On your data · flexible</span><span data-l="ar">على بياناتكم · مرن</span></span>
+          </a>
+          <a href="organisations.html#policy">
+            <span class="dropdown__label"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></span>
+            <span class="dropdown__sub"><span data-l="en">3 days · decision-makers</span><span data-l="ar">3 أيام · لصانعي القرار</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="about.html" data-nav="about"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a>
+      <a href="insights.html" data-nav="insights"><span data-l="en">Insights</span><span data-l="ar">رؤى</span></a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language / تغيير اللغة">
+        <span class="lang-toggle__opt lang-toggle__opt--ar"><img src="assets/flag-ly.svg" alt=""><span dir="rtl">عربي</span></span>
+        <span class="lang-toggle__opt lang-toggle__opt--en"><img src="assets/flag-uk.svg" alt=""><span>EN</span></span>
+      </button>
+      <a class="btn-contact" href="contact.html" data-nav="contact" data-track="cta_click:header_contact"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu" data-menu-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Main">
+    <span class="mobile-nav__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>
+    <a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a>
+    <a href="studio.html"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></a>
+    <span class="mobile-nav__title"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></span>
+    <a href="organisations.html#week"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
+    <a href="organisations.html#custom"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
+    <a href="organisations.html#policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>
+    <span class="mobile-nav__title"><span data-l="en">Academy</span><span data-l="ar">الأكاديمية</span></span>
+    <a href="about.html"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a>
+    <a href="insights.html"><span data-l="en">Insights</span><span data-l="ar">رؤى</span></a>
+    <a class="btn-contact" href="contact.html" data-nav="contact"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
+  </nav>
+</header>
+
+<main id="main">
+
+<section class="hero hero--interior hero--rule masthead" aria-labelledby="h1">
+  <div class="container">
+    <div>
+      <h1 id="h1"><span data-l="en">We don't post about AI. We demonstrate it.</span><span data-l="ar">لا ننشر عن الذكاء الاصطناعي. نُظهره.</span></h1>
+      <p class="hero__alt" data-l="en" lang="ar" dir="rtl">لا ننشر عن الذكاء الاصطناعي. نُظهره.</p>
+<p class="hero__alt" data-l="ar" lang="en" dir="ltr">We don't post about AI. We demonstrate it.</p>
+    </div>
+    <nav class="filter-tabs" aria-label="Categories"><button type="button" data-cat="all" aria-pressed="true"><span data-l="en">All</span><span data-l="ar">الكل</span></button><button type="button" data-cat="frontier" aria-pressed="false"><span data-l="en">Frontier explainers</span><span data-l="ar">شروح الحدود</span></button><button type="button" data-cat="builds" aria-pressed="false"><span data-l="en">Live builds</span><span data-l="ar">بناء حيّ</span></button><button type="button" data-cat="arabic" aria-pressed="false"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></button><button type="button" data-cat="libya" aria-pressed="false"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></button><button type="button" data-cat="reactions" aria-pressed="false"><span data-l="en">Reactions</span><span data-l="ar">ردود</span></button></nav>
+  </div>
+</section>
+
+<section class="lead-feature light white" data-cat-item="arabic" aria-labelledby="lead-h">
+  <div class="container">
+    <a class="grid12" href="insights.html#why-most-ai-models-fail-at-arabic" id="why-most-ai-models-fail-at-arabic" data-track="cta_click:insight_lead">
+      <div class="fig fig--16x10"><img src="assets/v-card2b.webp" alt="" width="800" height="500" fetchpriority="high"></div>
+      <div class="lead-feature__text">
+        <p class="article-meta"><span class="cat"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></span><span class="when"><span data-l="en">Sep 2026 · 8 min</span><span data-l="ar">سبتمبر 2026 · 8 دقائق</span></span></p>
+        <h2 id="lead-h"><span data-l="en">Why most AI models fail at Arabic.</span><span data-l="ar">لماذا تُخفق أغلب نماذج الذكاء الاصطناعي في العربية.</span></h2>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="index light" aria-label="All pieces">
+  <div class="container">
+    <p class="index__count" id="index-count"><span data-l="en"><span data-count>6</span> pieces · <span data-cat-name="en">All</span></span><span data-l="ar"><span data-count>6</span> مقالات · <span data-cat-name="ar">الكل</span></span></p>
+    <div class="article-grid"><a class="article-card" href="insights.html#we-built-this-in-twenty-minutes" id="we-built-this-in-twenty-minutes" data-cat-item="builds" data-track="cta_click:insight_we-built-this-in-twenty-minutes"><p class="article-meta"><span class="cat"><span data-l="en">Live builds</span><span data-l="ar">بناء حيّ</span></span><span class="when"><span data-l="en">Sep 2026 · 6 min</span><span data-l="ar">سبتمبر 2026 · 6 دقائق</span></span></p><div class="fig fig--16x10"><img src="assets/v-card1b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">We built this in twenty minutes.</span><span data-l="ar">بنينا هذا في عشرين دقيقة.</span></h3></a><a class="article-card" href="insights.html#can-you-spot-the-cloned-voice" id="can-you-spot-the-cloned-voice" data-cat-item="libya" data-track="cta_click:insight_can-you-spot-the-cloned-voice"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">Sep 2026 · 3 min</span><span data-l="ar">سبتمبر 2026 · 3 دقائق</span></span></p><div class="fig fig--16x10"><img src="assets/v-card3b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">Can you spot the cloned voice?</span><span data-l="ar">هل تستطيع تمييز الصوت المستنسَخ؟</span></h3></a><a class="article-card" href="insights.html#agents-versus-chatbots" id="agents-versus-chatbots" data-cat-item="frontier" data-track="cta_click:insight_agents-versus-chatbots"><p class="article-meta"><span class="cat"><span data-l="en">Frontier explainers</span><span data-l="ar">شروح الحدود</span></span><span class="when"><span data-l="en">Aug 2026 · 9 min</span><span data-l="ar">أغسطس 2026 · 9 دقائق</span></span></p><h3><span data-l="en">Agents versus chatbots: what actually changed.</span><span data-l="ar">الوكلاء مقابل روبوتات المحادثة: ما الذي تغيّر فعلاً.</span></h3></a><a class="article-card" href="insights.html#model-release-libya" id="model-release-libya" data-cat-item="reactions" data-track="cta_click:insight_model-release-libya"><p class="article-meta"><span class="cat"><span data-l="en">Reactions</span><span data-l="ar">ردود</span></span><span class="when"><span data-l="en">Aug 2026 · 5 min</span><span data-l="ar">أغسطس 2026 · 5 دقائق</span></span></p><h3><span data-l="en">What this week's model release means for Libya.</span><span data-l="ar">ماذا يعني إصدار نموذج هذا الأسبوع لليبيا.</span></h3></a><a class="article-card" href="insights.html#tripoli-shop-automation" id="tripoli-shop-automation" data-cat-item="libya" data-track="cta_click:insight_tripoli-shop-automation"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">Jul 2026 · 7 min</span><span data-l="ar">يوليو 2026 · 7 دقائق</span></span></p><h3><span data-l="en">An automation for a Tripoli shop, built on camera.</span><span data-l="ar">أتمتة لمتجر في طرابلس، بُنيت أمام الكاميرا.</span></h3></a></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="footer-brand">
+      <div class="footer-brand__row"><img src="assets/mark.png" alt=""><span class="footer-brand__name"><span data-l="en">AlKhwarizmi AI</span><span data-l="ar">الخوارزمي للذكاء الاصطناعي</span></span></div>
+      <span class="footer-brand__addr"><span data-l="en">Zawiat Dahmani Street, Tripoli, Libya</span><span data-l="ar">شارع زاوية الدهماني، طرابلس، ليبيا</span></span>
+      <a class="footer-brand__mail" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a>
+    </div>
+    <nav class="footer-col" aria-label="Individuals">
+      <span class="footer-col__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>
+      <a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a>
+      <a href="studio.html"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></a>
+    </nav>
+    <nav class="footer-col" aria-label="Enterprise &amp; Government">
+      <span class="footer-col__title"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></span>
+      <a href="organisations.html#week"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
+      <a href="organisations.html#custom"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
+      <a href="organisations.html#policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>
+    </nav>
+    <nav class="footer-col" aria-label="Academy">
+      <span class="footer-col__title"><span data-l="en">Academy</span><span data-l="ar">الأكاديمية</span></span>
+      <a href="about.html"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a>
+      <a href="insights.html"><span data-l="en">Insights</span><span data-l="ar">رؤى</span></a>
+      <a href="contact.html"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
+      <a href="privacy.html"><span data-l="en">Privacy</span><span data-l="ar">الخصوصية</span></a>
+    </nav>
+    <p class="site-footer__copy"><span data-l="en">© 2026 AlKhwarizmi AI. Made in Libya.</span><span data-l="ar">© 2026 الخوارزمي للذكاء الاصطناعي. صُنع في ليبيا.</span></p>
+  </div>
+</footer>
+</body>
+</html>
