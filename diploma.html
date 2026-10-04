@@ -8,12 +8,14 @@
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
-    try {
-      if (localStorage.getItem('akaa-lang') === 'ar') {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-      }
-    } catch (e) {}
+    var saved = null;
+    try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
+    // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+    }
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,14 +123,14 @@
   <div class="container grid12">
     <div class="hero__content" style="grid-column:1 / -1">
       <p class="eyebrow eyebrow--cyan"><span data-l="en">The AI Practitioner Diploma · دبلوم ممارس الذكاء الاصطناعي</span><span data-l="ar">دبلوم ممارس الذكاء الاصطناعي · The AI Practitioner Diploma</span></p>
-      <h1 id="h1" style="max-width:1100px"><span data-l="en">Eight months from complete beginner to a practitioner someone will hire.</span><span data-l="ar">ثمانية أشهر من البداية إلى ممارسٍ يوظّفه أحد.</span></h1>
+      <h1 id="h1" style="max-width:1160px"><span data-l="en">Eight months from complete beginner to a practitioner someone will hire.</span><span data-l="ar">ثمانية أشهر من البداية إلى ممارسٍ يوظّفه أحد.</span></h1>
       <p class="hero__alt" data-l="en" lang="ar" dir="rtl">ثمانية أشهر من البداية إلى ممارسٍ يوظّفه أحد.</p>
 <p class="hero__alt" data-l="ar" lang="en" dir="ltr">Eight months from complete beginner to a practitioner someone will hire.</p>
+      <div class="hero__ctas"><a class="btn btn--outline-cyan" href="#register" data-track="cta_click:diploma_hero_register"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></a></div>
     </div>
   </div>
   <div class="hero__foot">
     <dl class="facts"><dd><span data-l="en">8 months</span><span data-l="ar">8 أشهر</span></dd><dd><span data-l="en">~640 hours</span><span data-l="ar">نحو 640 ساعة</span></dd><dd><span data-l="en">Live cohort</span><span data-l="ar">دفعة حيّة</span></dd><dd><span data-l="en">Weekly project labs</span><span data-l="ar">مختبرات مشاريع أسبوعية</span></dd><dd><span data-l="en">Career-changers and rising professionals</span><span data-l="ar">المنتقلون مهنياً والمهنيون الصاعدون</span></dd><dd><span data-l="en">19,200 LYD</span><span data-l="ar">19,200 د.ل</span></dd></dl>
-    <a class="btn btn--outline-cyan" href="#register" data-track="cta_click:diploma_hero_register"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></a>
   </div>
 </section>
 
@@ -184,7 +186,7 @@
     </div>
   </div>
 </section>
-
+<div class="action-bar" data-action-bar data-target="#register" inert><div class="action-bar__inner"><p class="action-bar__text"><strong><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></strong><span><span data-l="en">8 months · 19,200 LYD</span><span data-l="ar">8 أشهر · 19,200 د.ل</span></span></p><a class="btn btn--cyan btn--sm" href="#register" data-track="cta_click:action_bar"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></a></div></div>
 </main>
 
 <footer class="site-footer">
@@ -193,6 +195,7 @@
       <div class="footer-brand__row"><img src="assets/mark.png" alt=""><span class="footer-brand__name"><span data-l="en">AlKhwarizmi AI</span><span data-l="ar">الخوارزمي للذكاء الاصطناعي</span></span></div>
       <span class="footer-brand__addr"><span data-l="en">Zawiat Dahmani Street, Tripoli, Libya</span><span data-l="ar">شارع زاوية الدهماني، طرابلس، ليبيا</span></span>
       <a class="footer-brand__mail" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a>
+      <p class="footer-social" data-social hidden></p>
     </div>
     <nav class="footer-col" aria-label="Individuals">
       <span class="footer-col__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>

@@ -8,12 +8,14 @@
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
-    try {
-      if (localStorage.getItem('akaa-lang') === 'ar') {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-      }
-    } catch (e) {}
+    var saved = null;
+    try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
+    // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+    }
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -125,12 +127,10 @@
       <p class="hero__alt" data-l="en" lang="ar" dir="rtl">فريقك يكتب استراتيجية الذكاء الاصطناعي. ولهذا يستطيع تنفيذها.</p>
 <p class="hero__alt" data-l="ar" lang="en" dir="ltr">Your team writes the AI strategy. Which is why your team can execute it.</p>
       <p class="hero__support"><span data-l="en">Three ways to work with the academy: a week that produces your strategy, training built on your data, and a briefing for the people who will write the rules.</span><span data-l="ar">ثلاث طرق للعمل مع الأكاديمية: أسبوع يُنتج استراتيجيتكم، وتدريب يُبنى على بياناتكم، وإحاطة لمن سيكتبون القواعد.</span></p>
+      <div class="hero__ctas"><a class="btn btn--outline-cyan" href="#consult" data-track="cta_click:org_hero_consult"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></a></div>
     </div>
-    <div class="hero__photo hero__photo--3x4"><img src="assets/v-week.webp" alt="" width="800" height="1000" fetchpriority="high"></div>
   </div>
-  <div class="hero__foot">
-    <a class="btn btn--outline-cyan" href="#consult" data-track="cta_click:org_hero_consult"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></a>
-  </div>
+  <div class="hero__foot hero__foot--empty"></div>
 </section>
 
 <nav class="offer-index" aria-label="Offers">
@@ -223,9 +223,9 @@
           <option value="policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></option></select></label>
         <label class="field"><span data-l="en">Name</span><span data-l="ar">الاسم</span><input type="text" name="name" required autocomplete="name"></label>
         <label class="field"><span data-l="en">Organisation</span><span data-l="ar">المؤسسة</span><input type="text" name="organisation" required autocomplete="organization"></label>
-        <label class="field"><span data-l="en">Role</span><span data-l="ar">المنصب</span><input type="text" name="role" required autocomplete="organization-title"></label>
+        <label class="field"><span data-l="en">Role</span><span data-l="ar">المنصب</span><input type="text" name="role" autocomplete="organization-title"></label>
         <label class="field"><span data-l="en">Email</span><span data-l="ar">البريد الإلكتروني</span><input type="email" name="email" dir="ltr" required autocomplete="email"></label>
-        <label class="field"><span data-l="en">Phone</span><span data-l="ar">الهاتف</span><input type="tel" name="phone" dir="ltr" required autocomplete="tel"></label>
+        <label class="field"><span data-l="en">Phone</span><span data-l="ar">الهاتف</span><input type="tel" name="phone" dir="ltr" autocomplete="tel"></label>
         <label class="field"><span data-l="en">What you want to achieve</span><span data-l="ar">ما الذي تريدون تحقيقه</span><textarea name="message" rows="4" required></textarea></label>
         <label class="field field--hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label><div class="form__actions"><button class="btn btn--cyan" type="submit"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></button><span class="form__privacy"><span data-l="en">We store your details only to reply. <a href="privacy.html">Privacy</a>.</span><span data-l="ar">نحفظ بياناتك للردّ عليك فقط. <a href="privacy.html">الخصوصية</a>.</span></span></div><p class="form__error" role="alert"><span data-l="en">Something went wrong and your details were not sent. Please try again, or email info@alkhawarizmi.ai.</span><span data-l="ar">حدث خطأ ولم تُرسَل بياناتك. حاول مرة أخرى، أو راسلنا على info@alkhawarizmi.ai.</span></p>
       </form>
@@ -233,7 +233,7 @@
     </div>
   </div>
 </section>
-
+<div class="action-bar" data-action-bar data-target="#consult" inert><div class="action-bar__inner"><p class="action-bar__text"><strong><span data-l="en">Consultation</span><span data-l="ar">استشارة</span></strong><span><span data-l="en">Free of charge</span><span data-l="ar">مجانية</span></span></p><a class="btn btn--cyan btn--sm" href="#consult" data-track="cta_click:action_bar"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></a></div></div>
 </main>
 
 <footer class="site-footer">
@@ -242,6 +242,7 @@
       <div class="footer-brand__row"><img src="assets/mark.png" alt=""><span class="footer-brand__name"><span data-l="en">AlKhwarizmi AI</span><span data-l="ar">الخوارزمي للذكاء الاصطناعي</span></span></div>
       <span class="footer-brand__addr"><span data-l="en">Zawiat Dahmani Street, Tripoli, Libya</span><span data-l="ar">شارع زاوية الدهماني، طرابلس، ليبيا</span></span>
       <a class="footer-brand__mail" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a>
+      <p class="footer-social" data-social hidden></p>
     </div>
     <nav class="footer-col" aria-label="Individuals">
       <span class="footer-col__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>

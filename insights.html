@@ -8,12 +8,14 @@
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
-    try {
-      if (localStorage.getItem('akaa-lang') === 'ar') {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-      }
-    } catch (e) {}
+    var saved = null;
+    try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
+    // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+    }
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,20 +132,37 @@
 
 <section class="lead-feature light white" data-cat-item="arabic" aria-labelledby="lead-h">
   <div class="container">
-    <a class="grid12" href="insights.html#why-most-ai-models-fail-at-arabic" id="why-most-ai-models-fail-at-arabic" data-track="cta_click:insight_lead">
+    <article class="grid12" id="why-most-ai-models-fail-at-arabic">
       <div class="fig fig--16x10"><img src="assets/v-card2b.webp" alt="" width="800" height="500" fetchpriority="high"></div>
       <div class="lead-feature__text">
-        <p class="article-meta"><span class="cat"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></span><span class="when"><span data-l="en">Sep 2026 · 8 min</span><span data-l="ar">سبتمبر 2026 · 8 دقائق</span></span></p>
+        <p class="article-meta"><span class="cat"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></span><span class="when"><span data-l="en">8 min</span><span data-l="ar">8 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p>
         <h2 id="lead-h"><span data-l="en">Why most AI models fail at Arabic.</span><span data-l="ar">لماذا تُخفق أغلب نماذج الذكاء الاصطناعي في العربية.</span></h2>
       </div>
-    </a>
+    </article>
   </div>
 </section>
 
 <section class="index light" aria-label="All pieces">
   <div class="container">
     <p class="index__count" id="index-count"><span data-l="en"><span data-count>6</span> pieces · <span data-cat-name="en">All</span></span><span data-l="ar"><span data-count>6</span> مقالات · <span data-cat-name="ar">الكل</span></span></p>
-    <div class="article-grid"><a class="article-card" href="insights.html#we-built-this-in-twenty-minutes" id="we-built-this-in-twenty-minutes" data-cat-item="builds" data-track="cta_click:insight_we-built-this-in-twenty-minutes"><p class="article-meta"><span class="cat"><span data-l="en">Live builds</span><span data-l="ar">بناء حيّ</span></span><span class="when"><span data-l="en">Sep 2026 · 6 min</span><span data-l="ar">سبتمبر 2026 · 6 دقائق</span></span></p><div class="fig fig--16x10"><img src="assets/v-card1b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">We built this in twenty minutes.</span><span data-l="ar">بنينا هذا في عشرين دقيقة.</span></h3></a><a class="article-card" href="insights.html#can-you-spot-the-cloned-voice" id="can-you-spot-the-cloned-voice" data-cat-item="libya" data-track="cta_click:insight_can-you-spot-the-cloned-voice"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">Sep 2026 · 3 min</span><span data-l="ar">سبتمبر 2026 · 3 دقائق</span></span></p><div class="fig fig--16x10"><img src="assets/v-card3b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">Can you spot the cloned voice?</span><span data-l="ar">هل تستطيع تمييز الصوت المستنسَخ؟</span></h3></a><a class="article-card" href="insights.html#agents-versus-chatbots" id="agents-versus-chatbots" data-cat-item="frontier" data-track="cta_click:insight_agents-versus-chatbots"><p class="article-meta"><span class="cat"><span data-l="en">Frontier explainers</span><span data-l="ar">شروح الحدود</span></span><span class="when"><span data-l="en">Aug 2026 · 9 min</span><span data-l="ar">أغسطس 2026 · 9 دقائق</span></span></p><h3><span data-l="en">Agents versus chatbots: what actually changed.</span><span data-l="ar">الوكلاء مقابل روبوتات المحادثة: ما الذي تغيّر فعلاً.</span></h3></a><a class="article-card" href="insights.html#model-release-libya" id="model-release-libya" data-cat-item="reactions" data-track="cta_click:insight_model-release-libya"><p class="article-meta"><span class="cat"><span data-l="en">Reactions</span><span data-l="ar">ردود</span></span><span class="when"><span data-l="en">Aug 2026 · 5 min</span><span data-l="ar">أغسطس 2026 · 5 دقائق</span></span></p><h3><span data-l="en">What this week's model release means for Libya.</span><span data-l="ar">ماذا يعني إصدار نموذج هذا الأسبوع لليبيا.</span></h3></a><a class="article-card" href="insights.html#tripoli-shop-automation" id="tripoli-shop-automation" data-cat-item="libya" data-track="cta_click:insight_tripoli-shop-automation"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">Jul 2026 · 7 min</span><span data-l="ar">يوليو 2026 · 7 دقائق</span></span></p><h3><span data-l="en">An automation for a Tripoli shop, built on camera.</span><span data-l="ar">أتمتة لمتجر في طرابلس، بُنيت أمام الكاميرا.</span></h3></a></div>
+    <div class="article-grid"><article class="article-card" id="we-built-this-in-twenty-minutes" data-cat-item="builds"><p class="article-meta"><span class="cat"><span data-l="en">Live builds</span><span data-l="ar">بناء حيّ</span></span><span class="when"><span data-l="en">6 min</span><span data-l="ar">6 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><div class="fig fig--16x10"><img src="assets/v-card1b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">We built this in twenty minutes.</span><span data-l="ar">بنينا هذا في عشرين دقيقة.</span></h3></article><article class="article-card" id="can-you-spot-the-cloned-voice" data-cat-item="libya"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">3 min</span><span data-l="ar">3 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><div class="fig fig--16x10"><img src="assets/v-card3b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">Can you spot the cloned voice?</span><span data-l="ar">هل تستطيع تمييز الصوت المستنسَخ؟</span></h3></article><article class="article-card" id="agents-versus-chatbots" data-cat-item="frontier"><p class="article-meta"><span class="cat"><span data-l="en">Frontier explainers</span><span data-l="ar">شروح الحدود</span></span><span class="when"><span data-l="en">9 min</span><span data-l="ar">9 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><h3><span data-l="en">Agents versus chatbots: what actually changed.</span><span data-l="ar">الوكلاء مقابل روبوتات المحادثة: ما الذي تغيّر فعلاً.</span></h3></article><article class="article-card" id="model-release-libya" data-cat-item="reactions"><p class="article-meta"><span class="cat"><span data-l="en">Reactions</span><span data-l="ar">ردود</span></span><span class="when"><span data-l="en">5 min</span><span data-l="ar">5 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><h3><span data-l="en">What this week's model release means for Libya.</span><span data-l="ar">ماذا يعني إصدار نموذج هذا الأسبوع لليبيا.</span></h3></article><article class="article-card" id="tripoli-shop-automation" data-cat-item="libya"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">7 min</span><span data-l="ar">7 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><h3><span data-l="en">An automation for a Tripoli shop, built on camera.</span><span data-l="ar">أتمتة لمتجر في طرابلس، بُنيت أمام الكاميرا.</span></h3></article></div>
+  </div>
+</section>
+
+<section class="form-block light white" id="subscribe" aria-labelledby="sub-h">
+  <div class="container grid12">
+    <div class="span-5">
+      <h2 id="sub-h"><span data-l="en">New pieces, by email.</span><span data-l="ar">المقالات الجديدة، بالبريد.</span></h2>
+      <p class="form-block__line"><span data-l="en">Leave your email and we'll send each piece when it is published. Nothing else.</span><span data-l="ar">اترك بريدك ونرسل إليك كل مقالة حين تُنشَر. لا شيء غير ذلك.</span></p>
+    </div>
+    <div class="col-7-6">
+      <form class="form" data-lead="newsletter" data-sent="sent-newsletter" novalidate="">
+        <label class="field"><span data-l="en">Name</span><span data-l="ar">الاسم</span><input type="text" name="name" required autocomplete="name"></label>
+        <label class="field"><span data-l="en">Email</span><span data-l="ar">البريد الإلكتروني</span><input type="email" name="email" dir="ltr" required autocomplete="email"></label>
+        <label class="field field--hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label><div class="form__actions"><button class="btn btn--outline-violet" type="submit"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></button><span class="form__privacy"><span data-l="en">We store your details only to reply. <a href="privacy.html">Privacy</a>.</span><span data-l="ar">نحفظ بياناتك للردّ عليك فقط. <a href="privacy.html">الخصوصية</a>.</span></span></div><p class="form__error" role="alert"><span data-l="en">Something went wrong and your details were not sent. Please try again, or email info@alkhawarizmi.ai.</span><span data-l="ar">حدث خطأ ولم تُرسَل بياناتك. حاول مرة أخرى، أو راسلنا على info@alkhawarizmi.ai.</span></p>
+      </form>
+      <p class="form-sent" id="sent-newsletter"><span data-l="en">Received. We will email you when the first piece is published.</span><span data-l="ar">وصلنا تسجيلك. نراسلك حين تُنشَر أول مقالة.</span></p>
+    </div>
   </div>
 </section>
 
@@ -155,6 +174,7 @@
       <div class="footer-brand__row"><img src="assets/mark.png" alt=""><span class="footer-brand__name"><span data-l="en">AlKhwarizmi AI</span><span data-l="ar">الخوارزمي للذكاء الاصطناعي</span></span></div>
       <span class="footer-brand__addr"><span data-l="en">Zawiat Dahmani Street, Tripoli, Libya</span><span data-l="ar">شارع زاوية الدهماني، طرابلس، ليبيا</span></span>
       <a class="footer-brand__mail" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a>
+      <p class="footer-social" data-social hidden></p>
     </div>
     <nav class="footer-col" aria-label="Individuals">
       <span class="footer-col__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>

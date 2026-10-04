@@ -8,12 +8,14 @@
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
-    try {
-      if (localStorage.getItem('akaa-lang') === 'ar') {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-      }
-    } catch (e) {}
+    var saved = null;
+    try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
+    // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+    }
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -167,6 +169,32 @@
   </div>
 </section>
 
+<section class="section light white" aria-labelledby="routes-h">
+  <div class="container">
+    <h2 class="eyebrow-heading" id="routes-h"><span data-l="en">Two routes into the academy.</span><span data-l="ar">مساران إلى الأكاديمية.</span></h2>
+    <div class="card-grid card-grid--routes">
+      <div class="card card--route">
+        <p class="eyebrow"><span data-l="en">For individuals</span><span data-l="ar">للأفراد</span></p>
+        <p class="card__lead"><span data-l="en">The Studio, ten days. The Diploma, eight months.</span><span data-l="ar">الاستوديو، عشرة أيام. الدبلوم، ثمانية أشهر.</span></p>
+        <p class="card__rest"><span data-l="en">Live cohorts in Tripoli. You leave with work you made.</span><span data-l="ar">دفعات حيّة في طرابلس. تخرج بعملٍ صنعته.</span></p>
+        <div class="card__actions">
+          <a class="btn btn--outline-violet btn--sm" href="studio.html" data-track="select_route:about_studio"><span data-l="en">See the Studio</span><span data-l="ar">اطّلع على الاستوديو</span></a>
+          <a class="btn btn--outline-violet btn--sm" href="diploma.html" data-track="select_route:about_diploma"><span data-l="en">See the Diploma</span><span data-l="ar">اطّلع على الدبلوم</span></a>
+        </div>
+      </div>
+      <div class="card card--route card--route-dark">
+        <p class="eyebrow eyebrow--cyan"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></p>
+        <p class="card__lead"><span data-l="en">The AI Strategy Week, Custom Training, the Policy Briefing.</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي، والتدريب المخصّص، وإحاطة السياسات.</span></p>
+        <p class="card__rest"><span data-l="en">Tell us the challenge. The consultation costs nothing.</span><span data-l="ar">أخبرونا بالتحدّي. الاستشارة لا تكلّف شيئاً.</span></p>
+        <div class="card__actions">
+          <a class="btn btn--cyan btn--sm" href="organisations.html#consult" data-track="select_route:about_consult"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></a>
+          <a class="btn btn--outline-cyan btn--sm" href="organisations.html" data-track="select_route:about_enterprise"><span data-l="en">See the offers</span><span data-l="ar">اطّلع على العروض</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="site-footer">
@@ -175,6 +203,7 @@
       <div class="footer-brand__row"><img src="assets/mark.png" alt=""><span class="footer-brand__name"><span data-l="en">AlKhwarizmi AI</span><span data-l="ar">الخوارزمي للذكاء الاصطناعي</span></span></div>
       <span class="footer-brand__addr"><span data-l="en">Zawiat Dahmani Street, Tripoli, Libya</span><span data-l="ar">شارع زاوية الدهماني، طرابلس، ليبيا</span></span>
       <a class="footer-brand__mail" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a>
+      <p class="footer-social" data-social hidden></p>
     </div>
     <nav class="footer-col" aria-label="Individuals">
       <span class="footer-col__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>

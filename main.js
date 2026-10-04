@@ -260,3 +260,48 @@
     apply('all');
   }
 })();
+
+
+/* =====================================================================
+   Phase A — sticky action bar, footer social links
+   ===================================================================== */
+(function () {
+  var cfg = window.AKAA_CONFIG || {};
+
+  // Action bar: shown once the hero has scrolled away, hidden again when the form is on screen.
+  var bar = document.querySelector('[data-action-bar]');
+  if (bar) {
+    var hero = document.querySelector('main .hero');
+    var target = document.querySelector(bar.getAttribute('data-target'));
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      var pastHero = hero ? hero.getBoundingClientRect().bottom < 0 : true;
+      var formReached = target ? target.getBoundingClientRect().top < window.innerHeight * 0.85 : false;
+      var show = pastHero && !formReached;
+      if (show !== bar.classList.contains('is-visible')) {
+        bar.classList.toggle('is-visible', show);
+        if (show) bar.removeAttribute('inert'); else bar.setAttribute('inert', '');
+      }
+    };
+    var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+
+  // Footer social links: rendered only for accounts set in config.js
+  var NAMES = { linkedin: 'LinkedIn', instagram: 'Instagram', facebook: 'Facebook', x: 'X', youtube: 'YouTube', tiktok: 'TikTok' };
+  var social = cfg.SOCIAL || {};
+  document.querySelectorAll('[data-social]').forEach(function (el) {
+    Object.keys(NAMES).forEach(function (k) {
+      var url = social[k];
+      if (!url || !/^https:\/\//.test(url)) return;
+      var a = document.createElement('a');
+      a.href = url; a.textContent = NAMES[k]; a.target = '_blank'; a.rel = 'noopener';
+      a.setAttribute('data-track', 'cta_click:social_' + k);
+      el.appendChild(a);
+    });
+    if (el.children.length) el.hidden = false;
+  });
+})();

@@ -8,12 +8,14 @@
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
-    try {
-      if (localStorage.getItem('akaa-lang') === 'ar') {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-      }
-    } catch (e) {}
+    var saved = null;
+    try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
+    // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+    }
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,6 +147,7 @@
       <div class="footer-brand__row"><img src="assets/mark.png" alt=""><span class="footer-brand__name"><span data-l="en">AlKhwarizmi AI</span><span data-l="ar">الخوارزمي للذكاء الاصطناعي</span></span></div>
       <span class="footer-brand__addr"><span data-l="en">Zawiat Dahmani Street, Tripoli, Libya</span><span data-l="ar">شارع زاوية الدهماني، طرابلس، ليبيا</span></span>
       <a class="footer-brand__mail" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a>
+      <p class="footer-social" data-social hidden></p>
     </div>
     <nav class="footer-col" aria-label="Individuals">
       <span class="footer-col__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>

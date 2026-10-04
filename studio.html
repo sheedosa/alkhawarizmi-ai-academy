@@ -8,12 +8,14 @@
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
-    try {
-      if (localStorage.getItem('akaa-lang') === 'ar') {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-      }
-    } catch (e) {}
+    var saved = null;
+    try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
+    // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+    }
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -125,12 +127,11 @@
       <p class="hero__alt" data-l="en" lang="ar" dir="rtl">عشرة أيام. ملف أعمال تعرضه على عميل.</p>
 <p class="hero__alt" data-l="ar" lang="en" dir="ltr">Ten days. One portfolio you can show a client.</p>
       <p class="hero__support"><span data-l="en">Every other programme teaches you to understand AI. This one teaches you to produce with it.</span><span data-l="ar">كل برنامج آخر يعلّمك أن تفهم الذكاء الاصطناعي. هذا البرنامج يعلّمك أن تُنتج به.</span></p>
+      <div class="hero__ctas"><a class="btn btn--outline-cyan" href="#register" data-track="cta_click:studio_hero_register"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></a></div>
     </div>
-    <div class="hero__photo"><img src="assets/v-studio.webp" alt="" width="800" height="1000" fetchpriority="high"></div>
   </div>
   <div class="hero__foot">
     <dl class="facts"><dd><span data-l="en">2 weeks</span><span data-l="ar">أسبوعان</span></dd><dd><span data-l="en">10 teaching days</span><span data-l="ar">10 أيام تدريسية</span></dd><dd><span data-l="en">Small cohorts</span><span data-l="ar">دفعات صغيرة</span></dd><dd><span data-l="en">Live studio labs</span><span data-l="ar">مختبرات استوديو حيّة</span></dd><dd><span data-l="en">7,500 LYD</span><span data-l="ar">7,500 د.ل</span></dd></dl>
-    <a class="btn btn--outline-cyan" href="#register" data-track="cta_click:studio_hero_register"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></a>
   </div>
 </section>
 
@@ -203,7 +204,7 @@
     </div>
   </div>
 </section>
-
+<div class="action-bar" data-action-bar data-target="#register" inert><div class="action-bar__inner"><p class="action-bar__text"><strong><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></strong><span><span data-l="en">10 days · 7,500 LYD</span><span data-l="ar">10 أيام · 7,500 د.ل</span></span></p><a class="btn btn--cyan btn--sm" href="#register" data-track="cta_click:action_bar"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></a></div></div>
 </main>
 
 <footer class="site-footer">
@@ -212,6 +213,7 @@
       <div class="footer-brand__row"><img src="assets/mark.png" alt=""><span class="footer-brand__name"><span data-l="en">AlKhwarizmi AI</span><span data-l="ar">الخوارزمي للذكاء الاصطناعي</span></span></div>
       <span class="footer-brand__addr"><span data-l="en">Zawiat Dahmani Street, Tripoli, Libya</span><span data-l="ar">شارع زاوية الدهماني، طرابلس، ليبيا</span></span>
       <a class="footer-brand__mail" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a>
+      <p class="footer-social" data-social hidden></p>
     </div>
     <nav class="footer-col" aria-label="Individuals">
       <span class="footer-col__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>

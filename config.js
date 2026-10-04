@@ -5,5 +5,14 @@ window.AKAA_CONFIG = {
   SUPABASE_URL: '',        // e.g. 'https://abcdefghijkl.supabase.co'
   SUPABASE_ANON_KEY: '',   // the "anon" / "publishable" key — safe in the browser because of RLS
   // Google Analytics 4 measurement id.
-  GA4_ID: ''               // e.g. 'G-XXXXXXXXXX'
+  GA4_ID: '',              // e.g. 'G-XXXXXXXXXX'
+  // Social accounts shown in the footer. Full https:// URLs; leave empty to hide.
+  SOCIAL: {
+    linkedin: '',
+    instagram: '',
+    facebook: '',
+    x: '',
+    youtube: '',
+    tiktok: ''
+  }
 };
