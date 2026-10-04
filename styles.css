@@ -854,3 +854,44 @@ html[dir="rtl"] .field select { background-position: 14px 50%, 8px 50%; padding-
 /* Footer social links (filled from config.js) */
 .footer-social { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; font-size: 14px; }
 .footer-social a:hover { color: var(--cyan); }
+
+/* =====================================================================
+   Phase A2 — Arabic typography resets, placeholders, selects
+   ===================================================================== */
+/* Arabic letters join; tracking and capitals must never apply to them. */
+html[lang="ar"] .eyebrow, html[lang="ar"] .btn, html[lang="ar"] .prog-card__tier, html[lang="ar"] .studio__label,
+html[lang="ar"] .phase__time span:last-child, html[lang="ar"] .footer-col__title, html[lang="ar"] .mobile-nav__title,
+html[lang="ar"] .swipe-hint, html[lang="ar"] .article-meta .soon, html[lang="ar"] .artefact__day,
+html[lang="ar"] .fact__label, html[lang="ar"] .action-bar__text { letter-spacing: 0; text-transform: none; }
+html[lang="ar"] .h2, html[lang="ar"] .hero h1, html[lang="ar"] .bar-title, html[lang="ar"] .eyebrow-heading,
+html[lang="ar"] .form-block h2, html[lang="ar"] .masthead h1, html[lang="ar"] .lead-feature h2,
+html[lang="ar"] .contact-page h1, html[lang="ar"] .fact__big, html[lang="ar"] .artefact__n,
+html[lang="ar"] .deliverables__n, html[lang="ar"] .notfound h1 { letter-spacing: 0; }
+html[lang="ar"] .eyebrow { font-size: 15px; }
+html[lang="ar"] .btn { font-size: 16px; }
+.num { unicode-bidi: isolate; direction: ltr; display: inline-block; }
+
+/* Form field hints */
+.field input::placeholder, .field textarea::placeholder { color: #9C92B8; opacity: 1; }
+.dark-section .field input::placeholder, .dark-section .field textarea::placeholder { color: rgba(228, 218, 247, 0.5); }
+.field select:invalid { color: #9C92B8; }
+.dark-section .field select:invalid { color: rgba(228, 218, 247, 0.6); }
+
+/* Photo to come: quiet frame with a caption, instead of a stand-in graphic */
+.fig--pending {
+  display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;
+  background: repeating-linear-gradient(135deg, rgba(109, 40, 217, 0.05) 0 10px, transparent 10px 20px), var(--paper);
+  border: 1px dashed rgba(109, 40, 217, 0.35); color: var(--text-muted); font-size: 14px; line-height: 1.5;
+}
+.dark-section .fig--pending, .hero .fig--pending {
+  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 10px, transparent 10px 20px), rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.3); color: var(--on-dark-muted);
+}
+.fig--pending span { max-width: 22ch; }
+.fig--pending::before { content: ''; display: block; position: absolute; } /* keeps aspect-ratio boxes stable */
+.fig--pending { position: relative; }
+.insight__img.fig--pending, .insight .fig--pending { width: 100%; border-radius: 20px; }
+
+/* Inner-page heroes: flat ground until real photography exists (Home keeps the brand image). */
+.hero--interior { background-image: none; background-color: var(--hero); }
+.hero__photo .fig--pending { width: 100%; height: 100%; border-radius: 20px; }

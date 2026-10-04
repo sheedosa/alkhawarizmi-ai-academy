@@ -15,13 +15,19 @@ Static HTML/CSS/JS — no build step, no dependencies.
 | `organisations.html` | Enterprise & Government: Strategy Week `#week`, Custom Training `#custom`, Policy Briefing `#policy`, consultation form `#consult` |
 | `about.html`, `insights.html`, `contact.html`, `privacy.html` | Academy pages |
 | `404.html` | Shown for any unknown URL |
-| `styles.css` | Design tokens, sections, components, responsive + touch rules |
+| `styles.css` | Design tokens, sections, components, responsive + touch rules, Arabic typography resets |
+| `fonts.css`, `assets/fonts/` | Self-hosted Outfit, Cairo and IBM Plex Sans Arabic (woff2 subsets, OFL). No Google Fonts request. |
 | `main.js` | Language toggle, header dropdowns, mobile menu, lead forms, analytics events, Insights filter |
 | `config.js` | **Fill this in:** Supabase URL + anon key, GA4 measurement id |
 | `supabase/` | `001_leads.sql` (run once in your Supabase project) and setup notes |
 | `assets/` | WebP imagery (with smaller mobile variants), logo, flags |
 
 ## Language
+
+Text the CSS cannot switch (dropdown options, form placeholders, meta description, aria labels)
+carries `data-en` / `data-ar` (or `data-ph-en` / `data-ph-ar`) and is set by `main.js` on load and on toggle.
+Number ranges inside Arabic text are wrapped in `<span class="num">` so they read left-to-right.
+
 
 English is the default. The header toggle switches the whole page to Arabic (RTL) and the choice
 persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in the markup:
@@ -35,6 +41,11 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
 - GA4 loads only when `GA4_ID` is set. Events: `view_programme`, `select_route`, `cta_click`,
   `form_start`, `generate_lead` (mark as key event), `form_error`, `lang_toggle`, `filter_insights`.
   Roadmap and funnel definitions: `ROADMAP.md`.
+
+## Placeholders
+
+Photos are not available yet. Image slots render as dashed "Photo to come" frames (`.fig--pending`) with a
+bilingual caption saying what should go there. Replace a frame with an `<img>` when the photo exists.
 
 ## Local preview
 

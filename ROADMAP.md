@@ -24,7 +24,6 @@ _October 2026. Covers the static site in this repository._
 - No real photography (geometric placeholders everywhere); no founder, partner or testimonial proof.
 - One URL per page for both languages → Arabic content is not indexable as Arabic pages; no `hreflang`.
 - Insights articles are index entries only; there are no article pages.
-- Fonts load from Google (render-blocking, third-party).
 - No custom domain; canonical URLs point at `sheedosa.github.io/alkhawarizmi-ai-academy/`.
 - No email/Slack notification when a lead arrives (dashboard only, by decision).
 
@@ -80,9 +79,8 @@ form_start** (is the page convincing?) and **form_start → generate_lead** (is 
 3. One piece per fortnight, in Arabic first — the "Live builds" category is the strongest proof format.
 
 ### Step 6 — Performance polish
-1. Self-host subsetted woff2 for Outfit, Cairo and IBM Plex Sans Arabic with `font-display: swap` and
-   `<link rel="preload" as="font">`; drop the Google Fonts request.
-2. Target Lighthouse ≥ 95 mobile. Current image budget is already ~300 KB; keep it.
+1. ~~Self-host fonts~~ Done: Outfit, Cairo and Plex Arabic are served from `assets/fonts/` (380 KB of subsets).
+2. Target Lighthouse ≥ 95 mobile. Current image budget is ~200 KB; keep it.
 
 ### Step 7 — Experiments (month 2+)
 1. Use funnel drop-off to pick one test at a time: hero headline (six candidates already drafted), CTA

@@ -9,14 +9,25 @@
     ar: (titleEl && titleEl.getAttribute('data-ar')) || document.title,
   };
 
+  // Text that CSS cannot switch (option labels, placeholders, meta, aria) carries data-en / data-ar.
+  function applyLang(lang) {
+    document.title = TITLES[lang];
+    document.querySelectorAll('option[data-en]').forEach(function (o) { o.textContent = o.getAttribute('data-' + lang); });
+    document.querySelectorAll('[data-ph-en]').forEach(function (el) { el.placeholder = el.getAttribute('data-ph-' + lang); });
+    document.querySelectorAll('[data-aria-en]').forEach(function (el) { el.setAttribute('aria-label', el.getAttribute('data-aria-' + lang)); });
+    var md = document.querySelector('meta[name="description"][data-ar]');
+    if (md) md.setAttribute('content', md.getAttribute('data-' + lang) || md.getAttribute('content'));
+    document.dispatchEvent(new CustomEvent('akaa:lang', { detail: { lang: lang } }));
+  }
   function setLang(lang) {
     root.lang = lang;
     root.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.title = TITLES[lang];
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    applyLang(lang);
   }
-
-  document.title = TITLES[root.lang === 'ar' ? 'ar' : 'en'];
+  var md0 = document.querySelector('meta[name="description"]');
+  if (md0 && !md0.hasAttribute('data-en')) md0.setAttribute('data-en', md0.getAttribute('content'));
+  applyLang(root.lang === 'ar' ? 'ar' : 'en');
 
   document.querySelectorAll('[data-lang-toggle]').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -196,10 +207,12 @@
       var hp = form.querySelector('[name="website"]');
       if (hp && hp.value) return; // bot
       var row = leadPayload(form);
-      var sent = document.getElementById(form.getAttribute('data-sent'));
+      var sentOk = document.getElementById(form.getAttribute('data-sent'));
+      var sentMail = document.getElementById(form.getAttribute('data-sent-mailto'));
       form.classList.remove('is-error'); form.classList.add('is-busy');
       var finish = function (via) {
         form.classList.remove('is-busy'); form.classList.add('is-sent');
+        var sent = (via === 'mailto' && sentMail) ? sentMail : sentOk;
         if (sent) { sent.classList.add('is-visible'); sent.setAttribute('tabindex', '-1'); sent.focus(); }
         AKAA.track('generate_lead', { form: row.form, programme: row.programme, audience: row.audience, via: via });
       };
@@ -242,22 +255,24 @@
   if (tabs.length) {
     var cards = document.querySelectorAll('[data-cat-item]');
     var count = document.getElementById('index-count');
+    var current = 'all';
     var apply = function (cat) {
       var n = 0;
       cards.forEach(function (c) { var show = cat === 'all' || c.getAttribute('data-cat-item') === cat; c.classList.toggle('is-hidden', !show); if (show) n++; });
       tabs.forEach(function (t) { t.setAttribute('aria-pressed', String(t.getAttribute('data-cat') === cat)); });
       if (count) {
         var label = document.querySelector('.filter-tabs button[data-cat="' + cat + '"]');
-        count.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = n; });
-        count.querySelectorAll('[data-cat-name]').forEach(function (el) {
-          var l = label && label.querySelector('[data-l="' + el.getAttribute('data-cat-name') + '"]');
-          el.textContent = l ? l.textContent : '';
-        });
+        var name = function (l) { var el = label && label.querySelector('[data-l="' + l + '"]'); return el ? el.textContent : ''; };
+        var en = (n === 1 ? '1 piece' : n + ' pieces') + ' · ' + name('en');
+        var ar = (n === 1 ? 'مقالة واحدة' : n === 2 ? 'مقالتان' : (n >= 3 && n <= 10) ? n + ' مقالات' : n + ' مقالة') + ' · ' + name('ar');
+        count.innerHTML = '<span data-l="en">' + en + '</span><span data-l="ar">' + ar + '</span>';
       }
+      current = cat;
       AKAA.track('filter_insights', { category: cat });
     };
     tabs.forEach(function (t) { t.addEventListener('click', function () { apply(t.getAttribute('data-cat')); }); });
     apply('all');
+    document.addEventListener('akaa:lang', function () { apply(current); });
   }
 })();
 

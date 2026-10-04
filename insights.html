@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-en="Insights — We don't post about AI. We demonstrate it. | AlKhwarizmi AI" data-ar="رؤى — لا ننشر عن الذكاء الاصطناعي. نُظهره. | الخوارزمي للذكاء الاصطناعي">Insights — We don't post about AI. We demonstrate it. | AlKhwarizmi AI</title>
-<meta name="description" content="Live builds, frontier explainers, Arabic AI, AI at work in Libya, and reactions to what changed this week. A journal from AlKhwarizmi AI.">
+<title data-en="Insights — Short pieces on AI, written for Libya | AlKhwarizmi AI" data-ar="رؤى — مقالات قصيرة عن الذكاء الاصطناعي، مكتوبة لليبيا | الخوارزمي للذكاء الاصطناعي">Insights — Short pieces on AI, written for Libya | AlKhwarizmi AI</title>
+<meta name="description" content="Live builds, new developments explained, Arabic AI, AI in Libya, and commentary. Short pieces from AlKhwarizmi AI." data-ar="بناء مباشر، وشروح لأحدث التطورات، والذكاء الاصطناعي بالعربية، وتطبيقات في ليبيا، وتعليقات. مقالات قصيرة من أكاديمية الخوارزمي.">
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
@@ -18,14 +18,11 @@
     }
   })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Cairo:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/hero-v4-sm.webp" media="(max-width: 700px)">
-<link rel="preload" as="image" href="assets/hero-v4.webp" media="(min-width: 701px)">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/357083765ab3.woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
 <meta name="theme-color" content="#24085A">
-<meta property="og:title" content="Insights — We don't post about AI. We demonstrate it. | AlKhwarizmi AI">
-<meta property="og:description" content="Live builds, frontier explainers, Arabic AI, AI at work in Libya, and reactions to what changed this week. A journal from AlKhwarizmi AI.">
+<meta property="og:title" content="Insights — Short pieces on AI, written for Libya | AlKhwarizmi AI">
+<meta property="og:description" content="Live builds, new developments explained, Arabic AI, AI in Libya, and commentary. Short pieces from AlKhwarizmi AI.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sheedosa.github.io/alkhawarizmi-ai-academy/insights.html">
 <meta property="og:image" content="https://sheedosa.github.io/alkhawarizmi-ai-academy/assets/hero-v4.webp">
@@ -51,7 +48,7 @@
       <span class="brand__ar" data-l="ar" dir="rtl">الخوارزمي للذكاء الاصطناعي</span>
     </a>
 
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" aria-label="Main" data-aria-en="Main" data-aria-ar="القائمة الرئيسية">
       <div class="nav__group" data-dropdown data-nav="individuals">
         <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-individuals">
           <span data-l="en">Individuals</span><span data-l="ar">للأفراد</span><span class="chev" aria-hidden="true"></span>
@@ -59,17 +56,17 @@
         <div class="dropdown" id="dd-individuals">
           <a href="diploma.html">
             <span class="dropdown__label"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></span>
-            <span class="dropdown__sub"><span data-l="en">Higher education · 8 months</span><span data-l="ar">تعليم عالٍ · 8 أشهر</span></span>
+            <span class="dropdown__sub"><span data-l="en">Professional diploma · 8 months</span><span data-l="ar">دبلوم مهني · 8 أشهر</span></span>
           </a>
           <a href="studio.html">
             <span class="dropdown__label"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></span>
-            <span class="dropdown__sub"><span data-l="en">High-value course · 10 days</span><span data-l="ar">دورة عالية القيمة · 10 أيام</span></span>
+            <span class="dropdown__sub"><span data-l="en">Intensive course · 10 days</span><span data-l="ar">دورة مكثّفة · 10 أيام</span></span>
           </a>
         </div>
       </div>
       <div class="nav__group" data-dropdown data-nav="enterprise">
         <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-enterprise">
-          <span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span><span class="chev" aria-hidden="true"></span>
+          <span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span><span class="chev" aria-hidden="true"></span>
         </button>
         <div class="dropdown" id="dd-enterprise">
           <a href="organisations.html#week">
@@ -78,7 +75,7 @@
           </a>
           <a href="organisations.html#custom">
             <span class="dropdown__label"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></span>
-            <span class="dropdown__sub"><span data-l="en">On your data · flexible</span><span data-l="ar">على بياناتكم · مرن</span></span>
+            <span class="dropdown__sub"><span data-l="en">On your data · flexible length</span><span data-l="ar">على بياناتكم · مدة مرنة</span></span>
           </a>
           <a href="organisations.html#policy">
             <span class="dropdown__label"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></span>
@@ -96,17 +93,17 @@
         <span class="lang-toggle__opt lang-toggle__opt--en"><img src="assets/flag-uk.svg" alt=""><span>EN</span></span>
       </button>
       <a class="btn-contact" href="contact.html" data-nav="contact" data-track="cta_click:header_contact"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu" data-menu-toggle>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu" data-aria-en="Menu" data-aria-ar="القائمة" data-menu-toggle>
         <span></span><span></span>
       </button>
     </div>
   </div>
 
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Main">
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Main" data-aria-en="Main" data-aria-ar="القائمة الرئيسية">
     <span class="mobile-nav__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>
     <a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a>
     <a href="studio.html"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></a>
-    <span class="mobile-nav__title"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></span>
+    <span class="mobile-nav__title"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></span>
     <a href="organisations.html#week"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
     <a href="organisations.html#custom"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
     <a href="organisations.html#policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>
@@ -122,46 +119,46 @@
 <section class="hero hero--interior hero--rule masthead" aria-labelledby="h1">
   <div class="container">
     <div>
-      <h1 id="h1"><span data-l="en">We don't post about AI. We demonstrate it.</span><span data-l="ar">لا ننشر عن الذكاء الاصطناعي. نُظهره.</span></h1>
-      <p class="hero__alt" data-l="en" lang="ar" dir="rtl">لا ننشر عن الذكاء الاصطناعي. نُظهره.</p>
-<p class="hero__alt" data-l="ar" lang="en" dir="ltr">We don't post about AI. We demonstrate it.</p>
+      <h1 id="h1"><span data-l="en">Short pieces on AI, written for Libya.</span><span data-l="ar">مقالات قصيرة عن الذكاء الاصطناعي، مكتوبة لليبيا.</span></h1>
+      <p class="hero__alt" data-l="en" lang="ar" dir="rtl">مقالات قصيرة عن الذكاء الاصطناعي، مكتوبة لليبيا.</p>
+<p class="hero__alt" data-l="ar" lang="en" dir="ltr">Short pieces on AI, written for Libya.</p>
     </div>
-    <nav class="filter-tabs" aria-label="Categories"><button type="button" data-cat="all" aria-pressed="true"><span data-l="en">All</span><span data-l="ar">الكل</span></button><button type="button" data-cat="frontier" aria-pressed="false"><span data-l="en">Frontier explainers</span><span data-l="ar">شروح الحدود</span></button><button type="button" data-cat="builds" aria-pressed="false"><span data-l="en">Live builds</span><span data-l="ar">بناء حيّ</span></button><button type="button" data-cat="arabic" aria-pressed="false"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></button><button type="button" data-cat="libya" aria-pressed="false"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></button><button type="button" data-cat="reactions" aria-pressed="false"><span data-l="en">Reactions</span><span data-l="ar">ردود</span></button></nav>
+    <nav class="filter-tabs" aria-label="Categories" data-aria-en="Categories" data-aria-ar="الأقسام"><button type="button" data-cat="all" aria-pressed="true"><span data-l="en">All</span><span data-l="ar">الكل</span></button><button type="button" data-cat="frontier" aria-pressed="false"><span data-l="en">New developments</span><span data-l="ar">أحدث التطورات</span></button><button type="button" data-cat="builds" aria-pressed="false"><span data-l="en">Live builds</span><span data-l="ar">بناء مباشر</span></button><button type="button" data-cat="arabic" aria-pressed="false"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></button><button type="button" data-cat="libya" aria-pressed="false"><span data-l="en">AI in Libya</span><span data-l="ar">تطبيقات في ليبيا</span></button><button type="button" data-cat="reactions" aria-pressed="false"><span data-l="en">Commentary</span><span data-l="ar">تعليقات</span></button></nav>
   </div>
 </section>
 
 <section class="lead-feature light white" data-cat-item="arabic" aria-labelledby="lead-h">
   <div class="container">
     <article class="grid12" id="why-most-ai-models-fail-at-arabic">
-      <div class="fig fig--16x10"><img src="assets/v-card2b.webp" alt="" width="800" height="500" fetchpriority="high"></div>
+      <div class="span-7"><div class="fig fig--16x10 fig--pending" role="img" aria-label="printed Arabic text, annotated by hand"><span><span data-l="en">Photo to come: printed Arabic text, annotated by hand</span><span data-l="ar">صورة قادمة: نص عربي مطبوع عليه ملاحظات بخط اليد</span></span></div></div>
       <div class="lead-feature__text">
-        <p class="article-meta"><span class="cat"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></span><span class="when"><span data-l="en">8 min</span><span data-l="ar">8 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p>
-        <h2 id="lead-h"><span data-l="en">Why most AI models fail at Arabic.</span><span data-l="ar">لماذا تُخفق أغلب نماذج الذكاء الاصطناعي في العربية.</span></h2>
+        <p class="article-meta"><span class="cat"><span data-l="en">Arabic AI</span><span data-l="ar">الذكاء الاصطناعي بالعربية</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p>
+        <h2 id="lead-h"><span data-l="en">Why most AI models fail at Arabic.</span><span data-l="ar">لماذا تُخفق أغلب نماذج الذكاء الاصطناعي في العربية؟</span></h2>
       </div>
     </article>
   </div>
 </section>
 
-<section class="index light" aria-label="All pieces">
+<section class="index light" aria-label="All pieces" data-aria-en="All pieces" data-aria-ar="كل المقالات">
   <div class="container">
-    <p class="index__count" id="index-count"><span data-l="en"><span data-count>6</span> pieces · <span data-cat-name="en">All</span></span><span data-l="ar"><span data-count>6</span> مقالات · <span data-cat-name="ar">الكل</span></span></p>
-    <div class="article-grid"><article class="article-card" id="we-built-this-in-twenty-minutes" data-cat-item="builds"><p class="article-meta"><span class="cat"><span data-l="en">Live builds</span><span data-l="ar">بناء حيّ</span></span><span class="when"><span data-l="en">6 min</span><span data-l="ar">6 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><div class="fig fig--16x10"><img src="assets/v-card1b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">We built this in twenty minutes.</span><span data-l="ar">بنينا هذا في عشرين دقيقة.</span></h3></article><article class="article-card" id="can-you-spot-the-cloned-voice" data-cat-item="libya"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">3 min</span><span data-l="ar">3 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><div class="fig fig--16x10"><img src="assets/v-card3b.webp" alt="" width="800" height="500" loading="lazy"></div><h3><span data-l="en">Can you spot the cloned voice?</span><span data-l="ar">هل تستطيع تمييز الصوت المستنسَخ؟</span></h3></article><article class="article-card" id="agents-versus-chatbots" data-cat-item="frontier"><p class="article-meta"><span class="cat"><span data-l="en">Frontier explainers</span><span data-l="ar">شروح الحدود</span></span><span class="when"><span data-l="en">9 min</span><span data-l="ar">9 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><h3><span data-l="en">Agents versus chatbots: what actually changed.</span><span data-l="ar">الوكلاء مقابل روبوتات المحادثة: ما الذي تغيّر فعلاً.</span></h3></article><article class="article-card" id="model-release-libya" data-cat-item="reactions"><p class="article-meta"><span class="cat"><span data-l="en">Reactions</span><span data-l="ar">ردود</span></span><span class="when"><span data-l="en">5 min</span><span data-l="ar">5 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><h3><span data-l="en">What this week's model release means for Libya.</span><span data-l="ar">ماذا يعني إصدار نموذج هذا الأسبوع لليبيا.</span></h3></article><article class="article-card" id="tripoli-shop-automation" data-cat-item="libya"><p class="article-meta"><span class="cat"><span data-l="en">AI at work in Libya</span><span data-l="ar">الذكاء الاصطناعي في العمل في ليبيا</span></span><span class="when"><span data-l="en">7 min</span><span data-l="ar">7 دقائق</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><h3><span data-l="en">An automation for a Tripoli shop, built on camera.</span><span data-l="ar">أتمتة لمتجر في طرابلس، بُنيت أمام الكاميرا.</span></h3></article></div>
+    <p class="index__count" id="index-count"><span data-l="en">4 pieces · All</span><span data-l="ar">4 مقالات · الكل</span></p>
+    <div class="article-grid"><article class="article-card" id="we-built-this-in-twenty-minutes" data-cat-item="builds"><p class="article-meta"><span class="cat"><span data-l="en">Live builds</span><span data-l="ar">بناء مباشر</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><div class="fig fig--16x10 fig--pending" role="img" aria-label="a still from the build"><span><span data-l="en">Photo to come: a still from the build</span><span data-l="ar">صورة قادمة: لقطة من جلسة البناء</span></span></div><h3><span data-l="en">We built this in twenty minutes.</span><span data-l="ar">بنينا هذا في عشرين دقيقة.</span></h3></article><article class="article-card" id="can-you-spot-the-cloned-voice" data-cat-item="libya"><p class="article-meta"><span class="cat"><span data-l="en">AI in Libya</span><span data-l="ar">تطبيقات في ليبيا</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><div class="fig fig--16x10 fig--pending" role="img" aria-label="a microphone on a plain table"><span><span data-l="en">Photo to come: a microphone on a plain table</span><span data-l="ar">صورة قادمة: ميكروفون على طاولة بسيطة</span></span></div><h3><span data-l="en">Can you spot the cloned voice?</span><span data-l="ar">هل تميّز الصوت المستنسَخ؟</span></h3></article><article class="article-card" id="agents-versus-chatbots" data-cat-item="frontier"><p class="article-meta"><span class="cat"><span data-l="en">New developments</span><span data-l="ar">أحدث التطورات</span></span><span class="soon"><span data-l="en">Coming soon</span><span data-l="ar">قريباً</span></span></p><h3><span data-l="en">Agents versus chatbots: what actually changed?</span><span data-l="ar">الوكلاء مقابل روبوتات المحادثة: ما الذي تغيّر فعلاً؟</span></h3></article></div>
   </div>
 </section>
 
 <section class="form-block light white" id="subscribe" aria-labelledby="sub-h">
   <div class="container grid12">
     <div class="span-5">
-      <h2 id="sub-h"><span data-l="en">New pieces, by email.</span><span data-l="ar">المقالات الجديدة، بالبريد.</span></h2>
-      <p class="form-block__line"><span data-l="en">Leave your email and we'll send each piece when it is published. Nothing else.</span><span data-l="ar">اترك بريدك ونرسل إليك كل مقالة حين تُنشَر. لا شيء غير ذلك.</span></p>
+      <h2 id="sub-h"><span data-l="en">New pieces in your inbox.</span><span data-l="ar">المقالات الجديدة في بريدك.</span></h2>
+      <p class="form-block__line"><span data-l="en">Leave your email. We send each piece when it is published, and nothing else.</span><span data-l="ar">اترك بريدك. نرسل كل مقالة حين تُنشَر، ولا شيء غير ذلك.</span></p>
     </div>
     <div class="col-7-6">
-      <form class="form" data-lead="newsletter" data-sent="sent-newsletter" novalidate="">
-        <label class="field"><span data-l="en">Name</span><span data-l="ar">الاسم</span><input type="text" name="name" required autocomplete="name"></label>
-        <label class="field"><span data-l="en">Email</span><span data-l="ar">البريد الإلكتروني</span><input type="email" name="email" dir="ltr" required autocomplete="email"></label>
-        <label class="field field--hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label><div class="form__actions"><button class="btn btn--outline-violet" type="submit"><span data-l="en">Register interest</span><span data-l="ar">سجّل اهتمامك</span></button><span class="form__privacy"><span data-l="en">We store your details only to reply. <a href="privacy.html">Privacy</a>.</span><span data-l="ar">نحفظ بياناتك للردّ عليك فقط. <a href="privacy.html">الخصوصية</a>.</span></span></div><p class="form__error" role="alert"><span data-l="en">Something went wrong and your details were not sent. Please try again, or email info@alkhawarizmi.ai.</span><span data-l="ar">حدث خطأ ولم تُرسَل بياناتك. حاول مرة أخرى، أو راسلنا على info@alkhawarizmi.ai.</span></p>
+      <form class="form" data-lead="newsletter" data-sent="sent-newsletter" data-sent-mailto="sent-newsletter-mailto" novalidate="">
+        <label class="field"><span data-l="en">Name</span><span data-l="ar">الاسم</span><input type="text" name="name" required autocomplete="name" placeholder="Your full name" data-ph-en="Your full name" data-ph-ar="الاسم الكامل"></label>
+        <label class="field"><span data-l="en">Email</span><span data-l="ar">البريد الإلكتروني</span><input type="email" name="email" dir="ltr" required autocomplete="email" placeholder="name@example.com" data-ph-en="name@example.com" data-ph-ar="name@example.com"></label>
+        <label class="field field--hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label><div class="form__actions"><button class="btn btn--outline-violet" type="submit"><span data-l="en">Subscribe</span><span data-l="ar">اشترك</span></button><span class="form__privacy"><span data-l="en">We use your email only to send new pieces. <a href="privacy.html">Privacy</a>.</span><span data-l="ar">نستخدم بريدك لإرسال المقالات الجديدة فقط. <a href="privacy.html">الخصوصية</a>.</span></span></div><p class="form__error" role="alert"><span data-l="en">Your details were not sent. Please try again, or email us at <a href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span><span data-l="ar">لم تُرسَل بياناتك. يُرجى المحاولة مرة أخرى، أو مراسلتنا على البريد: <a href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span></p>
       </form>
-      <p class="form-sent" id="sent-newsletter"><span data-l="en">Received. We will email you when the first piece is published.</span><span data-l="ar">وصلنا تسجيلك. نراسلك حين تُنشَر أول مقالة.</span></p>
+      <p class="form-sent" id="sent-newsletter"><span data-l="en">Thank you. We will email you when the first piece is published.</span><span data-l="ar">شكراً لك. سنراسلك حين تُنشَر أول مقالة.</span></p><p class="form-sent" id="sent-newsletter-mailto"><span data-l="en">Your email app has opened with your details. Press send to finish.</span><span data-l="ar">فُتح تطبيق البريد لديك وفيه بياناتك. اضغط إرسال لإتمام الطلب.</span></p>
     </div>
   </div>
 </section>
@@ -181,8 +178,8 @@
       <a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a>
       <a href="studio.html"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></a>
     </nav>
-    <nav class="footer-col" aria-label="Enterprise &amp; Government">
-      <span class="footer-col__title"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></span>
+    <nav class="footer-col" aria-label="Organisations">
+      <span class="footer-col__title"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></span>
       <a href="organisations.html#week"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
       <a href="organisations.html#custom"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
       <a href="organisations.html#policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-en="About — Libya's first AI academy | AlKhwarizmi AI" data-ar="عن الأكاديمية — أول أكاديمية للذكاء الاصطناعي في ليبيا | الخوارزمي للذكاء الاصطناعي">About — Libya's first AI academy | AlKhwarizmi AI</title>
-<meta name="description" content="The name, the method and the building. AlKhwarizmi AI is the institution Libya associates with AI capability: live labs, Arabic first, evidence not attendance.">
+<meta name="description" content="The name, how we teach, and the building. AlKhwarizmi AI teaches individuals and organisations in Libya to work with AI: in person, in Arabic, in Tripoli." data-ar="الاسم، وكيف ندرّس، والمبنى. تعلّم أكاديمية الخوارزمي الأفراد والمؤسسات في ليبيا العمل بالذكاء الاصطناعي: حضورياً، بالعربية، في طرابلس.">
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
   (function () {
@@ -18,14 +18,11 @@
     }
   })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Cairo:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/hero-v4-sm.webp" media="(max-width: 700px)">
-<link rel="preload" as="image" href="assets/hero-v4.webp" media="(min-width: 701px)">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/357083765ab3.woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
 <meta name="theme-color" content="#24085A">
 <meta property="og:title" content="About — Libya's first AI academy | AlKhwarizmi AI">
-<meta property="og:description" content="The name, the method and the building. AlKhwarizmi AI is the institution Libya associates with AI capability: live labs, Arabic first, evidence not attendance.">
+<meta property="og:description" content="The name, how we teach, and the building. AlKhwarizmi AI teaches individuals and organisations in Libya to work with AI: in person, in Arabic, in Tripoli.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sheedosa.github.io/alkhawarizmi-ai-academy/about.html">
 <meta property="og:image" content="https://sheedosa.github.io/alkhawarizmi-ai-academy/assets/hero-v4.webp">
@@ -51,7 +48,7 @@
       <span class="brand__ar" data-l="ar" dir="rtl">الخوارزمي للذكاء الاصطناعي</span>
     </a>
 
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" aria-label="Main" data-aria-en="Main" data-aria-ar="القائمة الرئيسية">
       <div class="nav__group" data-dropdown data-nav="individuals">
         <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-individuals">
           <span data-l="en">Individuals</span><span data-l="ar">للأفراد</span><span class="chev" aria-hidden="true"></span>
@@ -59,17 +56,17 @@
         <div class="dropdown" id="dd-individuals">
           <a href="diploma.html">
             <span class="dropdown__label"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></span>
-            <span class="dropdown__sub"><span data-l="en">Higher education · 8 months</span><span data-l="ar">تعليم عالٍ · 8 أشهر</span></span>
+            <span class="dropdown__sub"><span data-l="en">Professional diploma · 8 months</span><span data-l="ar">دبلوم مهني · 8 أشهر</span></span>
           </a>
           <a href="studio.html">
             <span class="dropdown__label"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></span>
-            <span class="dropdown__sub"><span data-l="en">High-value course · 10 days</span><span data-l="ar">دورة عالية القيمة · 10 أيام</span></span>
+            <span class="dropdown__sub"><span data-l="en">Intensive course · 10 days</span><span data-l="ar">دورة مكثّفة · 10 أيام</span></span>
           </a>
         </div>
       </div>
       <div class="nav__group" data-dropdown data-nav="enterprise">
         <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-enterprise">
-          <span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span><span class="chev" aria-hidden="true"></span>
+          <span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span><span class="chev" aria-hidden="true"></span>
         </button>
         <div class="dropdown" id="dd-enterprise">
           <a href="organisations.html#week">
@@ -78,7 +75,7 @@
           </a>
           <a href="organisations.html#custom">
             <span class="dropdown__label"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></span>
-            <span class="dropdown__sub"><span data-l="en">On your data · flexible</span><span data-l="ar">على بياناتكم · مرن</span></span>
+            <span class="dropdown__sub"><span data-l="en">On your data · flexible length</span><span data-l="ar">على بياناتكم · مدة مرنة</span></span>
           </a>
           <a href="organisations.html#policy">
             <span class="dropdown__label"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></span>
@@ -96,17 +93,17 @@
         <span class="lang-toggle__opt lang-toggle__opt--en"><img src="assets/flag-uk.svg" alt=""><span>EN</span></span>
       </button>
       <a class="btn-contact" href="contact.html" data-nav="contact" data-track="cta_click:header_contact"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a>
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu" data-menu-toggle>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu" data-aria-en="Menu" data-aria-ar="القائمة" data-menu-toggle>
         <span></span><span></span>
       </button>
     </div>
   </div>
 
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Main">
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Main" data-aria-en="Main" data-aria-ar="القائمة الرئيسية">
     <span class="mobile-nav__title"><span data-l="en">Individuals</span><span data-l="ar">للأفراد</span></span>
     <a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a>
     <a href="studio.html"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></a>
-    <span class="mobile-nav__title"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></span>
+    <span class="mobile-nav__title"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></span>
     <a href="organisations.html#week"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
     <a href="organisations.html#custom"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
     <a href="organisations.html#policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>
@@ -125,9 +122,9 @@
       <h1 id="h1"><span data-l="en">Libya's first AI academy.</span><span data-l="ar">أول أكاديمية للذكاء الاصطناعي في ليبيا.</span></h1>
       <p class="hero__alt" data-l="en" lang="ar" dir="rtl">أول أكاديمية للذكاء الاصطناعي في ليبيا.</p>
 <p class="hero__alt" data-l="ar" lang="en" dir="ltr">Libya's first AI academy.</p>
-      <p class="hero__support" style="max-width:640px"><span data-l="en">The institution the country associates with AI capability. Not a training centre.</span><span data-l="ar">المؤسسة التي يقرنها البلد بالقدرة في الذكاء الاصطناعي. لا مركز تدريب.</span></p>
+      <p class="hero__support" style="max-width:640px"><span data-l="en">We teach individuals and organisations in Libya to work with AI. In person, in Arabic, in Tripoli.</span><span data-l="ar">نعلّم الأفراد والمؤسسات في ليبيا العمل بالذكاء الاصطناعي. حضورياً، بالعربية، في طرابلس.</span></p>
     </div>
-    <div class="hero__photo"><img src="assets/about-hero.webp" alt="" width="800" height="1000" fetchpriority="high"></div>
+    <div class="hero__photo"><div class="fig fig--pending" role="img" aria-label="the seminar room in morning light"><span><span data-l="en">Photo to come: the seminar room in morning light</span><span data-l="ar">صورة قادمة: قاعة الندوات في ضوء الصباح</span></span></div></div>
   </div>
   <div class="hero__foot" style="padding-bottom:40px"></div>
 </section>
@@ -136,26 +133,29 @@
   <div class="container grid12">
     <div class="span-3 col-stack">
       <h2 class="eyebrow-heading eyebrow-heading--sm" id="name-h"><span data-l="en">The name</span><span data-l="ar">الاسم</span></h2>
-      <div><div class="fig fig--3x4"><img src="assets/khwarizmi.webp" alt="" width="720" height="900" loading="lazy"></div>
-      <p class="fig__caption"><span data-l="en">Muhammad ibn Musa al-Khwarizmi, c. 780–850.</span><span data-l="ar">محمد بن موسى الخوارزمي، نحو 780–850.</span></p></div>
+      <div><div class="fig fig--3x4 fig--pending" role="img" aria-label="a portrait of al-Khwarizmi"><span><span data-l="en">Photo to come: a portrait of al-Khwarizmi</span><span data-l="ar">صورة قادمة: صورة للخوارزمي</span></span></div>
+      <p class="fig__caption"><span data-l="en">Muhammad ibn Musa al-Khwarizmi, about 780 to 850 CE.</span><span data-l="ar">محمد بن موسى الخوارزمي، نحو 780 إلى 850م.</span></p></div>
     </div>
-    <p class="passage passage--lg col-5-8"><span data-l="en">Muhammad ibn Musa al-Khwarizmi, born around 780, worked in Baghdad's House of Wisdom. His book on calculation gave the world algebra; the Latin rendering of his name gave it the word “algorithm.” Every model, every automation, every system this field builds runs on ideas he set down twelve centuries ago. We carry his name so that Libya's place in that field is built, not borrowed.</span><span data-l="ar">وُلد محمد بن موسى الخوارزمي نحو عام 780، وعمل في بيت الحكمة في بغداد. أعطى كتابه في الحساب العالمَ الجبر؛ وأعطته الصيغة اللاتينية لاسمه كلمة «الخوارزمية». كل نموذج، وكل أتمتة، وكل نظام يبنيه هذا المجال يقوم على أفكار وضعها قبل اثني عشر قرناً. نحمل اسمه لكي يُبنى موقعُ ليبيا في هذا المجال، لا يُستعار.</span></p>
+    <div class="col-5-8 col-stack" style="gap:20px">
+      <p class="passage passage--lg"><span data-l="en">Muhammad ibn Musa al-Khwarizmi was born around 780 and worked in Baghdad's House of Wisdom. His book on calculation gave the world algebra. The Latin form of his name gave it the word “algorithm.”</span><span data-l="ar">وُلد محمد بن موسى الخوارزمي نحو عام 780، وعمل في بيت الحكمة في بغداد. أعطى كتابه في الحساب العالم الجبر. وأعطت الصيغة اللاتينية لاسمه كلمة «الخوارزمية».</span></p>
+      <p class="passage passage--lg"><span data-l="en">Every model, every automation and every system in this field builds on ideas he wrote down twelve centuries ago. We carry his name so that Libya builds its own place in that field.</span><span data-l="ar">كل نموذج، وكل أتمتة، وكل نظام في هذا المجال يقوم على أفكار كتبها قبل اثني عشر قرناً. نحمل اسمه لتبني ليبيا موقعها في هذا المجال بنفسها.</span></p>
+    </div>
   </div>
 </section>
 
 <section class="section light" id="method" aria-labelledby="method-h">
   <div class="container">
-    <h2 class="eyebrow-heading" id="method-h"><span data-l="en">What we believe about teaching</span><span data-l="ar">ما نعتقده في التدريس</span></h2>
+    <h2 class="eyebrow-heading" id="method-h"><span data-l="en">How we teach</span><span data-l="ar">كيف ندرّس</span></h2>
     <div class="card-grid">
-      <div class="card"><p class="card__lead"><span data-l="en">Labs are the lesson.</span><span data-l="ar">المختبرات هي الدرس.</span></p><p class="card__rest"><span data-l="en">More than half of every session is hands-on. Learners operate AI far more than they watch it.</span><span data-l="ar">أكثر من نصف كل جلسة عملٌ باليد. يُشغّل المتعلّمون الذكاء الاصطناعي أكثر بكثير ممّا يشاهدونه.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">One thing that grows.</span><span data-l="ar">شيء واحد ينمو.</span></p><p class="card__rest"><span data-l="en">A single project builds across every session, so the final day has something real to present.</span><span data-l="ar">مشروع واحد يُبنى عبر كل جلسة، فيكون في اليوم الأخير شيء حقيقي يُعرَض.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Live, never recorded.</span><span data-l="ar">حيّ، لا يُسجَّل أبداً.</span></p><p class="card__rest"><span data-l="en">Real instructors, real cohorts, real conversation.</span><span data-l="ar">مدرّبون حقيقيون، ودفعات حقيقية، وحوار حقيقي.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Arabic first.</span><span data-l="ar">العربية أولاً.</span></p><p class="card__rest"><span data-l="en">Concepts introduced in Arabic with the English term beside them, so learners discuss the work locally and read the documentation globally.</span><span data-l="ar">تُقدَّم المفاهيم بالعربية والمصطلح الإنجليزي بجانبها، فيناقش المتعلّمون العمل محلياً ويقرؤون الوثائق عالمياً.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Evidence, not attendance.</span><span data-l="ar">الدليل، لا الحضور.</span></p><p class="card__rest"><span data-l="en">A rubric published before the course starts, and a certificate that names a level.</span><span data-l="ar">معيار تقييم يُنشَر قبل بدء الدورة، وشهادة تُسمّي مستوى.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Works without the internet.</span><span data-l="ar">يعمل من دون إنترنت.</span></p><p class="card__rest"><span data-l="en">Every lab has a documented offline route. A power cut never cancels a session.</span><span data-l="ar">لكل مختبر مسار موثّق من دون اتصال. انقطاع الكهرباء لا يُلغي جلسة.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">An eight-minute talking cap.</span><span data-l="ar">حدّ ثماني دقائق للكلام.</span></p><p class="card__rest"><span data-l="en">Nobody lectures longer than that before the room does something.</span><span data-l="ar">لا يُحاضر أحد أكثر من ذلك قبل أن تفعل القاعة شيئاً.</span></p></div>
+      <div class="card"><p class="card__lead"><span data-l="en">The lab is the lesson.</span><span data-l="ar">المختبر هو الدرس.</span></p><p class="card__rest"><span data-l="en">More than half of every session is practical. You operate AI far more than you watch it.</span><span data-l="ar">أكثر من نصف كل جلسة تطبيق عملي. تُشغّل الذكاء الاصطناعي أكثر بكثير ممّا تشاهده.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">One project that grows.</span><span data-l="ar">مشروع واحد ينمو.</span></p><p class="card__rest"><span data-l="en">A single project builds across every session. On the final day there is a finished piece of work to present.</span><span data-l="ar">مشروع واحد يُبنى عبر كل الجلسات. وفي اليوم الأخير عمل مكتمل يُعرَض.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">In person, never recorded.</span><span data-l="ar">حضوري، بلا تسجيلات.</span></p><p class="card__rest"><span data-l="en">An instructor in the room and a group beside you.</span><span data-l="ar">مدرّب حاضر ودفعة إلى جانبك.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Arabic first.</span><span data-l="ar">العربية أولاً.</span></p><p class="card__rest"><span data-l="en">Concepts in Arabic, with the English term beside them. You discuss the work in your language and read the documentation in theirs.</span><span data-l="ar">المفاهيم بالعربية والمصطلح الإنجليزي بجانبها. تناقش عملك بلغتك وتقرأ المراجع بلغتها.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Evidence, not attendance.</span><span data-l="ar">الدليل، لا الحضور.</span></p><p class="card__rest"><span data-l="en">Marking criteria are published before the programme starts. The certificate names the level you reached.</span><span data-l="ar">تُنشَر معايير التقييم قبل بدء البرنامج. وتحدّد الشهادة المستوى الذي بلغته.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Works without the internet.</span><span data-l="ar">يعمل من دون إنترنت.</span></p><p class="card__rest"><span data-l="en">Every lab has an offline version. A power cut never cancels a session.</span><span data-l="ar">لكل مختبر نسخة تعمل دون اتصال. انقطاع الكهرباء لا يُلغي جلسة.</span></p></div><div class="card"><p class="card__lead"><span data-l="en">Eight minutes of talking, at most.</span><span data-l="ar">ثماني دقائق من الشرح، حدّاً أقصى.</span></p><p class="card__rest"><span data-l="en">No one explains for longer than that before participants start working.</span><span data-l="ar">لا يتجاوز شرح أحد ذلك قبل أن يبدأ المشاركون العمل.</span></p></div>
     </div>
   </div>
 </section>
 
 <section class="quote-band quote-band--lg dark-section" aria-labelledby="def-h">
   <div class="container grid12">
-    <p class="eyebrow eyebrow--cyan span-3" id="def-h"><span data-l="en">The definition every learner leaves with</span><span data-l="ar">التعريف الذي يخرج به كل متعلّم</span></p>
-    <blockquote class="quote col-4-9"><span data-l="en">“AI is a machine that learns patterns from examples and uses them to make a good guess. It does not think, it does not know, and it can be confidently wrong.”</span><span data-l="ar">«الذكاء الاصطناعي آلة تتعلّم الأنماط من الأمثلة وتستخدمها لتخمين جيّد. لا تفكّر، ولا تعرف، وقد تكون مخطئة بثقة.»</span></blockquote>
+    <p class="eyebrow eyebrow--cyan span-3" id="def-h"><span data-l="en">The definition every participant leaves with</span><span data-l="ar">التعريف الذي يخرج به كل مشارك</span></p>
+    <blockquote class="quote col-4-9"><span data-l="en">“AI is a machine that learns patterns from examples and uses them to make a good guess. It does not think, it does not know, and it can be confidently wrong.”</span><span data-l="ar">«الذكاء الاصطناعي آلة تتعلّم الأنماط من الأمثلة وتستخدمها لتقديم تخمين جيّد. لا تفكّر، ولا تعرف، وقد تكون مخطئة بثقة».</span></blockquote>
   </div>
 </section>
 
@@ -163,9 +163,9 @@
   <div class="container grid12" style="align-items:end">
     <div class="span-5 col-stack">
       <h2 class="eyebrow-heading eyebrow-heading--sm" id="acad-h"><span data-l="en">The academy</span><span data-l="ar">الأكاديمية</span></h2>
-      <p class="passage"><span data-l="en">Zawiat Dahmani Street, Tripoli. Classrooms built for live labs and a seminar room for executive and policy cohorts.</span><span data-l="ar">شارع زاوية الدهماني، طرابلس. قاعات دراسية مبنيّة للمختبرات الحيّة، وقاعة ندوات لدفعات التنفيذيين والسياسات.</span></p>
+      <p class="passage"><span data-l="en">Zawiat Dahmani Street, Tripoli. Classrooms equipped for practical labs, and a seminar room for executive and policy groups.</span><span data-l="ar">شارع زاوية الدهماني، طرابلس. قاعات دراسية مجهّزة للمختبرات التطبيقية، وقاعة ندوات لدفعات التنفيذيين والسياسات.</span></p>
     </div>
-    <div class="fig fig--16x10 col-7-6"><img src="assets/building.webp" alt="" width="1890" height="810" loading="lazy"></div>
+    <div class="col-7-6"><div class="fig fig--16x10 fig--pending" role="img" aria-label="the academy on Zawiat Dahmani Street"><span><span data-l="en">Photo to come: the academy on Zawiat Dahmani Street</span><span data-l="ar">صورة قادمة: مبنى الأكاديمية في شارع زاوية الدهماني</span></span></div></div>
   </div>
 </section>
 
@@ -176,19 +176,19 @@
       <div class="card card--route">
         <p class="eyebrow"><span data-l="en">For individuals</span><span data-l="ar">للأفراد</span></p>
         <p class="card__lead"><span data-l="en">The Studio, ten days. The Diploma, eight months.</span><span data-l="ar">الاستوديو، عشرة أيام. الدبلوم، ثمانية أشهر.</span></p>
-        <p class="card__rest"><span data-l="en">Live cohorts in Tripoli. You leave with work you made.</span><span data-l="ar">دفعات حيّة في طرابلس. تخرج بعملٍ صنعته.</span></p>
+        <p class="card__rest"><span data-l="en">In-person groups in Tripoli. You leave with work you built.</span><span data-l="ar">دفعات حضورية في طرابلس. تغادر ومعك عمل أنجزته بنفسك.</span></p>
         <div class="card__actions">
           <a class="btn btn--outline-violet btn--sm" href="studio.html" data-track="select_route:about_studio"><span data-l="en">See the Studio</span><span data-l="ar">اطّلع على الاستوديو</span></a>
           <a class="btn btn--outline-violet btn--sm" href="diploma.html" data-track="select_route:about_diploma"><span data-l="en">See the Diploma</span><span data-l="ar">اطّلع على الدبلوم</span></a>
         </div>
       </div>
       <div class="card card--route card--route-dark">
-        <p class="eyebrow eyebrow--cyan"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></p>
-        <p class="card__lead"><span data-l="en">The AI Strategy Week, Custom Training, the Policy Briefing.</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي، والتدريب المخصّص، وإحاطة السياسات.</span></p>
-        <p class="card__rest"><span data-l="en">Tell us the challenge. The consultation costs nothing.</span><span data-l="ar">أخبرونا بالتحدّي. الاستشارة لا تكلّف شيئاً.</span></p>
+        <p class="eyebrow eyebrow--cyan"><span data-l="en">For organisations</span><span data-l="ar">للمؤسسات</span></p>
+        <p class="card__lead"><span data-l="en">The AI Strategy Week, Custom Training and the Policy Briefing.</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي، والتدريب المخصّص، وإحاطة السياسات.</span></p>
+        <p class="card__rest"><span data-l="en">Tell us the challenge. The consultation is free.</span><span data-l="ar">أخبرونا بالتحدّي. الاستشارة مجانية.</span></p>
         <div class="card__actions">
-          <a class="btn btn--cyan btn--sm" href="organisations.html#consult" data-track="select_route:about_consult"><span data-l="en">Book a consultation</span><span data-l="ar">احجز استشارة</span></a>
-          <a class="btn btn--outline-cyan btn--sm" href="organisations.html" data-track="select_route:about_enterprise"><span data-l="en">See the offers</span><span data-l="ar">اطّلع على العروض</span></a>
+          <a class="btn btn--cyan btn--sm" href="organisations.html#consult" data-track="select_route:about_consult"><span data-l="en">Request a free consultation</span><span data-l="ar">اطلب استشارة مجانية</span></a>
+          <a class="btn btn--outline-cyan btn--sm" href="organisations.html" data-track="select_route:about_enterprise"><span data-l="en">See the programmes</span><span data-l="ar">اطّلع على البرامج</span></a>
         </div>
       </div>
     </div>
@@ -210,8 +210,8 @@
       <a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a>
       <a href="studio.html"><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></a>
     </nav>
-    <nav class="footer-col" aria-label="Enterprise &amp; Government">
-      <span class="footer-col__title"><span data-l="en">Enterprise &amp; Government</span><span data-l="ar">المؤسسات والحكومة</span></span>
+    <nav class="footer-col" aria-label="Organisations">
+      <span class="footer-col__title"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></span>
       <a href="organisations.html#week"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
       <a href="organisations.html#custom"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
       <a href="organisations.html#policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>
