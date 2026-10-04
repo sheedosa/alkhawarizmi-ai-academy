@@ -1,7 +1,6 @@
-# AlKhwarizmi AI Academy — Website
+# AlKhwarizmi AI — Website
 
-Libya's first AI academy. A bilingual (English / العربية) single-page marketing site
-with practical, accredited AI programs for kids, professionals, executives, and policymakers.
+Libya's first AI academy. Bilingual (English / العربية) site with full right-to-left support.
 
 **Live site:** https://sheedosa.github.io/alkhawarizmi-ai-academy/
 
@@ -9,22 +8,16 @@ with practical, accredited AI programs for kids, professionals, executives, and 
 
 Static HTML/CSS/JS — no build step, no dependencies.
 
-- `index.html` — page markup (semantic landmarks, SEO meta, JSON-LD, ARIA)
-- `assets/styles.css` — design tokens, components, responsive layer
-- `assets/app.js` — language toggle (EN ⇄ AR + RTL), story tabs, mobile menu, mailto forms
-- `assets/*.svg` / `*.jpg` — logos, favicon, portraits, social-share image
+- `index.html` — Home (English default; the header toggle switches to Arabic and persists)
+- `404.html` — shown for any page not published yet
+- `styles.css` — design tokens, sections, responsive and touch rules
+- `main.js` — language toggle, header dropdowns, mobile menu
+- `assets/` — WebP imagery (with smaller mobile variants), logo, flags
 
-## Features
-
-- **Bilingual** English / Arabic with full right-to-left mirroring; choice persists across visits
-- **Responsive** from 320 px phones to desktop, with an accessible hamburger menu
-- **Accessible** — WCAG 2.1 AA: semantic landmarks, labeled forms, keyboard-navigable tabs,
-  visible focus rings, AA color contrast, reduced-motion support
-- **SEO** — Open Graph + Twitter cards, canonical URL, and `EducationalOrganization` structured data
+Built from the Claude Design "site v2" Home design. Inner pages (Studio, Diploma,
+Enterprise & Government, About, Insights, Contact) are not built yet.
 
 ## Local preview
-
-Any static server works, e.g.:
 
 ```bash
 python3 -m http.server 8080
@@ -34,5 +27,4 @@ Then open http://localhost:8080/.
 
 ## Deployment
 
-Served via GitHub Pages from the `main` branch root. The `_headers` file sets asset
-cache policy on Netlify (ignored by GitHub Pages).
+Served via GitHub Pages from the `main` branch root.
