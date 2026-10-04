@@ -120,25 +120,43 @@
 <main id="main">
 
 <!-- ============ Hero ============ -->
-<section class="hero" aria-labelledby="hero-title">
-  <div class="container grid12">
-    <div class="span-8 hero__content">
-      <p class="eyebrow eyebrow--cyan"><span data-l="en">Libya's first AI academy · Tripoli</span><span data-l="ar">أول أكاديمية للذكاء الاصطناعي في ليبيا · طرابلس</span></p>
-      <h1 id="hero-title"><span data-l="en">Learn to work with AI. In Arabic, in Tripoli.</span><span data-l="ar">تعلّم العمل بالذكاء الاصطناعي، بالعربية، في طرابلس.</span></h1>
-      <p class="hero__alt" data-l="en" lang="ar" dir="rtl">تعلّم العمل بالذكاء الاصطناعي، بالعربية، في طرابلس.</p>
-      <p class="hero__alt" data-l="ar" lang="en" dir="ltr">Learn to work with AI. In Arabic, in Tripoli.</p>
-      <p class="hero__support"><span data-l="en">Every programme is taught in person, in Arabic. More than half of each session is practical. You leave with work you built.</span><span data-l="ar">تُقدَّم برامجنا كلها حضورياً وبالعربية. أكثر من نصف كل جلسة تطبيق عملي. تغادر ومعك عمل أنجزته بنفسك.</span></p>
-      <div class="hero__ctas">
-        <a class="btn btn--outline-cyan" href="studio.html" data-track="select_route:hero_studio"><span data-l="en">Explore the Studio</span><span data-l="ar">استكشف الاستوديو</span></a>
-        <a class="btn btn--outline-white" href="organisations.html" data-track="select_route:hero_enterprise"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></a>
-      </div>
-      <div class="hero__facts">
-        <div class="fact"><span class="fact__big"><span data-l="en">First</span><span data-l="ar">الأولى</span></span><span class="fact__label"><span data-l="en">AI academy in Libya</span><span data-l="ar">أكاديمية ذكاء اصطناعي في ليبيا</span></span></div>
-        <div class="fact"><span class="fact__big">5</span><span class="fact__label"><span data-l="en">programmes, taught in person</span><span data-l="ar">برامج حضورية</span></span></div>
-        <div class="fact"><span class="fact__big"><span data-l="en">Over 50%</span><span data-l="ar">أكثر من 50%</span></span><span class="fact__label"><span data-l="en">of each session is practical</span><span data-l="ar">من كل جلسة تطبيق عملي</span></span></div>
-        <div class="fact"><span class="fact__big"><span data-l="en">AR</span><span data-l="ar">عربي</span></span><span class="fact__label"><span data-l="en">Taught in Arabic</span><span data-l="ar">التدريس بالعربية</span></span></div>
+<section class="hero hero--home" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="eyebrow eyebrow--cyan"><span data-l="en">Libya's first AI academy</span><span data-l="ar">أول أكاديمية للذكاء الاصطناعي في ليبيا</span></p>
+      <h1 id="hero-title"><span data-l="en">Where Libya learns to work with AI.</span><span data-l="ar">حيث تتعلّم ليبيا العمل بالذكاء الاصطناعي.</span></h1>
+      <p class="hero__support"><span data-l="en">For individuals and for organisations. In person, in Arabic, in Tripoli.</span><span data-l="ar">للأفراد وللمؤسسات. حضورياً، بالعربية، في طرابلس.</span></p>
+      <div class="hero__routes">
+        <a class="route-btn route-btn--primary" href="studio.html" data-track="select_route:hero_individuals"><span class="route-btn__main"><span data-l="en">For individuals</span><span data-l="ar">للأفراد</span><span class="arrow" aria-hidden="true">→</span></span><span class="route-btn__sub"><span data-l="en">Studio · Diploma</span><span data-l="ar">الاستوديو · الدبلوم</span></span></a>
+        <a class="route-btn" href="organisations.html" data-track="select_route:hero_organisations"><span class="route-btn__main"><span data-l="en">For organisations</span><span data-l="ar">للمؤسسات</span><span class="arrow" aria-hidden="true">→</span></span><span class="route-btn__sub"><span data-l="en">Strategy Week · Training · Briefing</span><span data-l="ar">أسبوع الاستراتيجية · التدريب · الإحاطة</span></span></a>
       </div>
     </div>
+
+    <aside class="hero-card" data-hero-tabs aria-label="What you leave with" data-aria-en="What you leave with" data-aria-ar="ما تخرج به">
+      <p class="hero-card__title"><span data-l="en">What you leave with</span><span data-l="ar">ما تخرج به</span></p>
+      <div class="hero-tabs" role="tablist">
+        <button class="hero-tabs__tab" type="button" role="tab" id="hero-tab-ind" aria-controls="hero-panel-ind" aria-selected="true"><span data-l="en">Individuals</span><span data-l="ar">الأفراد</span></button>
+        <button class="hero-tabs__tab" type="button" role="tab" id="hero-tab-org" aria-controls="hero-panel-org" aria-selected="false" tabindex="-1"><span data-l="en">Organisations</span><span data-l="ar">المؤسسات</span></button>
+      </div>
+      <div class="hero-card__panel" role="tabpanel" id="hero-panel-ind" aria-labelledby="hero-tab-ind">
+        <p class="hero-card__head"><strong><span data-l="en">The Studio</span><span data-l="ar">الاستوديو</span></strong><span><span data-l="en">10 days</span><span data-l="ar">10 أيام</span></span></p>
+        <ol class="hero-card__list"><li class="hero-card__row"><span class="hero-card__n">01</span><span class="hero-card__name"><span data-l="en">An app you didn't code</span><span data-l="ar">تطبيق لم تكتب شيفرته</span></span><span class="hero-card__tag"><span data-l="en">Day <span class="num">1–2</span></span><span data-l="ar">اليوم <span class="num">1–2</span></span></span></li><li class="hero-card__row"><span class="hero-card__n">02</span><span class="hero-card__name"><span data-l="en">An automation that runs</span><span data-l="ar">أتمتة تعمل</span></span><span class="hero-card__tag"><span data-l="en">Day <span class="num">3–4</span></span><span data-l="ar">اليوم <span class="num">3–4</span></span></span></li><li class="hero-card__row"><span class="hero-card__n">03</span><span class="hero-card__name"><span data-l="en">A film you directed</span><span data-l="ar">فيلم أخرجته</span></span><span class="hero-card__tag"><span data-l="en">Day <span class="num">5–6</span></span><span data-l="ar">اليوم <span class="num">5–6</span></span></span></li><li class="hero-card__row"><span class="hero-card__n">04</span><span class="hero-card__name"><span data-l="en">A brand you designed</span><span data-l="ar">هوية بصرية صمّمتها</span></span><span class="hero-card__tag"><span data-l="en">Day <span class="num">7–8</span></span><span data-l="ar">اليوم <span class="num">7–8</span></span></span></li><li class="hero-card__row"><span class="hero-card__n">05</span><span class="hero-card__name"><span data-l="en">A campaign to launch it</span><span data-l="ar">حملة لإطلاقه</span></span><span class="hero-card__tag"><span data-l="en">Day <span class="num">9–10</span></span><span data-l="ar">اليوم <span class="num">9–10</span></span></span></li></ol>
+        <a class="hero-card__link" href="studio.html" data-track="select_route:hero_card_studio"><span data-l="en">See the Studio →</span><span data-l="ar">اطّلع على الاستوديو ←</span></a>
+      </div>
+      <div class="hero-card__panel" role="tabpanel" id="hero-panel-org" aria-labelledby="hero-tab-org" hidden>
+        <p class="hero-card__head"><strong><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></strong><span><span data-l="en">5 days</span><span data-l="ar">5 أيام</span></span></p>
+        <ol class="hero-card__list"><li class="hero-card__row"><span class="hero-card__n">01</span><span class="hero-card__name"><span data-l="en">AI direction</span><span data-l="ar">الرؤية الموجِّهة</span></span></li><li class="hero-card__row"><span class="hero-card__n">02</span><span class="hero-card__name"><span data-l="en">Use-case portfolio</span><span data-l="ar">محفظة حالات الاستخدام</span></span></li><li class="hero-card__row"><span class="hero-card__n">03</span><span class="hero-card__name"><span data-l="en">Adoption roadmap</span><span data-l="ar">خريطة طريق التبنّي</span></span></li><li class="hero-card__row"><span class="hero-card__n">04</span><span class="hero-card__name"><span data-l="en">Enterprise data map</span><span data-l="ar">خريطة بيانات المؤسسة</span></span></li><li class="hero-card__row"><span class="hero-card__n">05</span><span class="hero-card__name"><span data-l="en">Maturity scorecard</span><span data-l="ar">بطاقة النضج</span></span></li><li class="hero-card__row hero-card__row--more"><span class="hero-card__n">+</span><span class="hero-card__name"><span data-l="en">4 more strategy documents</span><span data-l="ar">4 وثائق استراتيجية أخرى</span></span></li></ol>
+        <a class="hero-card__link" href="organisations.html#week" data-track="select_route:hero_card_week"><span data-l="en">See the Strategy Week →</span><span data-l="ar">اطّلع على أسبوع الاستراتيجية ←</span></a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container">
+    <ul class="hero-facts">
+      <li><strong><span data-l="en">5</span><span data-l="ar">5</span></strong><span><span data-l="en">programmes</span><span data-l="ar">برامج</span></span></li>
+      <li><strong><span data-l="en">10 days to 8 months</span><span data-l="ar">من 10 أيام إلى 8 أشهر</span></strong><span><span data-l="en">from the Studio to the Diploma</span><span data-l="ar">من الاستوديو إلى الدبلوم</span></span></li>
+      <li><strong><span data-l="en">Over 50%</span><span data-l="ar">أكثر من 50%</span></strong><span><span data-l="en">of every session is practical</span><span data-l="ar">من كل جلسة تطبيق عملي</span></span></li>
+    </ul>
   </div>
 </section>
 

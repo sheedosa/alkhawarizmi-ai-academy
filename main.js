@@ -320,3 +320,31 @@
     if (el.children.length) el.hidden = false;
   });
 })();
+
+
+/* Home hero: outputs card tabs (click or arrow keys; no autoplay) */
+(function () {
+  var card = document.querySelector('[data-hero-tabs]');
+  if (!card) return;
+  var tabs = Array.prototype.slice.call(card.querySelectorAll('[role="tab"]'));
+  function select(tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus();
+    if (window.AKAA && AKAA.track) AKAA.track('cta_click', { label: 'hero_tab_' + (tab.id === 'hero-tab-org' ? 'organisations' : 'individuals') });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t, false); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      if (document.documentElement.dir === 'rtl') d = -d;
+      e.preventDefault();
+      select(tabs[(i + d + tabs.length) % tabs.length], true);
+    });
+  });
+})();
