@@ -542,6 +542,7 @@ html[lang="ar"] .article-card h3 { letter-spacing: 0; }
 .photo--4x3 { aspect-ratio: 4 / 3; }
 .photo--4x5 { aspect-ratio: 4 / 5; }
 .photo--3x4 { aspect-ratio: 3 / 4; }
+.photo--3x2 { aspect-ratio: 3 / 2; }
 .photo--narrow { max-width: 300px; }
 .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s ease; }
 .photo.is-filled img { opacity: 1; }
@@ -571,6 +572,30 @@ html.show-photo-slots .photo-bg-tag {
   display: block; position: absolute; z-index: 3; top: 12px; inset-inline-start: 12px; font-family: var(--mono); font-size: 12px;
   padding: 4px 10px; border: 1.5px dashed var(--rule-strong); background: var(--surface); color: var(--fg);
 }
+
+/* Frames: bands and programme images stay visible while empty, as a quiet panel with the al-Jabr figure */
+html:not(.show-photo-slots) .photo.photo--frame:not(.is-filled) { display: block; }
+.photo--frame:not(.is-filled) {
+  background: var(--night-3) url(assets/motif/jabr-faint.svg) center / auto 78% no-repeat;
+  border: 1px solid var(--rule);
+}
+html.show-photo-slots .photo--frame:not(.is-filled) { background: var(--night-3) url(assets/motif/jabr-faint.svg) center / auto 78% no-repeat; }
+
+/* Edge-to-edge 4K bands: full screen width; short while empty, 21:9 once a photo exists */
+.photo-band--bleed { padding: 0; background: var(--night-3); }
+html:not(.show-photo-slots) .photo-band--bleed:not(:has(.is-filled)) { padding: 0; }
+.photo-band--bleed .photo { border-radius: 0; border-width: 1px 0; aspect-ratio: 32 / 9; max-height: 80vh; }
+.photo-band--bleed .photo.has-src, .photo-band--bleed .photo.is-filled { aspect-ratio: 21 / 9; border: 0; }
+html.show-photo-slots .photo-band--bleed .photo { aspect-ratio: 21 / 9; }
+
+/* Programme entries on Home: image beside the text */
+.prog--with-img { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 8px 24px; align-items: start; }
+.prog--with-img .prog__img { border-radius: 4px; }
+.prog__body { display: flex; flex-direction: column; gap: 8px; }
+.paper .photo--frame:not(.is-filled) { border-color: transparent; }
+
+/* A hero that carries its own programme frame doesn't also need the faint background figure */
+.hero--interior:has(.hero__photo.photo--frame) { background-image: none; }
 
 /* Placements */
 .hero__photo.photo { aspect-ratio: 4 / 5; align-self: center; }
@@ -646,6 +671,9 @@ html.show-photo-slots .photo-bg-tag {
 }
 
 @media (max-width: 700px) {
+  .photo-band--bleed .photo { aspect-ratio: 21 / 9; }
+  .photo-band--bleed .photo.has-src, .photo-band--bleed .photo.is-filled { aspect-ratio: 3 / 2; }
+  .prog--with-img { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .who .container, .routes .container, .studio .container, .week .container, .method .container, .insights .container,
   .section .container, .form-block .container, .quote-band .container, .index .container, .contact-page .container { padding-block: 56px 64px; }
   .hero--home .hero__grid { padding-block: 40px 20px; gap: 32px; }

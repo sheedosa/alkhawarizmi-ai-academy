@@ -1,0 +1,9 @@
+{
+  "name": "alkhawarizmi-photo-tools",
+  "private": true,
+  "type": "module",
+  "description": "Turns the 4K originals in assets/photos/ into web-sized WebP files and a manifest.",
+  "dependencies": {
+    "sharp": "0.33.5"
+  }
+}

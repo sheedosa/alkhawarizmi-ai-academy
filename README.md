@@ -35,9 +35,14 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
 
 ## Leads and analytics
 
-- Forms (`<form data-lead="…">`) POST to the Supabase `leads` table using the anon key; RLS allows
-  insert only. Until `config.js` is filled in, submitting opens a pre-filled email to
-  info@alkhawarizmi.ai instead, so nothing is lost. Setup: see `supabase/README.md`.
+- **Current backend: a Google Sheet.** Forms (`<form data-lead="…">`) POST to a Google Apps Script web app
+  (`tools/sheet/Code.gs`, pasted into the sheet via Extensions > Apps Script) whose URL is `SHEET_URL` in
+  `config.js`. Each enquiry becomes a row in the sheet's Enquiries tab (Status starts as New) and an alert email
+  goes to info@alkhawarizmi.ai. The script drops honeypot and bot-fast submissions, limits floods and stores
+  formula-like text as plain text. The sheet's "How it works" tab explains the columns and how to redeploy.
+- **Later: Supabase.** With `SHEET_URL` empty and the Supabase keys set, forms write to the `leads` table instead
+  (see `supabase/README.md`). With neither set, submitting opens a pre-filled email to info@alkhawarizmi.ai, so
+  nothing is lost.
 - GA4 loads only when `GA4_ID` is set. Events: `view_programme`, `select_route`, `cta_click`,
   `form_start`, `generate_lead` (mark as key event), `form_error`, `lang_toggle`, `filter_insights`.
   Roadmap and funnel definitions: `ROADMAP.md`.
@@ -56,9 +61,12 @@ algebra, which solves x² + 10x = 39. The SVGs are plain files and can be edited
 
 ## Photos
 
-Every image slot is a `<figure data-photo="id">`. Upload `assets/photos/<id>.jpg` and it appears; until then the
-slot is hidden and the layout falls back to text. The full list of slots, file names and sizes is in `PHOTOS.md`. Add `?photos` to any URL to
-see each slot labelled.
+Every image slot is a `<figure data-photo="id">`. Upload the original `assets/photos/<id>.jpg` (4K welcome): the
+`Photos` workflow (`.github/workflows/photos.yml`, script `tools/photos.mjs`, using sharp) writes WebP sizes from
+640 to 3840 px to `assets/photos/web/` and lists them in `assets/photos/manifest.json`. `main.js` reads the manifest
+and gives each slot a `srcset`, so browsers download only the width they need; ids not in the manifest make no
+request. Bands and programme images show a framed placeholder while empty; other slots stay hidden. The full list
+of slots, file names and sizes is in `PHOTOS.md`. Add `?photos` to any URL to see each slot labelled.
 
 ## Local preview
 

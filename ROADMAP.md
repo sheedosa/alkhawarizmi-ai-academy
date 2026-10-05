@@ -22,7 +22,7 @@ _October 2026. Covers the static site in this repository._
   ruled layouts instead of card grids, and al-Khwarizmi's completing-the-square figure as the recurring motif.
 
 **Not yet**
-- No real photography yet (28 drop-in slots wait for files, see `PHOTOS.md`); no founder, partner or testimonial proof.
+- No real photography yet (38 drop-in photos wait for files, see `PHOTOS.md`); no founder, partner or testimonial proof.
 - One URL per page for both languages → Arabic content is not indexable as Arabic pages; no `hreflang`.
 - Insights articles are index entries only; there are no article pages.
 - No custom domain; canonical URLs point at `sheedosa.github.io/alkhawarizmi-ai-academy/`.
@@ -42,6 +42,8 @@ form_start** (is the page convincing?) and **form_start → generate_lead** (is 
 ## 3. Step-by-step plan
 
 ### Step 0 — Go live with capture (day 0–1)
+0. Done first, as the quick option: enquiries go to a Google Sheet with an email alert per enquiry
+   (`tools/sheet/Code.gs`, `SHEET_URL` in `config.js`). Move to Supabase when volume or reporting needs it.
 1. Create the Supabase project on the academy's account; run `supabase/001_leads.sql`; copy URL + anon key
    into `config.js` (see `supabase/README.md`).
 2. Create a GA4 property for the site; copy the `G-…` id into `config.js`.
@@ -57,7 +59,7 @@ form_start** (is the page convincing?) and **form_start → generate_lead** (is 
 
 ### Step 2 — Trust and conversion (week 1–3)
 1. Shoot real photography: the room mid-session, hands on keyboards, printed deliverables, the building on
-   Zawiat Dahmani Street. `PHOTOS.md` lists all 28 slots with file names and sizes; uploading
+   Zawiat Dahmani Street. `PHOTOS.md` lists all 38 photos (4K welcome; a GitHub Action makes the web sizes); uploading
    `assets/photos/<id>.jpg` fills a slot with no code change (`?photos` on any page shows where each one goes).
 2. Add one credibility line under the Home hero or in About: a founder name, role and one sentence
    (the old site's `assets/drali.jpg` exists in git history `40fc014`).

@@ -178,8 +178,17 @@
       name: data.name, email: data.email, phone: data.phone || null,
       organisation: data.organisation || null, role: data.role || null, message: data.message || null,
       lang: root.lang, source_page: location.pathname + location.hash, referrer: document.referrer || null,
-      session_id: sessionId(), user_agent: navigator.userAgent.slice(0, 200)
+      session_id: sessionId(), user_agent: navigator.userAgent.slice(0, 200),
+      elapsed_ms: Math.round(performance.now())     // time on the page; the receiver ignores bot-fast submissions
     }, att);
+  }
+
+  // Google Sheet receiver (Apps Script). Sent as text/plain so the browser makes no CORS preflight.
+  function sheetInsert(row) {
+    return fetch(cfg.SHEET_URL, {
+      method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(row)
+    }).then(function (r) { if (!r.ok) throw new Error('http-' + r.status); return r.json(); })
+      .then(function (res) { if (!res || !res.ok) throw new Error((res && res.error) || 'not-saved'); });
   }
 
   function supabaseInsert(row) {
@@ -218,7 +227,9 @@
         if (sent) { sent.classList.add('is-visible'); sent.setAttribute('tabindex', '-1'); sent.focus(); }
         AKAA.track('generate_lead', { form: row.form, programme: row.programme, audience: row.audience, via: via });
       };
-      supabaseInsert(row).then(function () { finish('supabase'); }).catch(function (err) {
+      var save = cfg.SHEET_URL ? sheetInsert(row).then(function () { return 'sheet'; })
+        : supabaseInsert(row).then(function () { return 'supabase'; });
+      save.then(finish).catch(function (err) {
         if (err.message === 'not-configured') { mailtoFallback(row); finish('mailto'); return; }
         form.classList.remove('is-busy'); form.classList.add('is-error');
         AKAA.track('form_error', { form: row.form, error: err.message });
@@ -352,8 +363,11 @@
 })();
 
 
-/* Photo slots: <figure data-photo="id"> shows assets/photos/id.jpg if it exists.
-   Probed only when the slot's section nears the viewport; empty slots stay hidden. ?photos shows labelled slots; ?photos=0 hides them. */
+/* Photo slots: <figure data-photo="id">.
+   The Photos GitHub Action turns each original assets/photos/<id>.jpg into WebP sizes (640–3840px) listed in
+   assets/photos/manifest.json; slots in the manifest get a srcset so each screen downloads only the width it needs.
+   Ids not in the manifest make no request at all. Without a manifest (file:// preview) the original .jpg is probed.
+   Loading starts when a slot's section nears the viewport. ?photos labels every slot; ?photos=0 turns that off. */
 (function () {
   var root = document.documentElement;
   var DIR = 'assets/photos/';
@@ -365,8 +379,13 @@
   if (show) root.classList.add('show-photo-slots');
 
   var lang = function () { return root.lang === 'ar' ? 'ar' : 'en'; };
+  var manifest = null;
+  var webUrl = function (id, w) { return DIR + 'web/' + id + '-' + w + '.webp?v=' + manifest[id].v; };
+
   function fill(el) {
     if (el.getAttribute('data-probed')) return;
+    var id = el.getAttribute('data-photo'), entry = manifest && manifest[id];
+    if (manifest && !entry) return;                       // no photo uploaded for this slot yet
     el.setAttribute('data-probed', '1');
     var img = new Image();
     img.decoding = 'async';
@@ -376,31 +395,60 @@
       el.removeAttribute('aria-hidden');
       requestAnimationFrame(function () { el.classList.add('is-filled'); });
     };
-    img.src = DIR + el.getAttribute('data-photo') + '.jpg';
+    if (entry) {
+      img.width = entry.w; img.height = entry.h;
+      img.sizes = el.getAttribute('data-sizes') || '100vw';
+      img.srcset = entry.widths.map(function (w) { return webUrl(id, w) + ' ' + w + 'w'; }).join(', ');
+      img.src = webUrl(id, entry.widths.filter(function (w) { return w <= 1280; }).pop() || entry.widths[0]);
+    } else {
+      img.src = DIR + id + '.jpg';
+    }
   }
-  var slots = document.querySelectorAll('[data-photo]');
-  if ('IntersectionObserver' in window) {
-    // Empty slots are display:none for visitors, so watch the section around each one instead.
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
-        e.target.__slots.forEach(fill);
-      });
-    }, { rootMargin: '400px 0px' });
-    slots.forEach(function (el) {
-      var anchor = el.closest('section, article') || el.parentNode;
-      if (!anchor.__slots) { anchor.__slots = []; io.observe(anchor); }
-      anchor.__slots.push(el);
-    });
-  } else { slots.forEach(fill); }
 
-  var bg = document.querySelector('[data-photo-bg]');
-  if (bg) {
-    var b = new Image();
-    b.onload = function () { bg.style.setProperty('--hero-photo', 'url("' + b.src + '")'); bg.classList.add('has-photo'); };
-    b.src = DIR + bg.getAttribute('data-photo-bg') + '.jpg';
+  function start() {
+    var slots = document.querySelectorAll('[data-photo]');
+    // Reserve the final shape of slots that have a photo, before it loads
+    if (manifest) slots.forEach(function (el) { if (manifest[el.getAttribute('data-photo')]) el.classList.add('has-src'); });
+    if ('IntersectionObserver' in window) {
+      // Empty slots can be display:none, so watch the section around each one instead.
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          io.unobserve(e.target);
+          e.target.__slots.forEach(fill);
+        });
+      }, { rootMargin: '600px 0px' });
+      slots.forEach(function (el) {
+        var anchor = el.closest('section, article') || el.parentNode;
+        if (!anchor.__slots) { anchor.__slots = []; io.observe(anchor); }
+        anchor.__slots.push(el);
+      });
+    } else { slots.forEach(fill); }
+
+    var bg = document.querySelector('[data-photo-bg]');
+    if (bg) {
+      var id = bg.getAttribute('data-photo-bg'), entry = manifest && manifest[id];
+      if (manifest && !entry) return;
+      var b = new Image();
+      b.onload = function () { bg.style.setProperty('--hero-photo', 'url("' + b.src + '")'); bg.classList.add('has-photo'); };
+      if (entry) {
+        var need = Math.min(window.innerWidth * (window.devicePixelRatio || 1), 3840);
+        b.src = webUrl(id, entry.widths.filter(function (w) { return w >= need; })[0] || entry.widths[entry.widths.length - 1]);
+      } else {
+        b.src = DIR + id + '.jpg';
+      }
+    }
   }
+
+  if (/^https?:$/.test(location.protocol) && window.fetch) {
+    fetch(DIR + 'manifest.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) { manifest = m; }, function () {})
+      .then(start);
+  } else {
+    start();
+  }
+
   document.addEventListener('akaa:lang', function () {
     document.querySelectorAll('.photo.is-filled img').forEach(function (img) {
       img.alt = img.parentNode.getAttribute('data-alt-' + lang()) || '';
