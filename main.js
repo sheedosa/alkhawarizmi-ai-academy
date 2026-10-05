@@ -348,3 +348,51 @@
     });
   });
 })();
+
+
+/* Photo slots: <figure data-photo="id"> shows assets/photos/id.jpg if it exists.
+   Probed only when the slot nears the viewport. ?photos shows labelled slots; ?photos=0 hides them. */
+(function () {
+  var root = document.documentElement;
+  var DIR = 'assets/photos/';
+  var q = new URLSearchParams(location.search), show = false;
+  try {
+    if (q.has('photos')) { if (q.get('photos') === '0') localStorage.removeItem('akaa-photos'); else localStorage.setItem('akaa-photos', '1'); }
+    show = localStorage.getItem('akaa-photos') === '1';
+  } catch (e) { show = q.has('photos') && q.get('photos') !== '0'; }
+  if (show) root.classList.add('show-photo-slots');
+
+  var lang = function () { return root.lang === 'ar' ? 'ar' : 'en'; };
+  function fill(el) {
+    if (el.getAttribute('data-probed')) return;
+    el.setAttribute('data-probed', '1');
+    var img = new Image();
+    img.decoding = 'async';
+    img.onload = function () {
+      img.alt = el.getAttribute('data-alt-' + lang()) || '';
+      el.appendChild(img);
+      el.removeAttribute('aria-hidden');
+      requestAnimationFrame(function () { el.classList.add('is-filled'); });
+    };
+    img.src = DIR + el.getAttribute('data-photo') + '.jpg';
+  }
+  var slots = document.querySelectorAll('[data-photo]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); fill(e.target); } });
+    }, { rootMargin: '400px 0px' });
+    slots.forEach(function (el) { io.observe(el); });
+  } else { slots.forEach(fill); }
+
+  var bg = document.querySelector('[data-photo-bg]');
+  if (bg) {
+    var b = new Image();
+    b.onload = function () { bg.style.setProperty('--hero-photo', 'url("' + b.src + '")'); bg.classList.add('has-photo'); };
+    b.src = DIR + bg.getAttribute('data-photo-bg') + '.jpg';
+  }
+  document.addEventListener('akaa:lang', function () {
+    document.querySelectorAll('.photo.is-filled img').forEach(function (img) {
+      img.alt = img.parentNode.getAttribute('data-alt-' + lang()) || '';
+    });
+  });
+})();

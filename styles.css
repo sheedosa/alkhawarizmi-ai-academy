@@ -870,24 +870,9 @@ html[lang="ar"] .btn { font-size: 16px; }
 .field select:invalid { color: #9C92B8; }
 .dark-section .field select:invalid { color: rgba(228, 218, 247, 0.6); }
 
-/* Photo to come: quiet frame with a caption, instead of a stand-in graphic */
-.fig--pending {
-  display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;
-  background: repeating-linear-gradient(135deg, rgba(109, 40, 217, 0.05) 0 10px, transparent 10px 20px), var(--paper);
-  border: 1px dashed rgba(109, 40, 217, 0.35); color: var(--text-muted); font-size: 14px; line-height: 1.5;
-}
-.dark-section .fig--pending, .hero .fig--pending {
-  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 10px, transparent 10px 20px), rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.3); color: var(--on-dark-muted);
-}
-.fig--pending span { max-width: 22ch; }
-.fig--pending::before { content: ''; display: block; position: absolute; } /* keeps aspect-ratio boxes stable */
-.fig--pending { position: relative; }
-.insight__img.fig--pending, .insight .fig--pending { width: 100%; border-radius: 20px; }
 
 /* Inner-page heroes: flat ground until real photography exists (Home keeps the brand image). */
 .hero--interior { background-image: none; background-color: var(--hero); }
-.hero__photo .fig--pending { width: 100%; height: 100%; border-radius: 20px; }
 
 
 /* =====================================================================
@@ -969,4 +954,135 @@ html[lang="ar"] .route-btn__main { font-size: 20px; }
   .hero-facts { grid-template-columns: 1fr; gap: 14px; padding-bottom: 32px; }
   .hero-facts li { flex-direction: row; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .route-btn { min-width: 0; flex: 1 1 100%; }
+}
+
+/* Home hero on phones: compact type, single-line card rows, facts in one row */
+@media (max-width: 700px) {
+  .hero--home .hero__grid { padding-block: 32px 24px; gap: 24px; }
+  .hero--home .eyebrow { margin-bottom: 14px; font-size: 13px; }
+  .hero--home h1 { font-size: clamp(31px, 9.2vw, 40px); line-height: 1.08; text-wrap: balance; }
+  html[lang="ar"] .hero--home h1 { font-size: clamp(29px, 8.4vw, 36px); line-height: 1.45; }
+  .hero--home .hero__support { margin-top: 14px; font-size: 17px; line-height: 1.6; }
+  .hero__routes { margin-top: 22px; gap: 10px; }
+  .route-btn { flex: 1 1 100%; min-width: 0; padding: 12px 18px 11px; border-radius: 14px; gap: 2px; }
+  .route-btn__main { font-size: 17px; }
+  html[lang="ar"] .route-btn__main { font-size: 18px; }
+  .route-btn__sub { font-size: 13px; }
+
+  .hero-card { padding: 16px 16px 12px; border-radius: 18px; }
+  .hero-card__title { font-size: 12px; }
+  html[lang="ar"] .hero-card__title { font-size: 14px; }
+  .hero-tabs { display: flex; margin-top: 10px; }
+  .hero-tabs__tab { flex: 1; padding: 9px 10px; font-size: 14px; }
+  .hero-card__head { margin-top: 14px; }
+  .hero-card__head strong { font-size: 18px; }
+  .hero-card__head span { font-size: 13px; }
+  .hero-card__list { margin-top: 8px; }
+  .hero-card__row { grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; align-items: baseline; }
+  .hero-card__tag { grid-column: auto; margin-top: 0; font-size: 12px; }
+  .hero-card__n { font-size: 13px; }
+  .hero-card__name { font-size: 15px; line-height: 1.3; }
+  .hero-card__link { margin-top: 4px; padding-top: 10px; font-size: 14px; }
+
+  .hero-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; padding: 16px 0 24px; }
+  .hero-facts li { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .hero-facts strong { font-size: 17px; line-height: 1.25; }
+  .hero-facts span { font-size: 12.5px; line-height: 1.4; }
+}
+@media (max-width: 340px) {
+  .hero-card__tag { display: none; }
+  .hero-facts strong { font-size: 15px; }
+}
+
+
+/* =====================================================================
+   Photo slots. Drop assets/photos/<id>.jpg into the repo and it appears.
+   Empty slots show a branded fill; ?photos on any URL shows what goes where.
+   ===================================================================== */
+.photo {
+  position: relative; display: block; width: 100%; margin: 0; overflow: hidden; border-radius: 20px;
+  background:
+    radial-gradient(120% 90% at 85% 0%, rgba(124, 58, 237, 0.55), transparent 60%),
+    radial-gradient(90% 70% at 0% 100%, rgba(63, 224, 230, 0.16), transparent 60%),
+    linear-gradient(160deg, #2E0A63, #1A0640);
+}
+.photo::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 36px 36px;
+  -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 10%, transparent 75%); mask-image: radial-gradient(ellipse at 70% 30%, #000 10%, transparent 75%);
+}
+.light .photo:not(.dark-fill) {
+  background:
+    radial-gradient(120% 90% at 85% 0%, rgba(109, 40, 217, 0.18), transparent 60%),
+    radial-gradient(90% 70% at 0% 100%, rgba(63, 224, 230, 0.14), transparent 60%),
+    linear-gradient(160deg, #EDE6FB, #F8F6FD);
+}
+.light .photo:not(.dark-fill)::before {
+  background-image: linear-gradient(rgba(109, 40, 217, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(109, 40, 217, 0.09) 1px, transparent 1px);
+}
+.photo--21x9 { aspect-ratio: 21 / 9; }
+.photo--16x10 { aspect-ratio: 16 / 10; }
+.photo--4x3 { aspect-ratio: 4 / 3; }
+.photo--4x5 { aspect-ratio: 4 / 5; }
+.photo--3x4 { aspect-ratio: 3 / 4; }
+.photo--narrow { max-width: 300px; }
+.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s ease; }
+.photo.is-filled img { opacity: 1; }
+.photo.is-filled::before { display: none; }
+@media (prefers-reduced-motion: reduce) { .photo img { transition: none; } }
+
+/* Preview mode labels (?photos) */
+.photo__label { display: none; }
+html.show-photo-slots .photo:not(.is-filled) .photo__label {
+  position: absolute; inset: 10px; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; padding: 12px; text-align: center; border: 1.5px dashed rgba(255, 255, 255, 0.55); border-radius: 14px;
+  color: #FFFFFF; font-size: 13px; line-height: 1.45; background: rgba(20, 5, 54, 0.35);
+}
+html.show-photo-slots .light .photo:not(.dark-fill):not(.is-filled) .photo__label { color: var(--ink); border-color: rgba(109, 40, 217, 0.5); background: rgba(255, 255, 255, 0.55); }
+.photo__label b { font-size: 12px; letter-spacing: 0.06em; color: var(--cyan); }
+.light .photo:not(.dark-fill) .photo__label b { color: var(--violet); }
+.photo__label i { font-style: normal; font-size: 12px; opacity: 0.75; }
+html.show-photo-slots .photo.is-filled::after {
+  content: attr(data-tag); position: absolute; top: 10px; inset-inline-start: 10px; z-index: 1; direction: ltr;
+  font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(20, 5, 54, 0.75); color: #FFFFFF;
+}
+.photo-bg-tag { display: none; }
+html.show-photo-slots .photo-bg-tag {
+  display: block; position: absolute; z-index: 2; top: 12px; inset-inline-start: 12px; font-size: 12px; font-weight: 600;
+  padding: 4px 10px; border-radius: 8px; border: 1.5px dashed rgba(255, 255, 255, 0.6); background: rgba(20, 5, 54, 0.6); color: #FFFFFF;
+}
+.hero--home { position: relative; }
+.hero--home.has-photo { background-image: linear-gradient(90deg, rgba(30, 8, 69, 0.94) 0%, rgba(30, 8, 69, 0.72) 55%, rgba(30, 8, 69, 0.5) 100%), var(--hero-photo); background-size: cover; background-position: center; }
+html[dir="rtl"] .hero--home.has-photo { background-image: linear-gradient(270deg, rgba(30, 8, 69, 0.94) 0%, rgba(30, 8, 69, 0.72) 55%, rgba(30, 8, 69, 0.5) 100%), var(--hero-photo); }
+
+/* Placements */
+.hero__photo.photo { aspect-ratio: 4 / 5; align-self: center; }
+.hero__photo--3x4.photo { aspect-ratio: 3 / 4; }
+.photo-band { background: var(--paper); padding: 0 0 72px; }
+.photo-band--white { background: #FFFFFF; }
+.photo-band .photo { border-radius: 24px; }
+.studio__aside .photo { margin-top: 8px; }
+.week__aside { display: flex; flex-direction: column; gap: 24px; align-self: end; }
+.photo-strip { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.photo-strip__cap { margin-top: 10px; font-size: 14px; color: var(--on-dark-muted); }
+.card--with-photo { display: flex; flex-direction: column; gap: 0; }
+.card--with-photo .photo { border-radius: 14px; margin-bottom: 20px; }
+.card--with-photo .card__lead { margin-top: 0; }
+.section-photo { margin-top: 32px; }
+.contact-page .photo { margin-top: 8px; }
+.article-card .photo, .lead-feature .photo { border-radius: 20px; }
+
+@media (max-width: 960px) {
+  .hero__photo.photo { aspect-ratio: 16 / 10; max-height: none; }
+  .photo--narrow { max-width: 260px; }
+}
+@media (max-width: 700px) {
+  .photo-band { padding-bottom: 48px; }
+  .photo-band .photo, .photo--21x9 { aspect-ratio: 16 / 10; border-radius: 18px; }
+  .photo-strip { margin-top: 32px; display: flex; }
+  .photo-strip > * { flex: 0 0 min(78%, 300px); }
+  .insight .photo.insight__img { flex: 0 0 112px; width: 112px; aspect-ratio: 1; border-radius: 14px; }
+  html.show-photo-slots .insight .photo:not(.is-filled) .photo__label { font-size: 0; }
+  html.show-photo-slots .insight .photo:not(.is-filled) .photo__label b { font-size: 10px; }
 }

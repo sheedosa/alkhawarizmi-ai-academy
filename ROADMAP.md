@@ -21,7 +21,7 @@ _October 2026. Covers the static site in this repository._
   with phone variants (~300 KB total).
 
 **Not yet**
-- No real photography (geometric placeholders everywhere); no founder, partner or testimonial proof.
+- No real photography yet (28 drop-in slots wait for files, see `PHOTOS.md`); no founder, partner or testimonial proof.
 - One URL per page for both languages → Arabic content is not indexable as Arabic pages; no `hreflang`.
 - Insights articles are index entries only; there are no article pages.
 - No custom domain; canonical URLs point at `sheedosa.github.io/alkhawarizmi-ai-academy/`.
@@ -56,7 +56,8 @@ form_start** (is the page convincing?) and **form_start → generate_lead** (is 
 
 ### Step 2 — Trust and conversion (week 1–3)
 1. Shoot real photography: the room mid-session, hands on keyboards, printed deliverables, the building on
-   Zawiat Dahmani Street. Replace `assets/hero-v4.webp`, `v-studio*.webp`, `v-week*.webp`, `building.webp`.
+   Zawiat Dahmani Street. `PHOTOS.md` lists all 28 slots with file names and sizes; uploading
+   `assets/photos/<id>.jpg` fills a slot with no code change (`?photos` on any page shows where each one goes).
 2. Add one credibility line under the Home hero or in About: a founder name, role and one sentence
    (the old site's `assets/drali.jpg` exists in git history `40fc014`).
 3. After the first cohort: 2–3 short participant quotes with first name + role, placed on Studio and Home.

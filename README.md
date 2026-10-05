@@ -42,10 +42,11 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
   `form_start`, `generate_lead` (mark as key event), `form_error`, `lang_toggle`, `filter_insights`.
   Roadmap and funnel definitions: `ROADMAP.md`.
 
-## Placeholders
+## Photos
 
-Photos are not available yet. Image slots render as dashed "Photo to come" frames (`.fig--pending`) with a
-bilingual caption saying what should go there. Replace a frame with an `<img>` when the photo exists.
+Every image slot is a `<figure data-photo="id">`. Upload `assets/photos/<id>.jpg` and it appears; until then a
+branded panel shows. The full list of slots, file names and sizes is in `PHOTOS.md`. Add `?photos` to any URL to
+see each slot labelled.
 
 ## Local preview
 
