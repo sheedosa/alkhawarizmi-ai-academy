@@ -171,6 +171,8 @@ html[lang="ar"] .passage { letter-spacing: 0; }
   box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.7);
 }
 .nav__group.is-open .dropdown { display: block; }
+/* Invisible bridge over the gap between trigger and dropdown, so the pointer never "leaves" on the way down */
+.dropdown::before { content: ''; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
 .dropdown a { display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; color: var(--fg); }
 .dropdown a + a { border-top: 1px solid var(--rule); }
 .dropdown a:hover { background: rgba(185, 162, 255, 0.08); }
@@ -610,8 +612,12 @@ html.show-photo-slots .photo-band--bleed .photo { aspect-ratio: 21 / 9; }
   .nav, .header-actions .btn-contact { display: none; }
   .header-actions { margin-inline-start: auto; gap: 8px; }
   .menu-btn { display: flex; }
+  /* The open menu overlays the page instead of making the header taller, so the page underneath never shifts */
   .mobile-nav.is-open {
-    display: flex; flex-direction: column; padding: 8px clamp(20px, 4vw, 64px) 24px; border-top: 1px solid var(--rule);
+    display: flex; flex-direction: column; padding: 8px clamp(20px, 4vw, 64px) 24px;
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 25;
+    background: var(--night-3); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
     max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); overflow-y: auto; overscroll-behavior: contain;
   }
   .mobile-nav__title { margin-top: 18px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
@@ -736,6 +742,7 @@ html.show-photo-slots .photo-band--bleed .photo { aspect-ratio: 21 / 9; }
    ===================================================================== */
 html { -webkit-tap-highlight-color: transparent; }
 html.menu-open { overflow: hidden; }
+html.menu-open .action-bar { transform: translateY(120%); }   /* the menu has the screen while it is open */
 
 /* Pressed states, so a tap is visibly registered */
 .btn:active, .route-btn:active { transform: translateY(1px); filter: brightness(0.92); }

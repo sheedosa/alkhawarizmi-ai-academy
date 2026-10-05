@@ -48,14 +48,24 @@
 
   groups.forEach(function (group) {
     var trigger = group.querySelector('.nav__trigger');
+    var closeTimer = null, lastPointer = '';
     // Hover only for a real mouse: on touch, pointerenter + click would open then instantly close.
+    // Closing waits a moment, so moving diagonally from the trigger to an option doesn't shut the menu.
     group.addEventListener('pointerenter', function (e) {
-      if (e.pointerType === 'mouse') { closeAll(group); setOpen(group, true); }
+      if (e.pointerType !== 'mouse') return;
+      clearTimeout(closeTimer);
+      closeAll(group); setOpen(group, true);
     });
     group.addEventListener('pointerleave', function (e) {
-      if (e.pointerType === 'mouse') setOpen(group, false);
+      if (e.pointerType !== 'mouse') return;
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(function () { setOpen(group, false); }, 250);
     });
+    trigger.addEventListener('pointerdown', function (e) { lastPointer = e.pointerType; });
     trigger.addEventListener('click', function () {
+      // With a mouse the menu is already open from hovering; a click should keep it open, not close it.
+      if (lastPointer === 'mouse' && group.classList.contains('is-open')) { lastPointer = ''; return; }
+      lastPointer = '';
       var open = !group.classList.contains('is-open');
       closeAll(group);
       setOpen(group, open);
