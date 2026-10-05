@@ -16,7 +16,7 @@ Static HTML/CSS/JS — no build step, no dependencies.
 | `about.html`, `insights.html`, `contact.html`, `privacy.html` | Academy pages |
 | `404.html` | Shown for any unknown URL |
 | `styles.css` | Design tokens, sections, components, responsive + touch rules, Arabic typography resets |
-| `fonts.css`, `assets/fonts/` | Self-hosted Newsreader, Noto Naskh Arabic, IBM Plex Sans, Plex Sans Arabic and Plex Mono (woff2 subsets, OFL). No Google Fonts request. |
+| `fonts.css`, `assets/fonts/` | Self-hosted IBM Plex Sans, Plex Sans Arabic and Plex Mono (woff2 subsets, OFL). No Google Fonts request. |
 | `main.js` | Language toggle, header dropdowns, mobile menu, lead forms, analytics events, Insights filter |
 | `config.js` | **Fill this in:** Supabase URL + anon key, GA4 measurement id |
 | `supabase/` | `001_leads.sql` (run once in your Supabase project) and setup notes |
@@ -44,10 +44,12 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
 
 ## Design
 
-Paper and ink. A warm paper ground (`--paper`), ink text and dark sections (`--ink`), violet for links and buttons,
-and a manuscript red (`--rubric`) for small labels only. Headings are set in Newsreader (English) and Noto Naskh
-Arabic (Arabic); text in IBM Plex Sans and Plex Sans Arabic; small labels in Plex Mono. Content sits on 1px rules
-rather than in boxed cards, with numbers only where there is a real sequence.
+Deep purple and technical. Dark purple grounds (`.tone-1`, `.tone-2`, `.tone-3`) with lavender `.paper` sections
+for forms and long reading; lilac for links; cyan as the single accent, kept for the primary button, focus
+outlines and the figure. Components read semantic variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`,
+`--link`), so a surface class only swaps values. Type is one family: IBM Plex Sans and Plex Sans Arabic for
+headings and text, Plex Mono for small labels. Content sits on 1px rules rather than in boxed cards, with numbers
+only where there is a real sequence. No glows, blurs or gradient fills.
 
 The recurring figure (`assets/motif/`) is al-Khwarizmi's own: the completing-the-square diagram from his book of
 algebra, which solves x² + 10x = 39. The SVGs are plain files and can be edited by hand.
