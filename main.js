@@ -79,10 +79,12 @@
     menuBtn.addEventListener('click', function () {
       var open = !mobileNav.classList.contains('is-open');
       mobileNav.classList.toggle('is-open', open);
+      document.documentElement.classList.toggle('menu-open', open);  // lock the page behind the open menu
       menuBtn.setAttribute('aria-expanded', String(open));
     });
     var closeMenu = function () {
       mobileNav.classList.remove('is-open');
+      document.documentElement.classList.remove('menu-open');
       menuBtn.setAttribute('aria-expanded', 'false');
     };
     mobileNav.addEventListener('click', function (e) {

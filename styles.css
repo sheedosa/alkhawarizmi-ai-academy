@@ -492,7 +492,7 @@ html[lang="ar"] .article-meta, html[lang="ar"] .index__count { font-size: 13.5px
 html[lang="ar"] .article-card h3 { letter-spacing: 0; }
 
 /* Contact */
-.contact-page { min-height: calc(100vh - 72px); }
+.contact-page { min-height: calc(100vh - 72px); min-height: calc(100svh - 72px); }
 .contact-page .container { padding-block: 96px 112px; }
 .contact-page .grid12 { gap: 48px 32px; }
 .contact-page h1 { font-size: var(--h1-size); line-height: var(--h1-lh); letter-spacing: var(--track-h1); }
@@ -703,10 +703,54 @@ html.show-photo-slots .photo-bg-tag {
   .hero--interior h1, .masthead h1, .contact-page h1 { font-size: clamp(28px, 9vw, 38px); }
 }
 
-/* Touch screens: comfortable tap targets for inline links */
+/* =====================================================================
+   Phones and touch
+   ===================================================================== */
+html { -webkit-tap-highlight-color: transparent; }
+html.menu-open { overflow: hidden; }
+
+/* Pressed states, so a tap is visibly registered */
+.btn:active, .route-btn:active { transform: translateY(1px); filter: brightness(0.92); }
+.who-row:active, .prog:active, .insight:active, .article-card:active, .offer-index a:active, .dropdown a:active, .mobile-nav a:active { background: rgba(185, 162, 255, 0.1); }
+.paper .prog:active { background: rgba(91, 33, 182, 0.06); }
+
+/* Touch screens: every control at least 44px tall, without enlarging the type */
 @media (pointer: coarse) {
-  .lang-toggle__opt { min-height: 36px; display: flex; align-items: center; }
-  .insights__all, .footer-brand__mail, .hero-card__link { padding-block: 8px; }
+  .brand { min-height: 44px; }
+  .lang-toggle__opt { min-height: 44px; display: flex; align-items: center; }
+  .filter-tabs button { min-height: 44px; min-width: 44px; }
+  .btn--sm { min-height: 44px; display: inline-flex; align-items: center; }
+  .skip-link { padding-block: 12px; }
+  .action-bar .btn { min-height: 44px; display: inline-flex; align-items: center; }
+  .hero-card__link, .insights__all, .footer-brand__mail, .contact-details a, .form__privacy a {
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+  .radio-group label { min-height: 44px; }
   .footer-col { gap: 0; }
-  .footer-col a { padding-block: 9px; }
+  .footer-col a { display: flex; align-items: center; min-height: 44px; }
+}
+
+/* Phone widths: small labels never under 13px */
+@media (max-width: 700px) {
+  .eyebrow, .hero-card__title, .hero-card__tag, .hero-card__head > span, .route-col__title, .prog__tier, .prog__meta,
+  .phase__time, .insight__cat, .days th, .doc-list__n, .facts, .article-meta, .index__count, .footer-col__title,
+  .ruled-list .n, .card--deliverable .card__n, .action-bar__text > span, .fig__caption, .offer-index a > span:last-child { font-size: 13px; }
+  html[lang="ar"] .eyebrow, html[lang="ar"] .route-col__title, html[lang="ar"] .footer-col__title, html[lang="ar"] .facts { font-size: 14px; }
+
+  /* Insights filters: one swipeable row */
+  .filter-tabs {
+    flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); width: calc(100% + 2 * var(--gutter));
+  }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .filter-tabs button { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: start; }
+
+  .page-about .hero--interior h1 { font-size: clamp(26px, 7.6vw, 32px); }
+  html[lang="ar"] .page-about .hero--interior h1 { font-size: clamp(24px, 7vw, 30px); }
+}
+
+/* Phones held sideways: the header scrolls away instead of taking a fifth of the screen */
+@media (max-height: 500px) and (orientation: landscape) {
+  .site-header { position: relative; }
+  .site-header__inner { min-height: 56px; padding-block: 6px; }
 }
