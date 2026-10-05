@@ -17,8 +17,9 @@ _October 2026. Covers the static site in this repository._
   `lang_toggle`, `filter_insights`). GA4 loads only once an id is set in `config.js`.
 - SEO basics: per-page titles/descriptions/canonicals, Open Graph, JSON-LD (`EducationalOrganization`,
   `Course` ×5, `AboutPage`, `ContactPage`, `CollectionPage`), sitemap with 8 URLs.
-- Mobile verified 320–1440px in both languages: no horizontal scroll, touch targets, swipe rows, WebP images
-  with phone variants (~300 KB total).
+- Mobile verified 320–1440px in both languages: no horizontal scroll, touch targets.
+- Own visual identity (October 2026): paper-and-ink palette, Newsreader / Noto Naskh Arabic headings, ruled
+  layouts instead of card grids, and al-Khwarizmi's completing-the-square figure as the recurring motif.
 
 **Not yet**
 - No real photography yet (28 drop-in slots wait for files, see `PHOTOS.md`); no founder, partner or testimonial proof.
@@ -80,7 +81,7 @@ form_start** (is the page convincing?) and **form_start → generate_lead** (is 
 3. One piece per fortnight, in Arabic first — the "Live builds" category is the strongest proof format.
 
 ### Step 6 — Performance polish
-1. ~~Self-host fonts~~ Done: Outfit, Cairo and Plex Arabic are served from `assets/fonts/` (380 KB of subsets).
+1. ~~Self-host fonts~~ Done: Newsreader, Noto Naskh Arabic and the Plex families are served from `assets/fonts/`.
 2. Target Lighthouse ≥ 95 mobile. Current image budget is ~200 KB; keep it.
 
 ### Step 7 — Experiments (month 2+)

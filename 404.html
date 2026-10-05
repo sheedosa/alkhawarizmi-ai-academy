@@ -20,17 +20,20 @@
   })();
 </script>
 <link rel="stylesheet" href="fonts.css">
-<meta name="theme-color" content="#24085A">
+<meta name="theme-color" content="#F6F2EA">
 <link rel="icon" type="image/png" href="assets/mark.png">
 <link rel="stylesheet" href="styles.css">
 <script src="config.js"></script>
 <script src="main.js" defer></script>
 <style>
-  .notfound { min-height: calc(100vh - 72px); display: flex; align-items: center; }
-  .notfound .container { padding-block: 96px; }
-  .notfound h1 { margin-top: 28px; font-family: var(--display); font-weight: 700; font-size: clamp(36px, 5vw, 64px); line-height: var(--h2-lh); letter-spacing: -0.02em; }
-  .notfound p.lede { margin-top: 20px; max-width: 560px; color: var(--on-dark); }
+  .notfound { min-height: calc(100vh - 72px); display: flex; align-items: center; border-bottom: 0; }
+  .notfound .container { padding-block: 96px; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 48px; align-items: center; }
+  .notfound h1 { margin-top: 24px; font-size: clamp(36px, 5vw, 64px); line-height: var(--h2-lh); }
+  .notfound p.lede { margin-top: 20px; max-width: 560px; }
   .notfound .btn { margin-top: 36px; }
+  .notfound__fig { width: 100%; max-width: 360px; justify-self: end; opacity: 0.85; }
+  .notfound a.inline { color: var(--violet); text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 760px) { .notfound .container { grid-template-columns: 1fr; } .notfound__fig { max-width: 200px; justify-self: start; order: -1; } }
 </style>
 </head>
 <body>
@@ -43,18 +46,21 @@
     </a>
     <div class="header-actions" style="margin-inline-start:auto">
       <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language / تغيير اللغة">
-        <span class="lang-toggle__opt lang-toggle__opt--ar"><img src="assets/flag-ly.svg" alt=""><span dir="rtl">عربي</span></span>
-        <span class="lang-toggle__opt lang-toggle__opt--en"><img src="assets/flag-uk.svg" alt=""><span>EN</span></span>
+        <span class="lang-toggle__opt lang-toggle__opt--ar"><span dir="rtl">العربية</span></span>
+        <span class="lang-toggle__opt lang-toggle__opt--en"><span>English</span></span>
       </button>
     </div>
   </div>
 </header>
 <main class="hero notfound">
   <div class="container">
-    <p class="eyebrow eyebrow--cyan"><span data-l="en">404</span><span data-l="ar">404</span></p>
+    <div>
+    <p class="eyebrow"><span data-l="en">Error 404</span><span data-l="ar">خطأ 404</span></p>
     <h1><span data-l="en">We could not find that page.</span><span data-l="ar">لم نعثر على هذه الصفحة.</span></h1>
-    <p class="lede"><span data-l="en">The link may be old or mistyped. Start from the homepage, or email us at <a href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span><span data-l="ar">قد يكون الرابط قديماً أو خاطئاً. ابدأ من الصفحة الرئيسية، أو راسلنا على البريد: <a href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span></p>
-    <a class="btn btn--cyan" href="index.html"><span data-l="en">Back to the homepage</span><span data-l="ar">العودة إلى الصفحة الرئيسية</span></a>
+    <p class="lede"><span data-l="en">The link may be old or mistyped. Start from the homepage, or email us at <a class="inline" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span><span data-l="ar">قد يكون الرابط قديماً أو خاطئاً. ابدأ من الصفحة الرئيسية، أو راسلنا على البريد: <a class="inline" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span></p>
+    <a class="btn btn--primary" href="index.html"><span data-l="en">Back to the homepage</span><span data-l="ar">العودة إلى الصفحة الرئيسية</span></a>
+    </div>
+    <img class="notfound__fig" src="assets/motif/jabr.svg" alt="" width="376" height="376">
   </div>
 </main>
 </body>

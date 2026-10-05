@@ -3,7 +3,7 @@
 The site has **28 photos**, shown in 32 places. Each one has a file name. Upload a photo with that exact name to
 `assets/photos/` and it appears on the site, in every place that uses it. No code changes are needed.
 
-Until a photo exists, visitors see a soft branded panel in its place, never an empty box.
+Until a photo exists, its slot is hidden and the page reads as text only, so visitors never see an empty box.
 
 ## See where each photo goes
 

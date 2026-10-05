@@ -351,7 +351,7 @@
 
 
 /* Photo slots: <figure data-photo="id"> shows assets/photos/id.jpg if it exists.
-   Probed only when the slot nears the viewport. ?photos shows labelled slots; ?photos=0 hides them. */
+   Probed only when the slot's section nears the viewport; empty slots stay hidden. ?photos shows labelled slots; ?photos=0 hides them. */
 (function () {
   var root = document.documentElement;
   var DIR = 'assets/photos/';
@@ -378,10 +378,19 @@
   }
   var slots = document.querySelectorAll('[data-photo]');
   if ('IntersectionObserver' in window) {
+    // Empty slots are display:none for visitors, so watch the section around each one instead.
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); fill(e.target); } });
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        e.target.__slots.forEach(fill);
+      });
     }, { rootMargin: '400px 0px' });
-    slots.forEach(function (el) { io.observe(el); });
+    slots.forEach(function (el) {
+      var anchor = el.closest('section, article') || el.parentNode;
+      if (!anchor.__slots) { anchor.__slots = []; io.observe(anchor); }
+      anchor.__slots.push(el);
+    });
   } else { slots.forEach(fill); }
 
   var bg = document.querySelector('[data-photo-bg]');

@@ -16,11 +16,11 @@ Static HTML/CSS/JS — no build step, no dependencies.
 | `about.html`, `insights.html`, `contact.html`, `privacy.html` | Academy pages |
 | `404.html` | Shown for any unknown URL |
 | `styles.css` | Design tokens, sections, components, responsive + touch rules, Arabic typography resets |
-| `fonts.css`, `assets/fonts/` | Self-hosted Outfit, Cairo and IBM Plex Sans Arabic (woff2 subsets, OFL). No Google Fonts request. |
+| `fonts.css`, `assets/fonts/` | Self-hosted Newsreader, Noto Naskh Arabic, IBM Plex Sans, Plex Sans Arabic and Plex Mono (woff2 subsets, OFL). No Google Fonts request. |
 | `main.js` | Language toggle, header dropdowns, mobile menu, lead forms, analytics events, Insights filter |
 | `config.js` | **Fill this in:** Supabase URL + anon key, GA4 measurement id |
 | `supabase/` | `001_leads.sql` (run once in your Supabase project) and setup notes |
-| `assets/` | WebP imagery (with smaller mobile variants), logo, flags |
+| `assets/` | Logo, share image `og.png`, the al-Jabr figure in `motif/`, drop-in photos in `photos/` |
 
 ## Language
 
@@ -42,10 +42,20 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
   `form_start`, `generate_lead` (mark as key event), `form_error`, `lang_toggle`, `filter_insights`.
   Roadmap and funnel definitions: `ROADMAP.md`.
 
+## Design
+
+Paper and ink. A warm paper ground (`--paper`), ink text and dark sections (`--ink`), violet for links and buttons,
+and a manuscript red (`--rubric`) for small labels only. Headings are set in Newsreader (English) and Noto Naskh
+Arabic (Arabic); text in IBM Plex Sans and Plex Sans Arabic; small labels in Plex Mono. Content sits on 1px rules
+rather than in boxed cards, with numbers only where there is a real sequence.
+
+The recurring figure (`assets/motif/`) is al-Khwarizmi's own: the completing-the-square diagram from his book of
+algebra, which solves x² + 10x = 39. The SVGs are plain files and can be edited by hand.
+
 ## Photos
 
-Every image slot is a `<figure data-photo="id">`. Upload `assets/photos/<id>.jpg` and it appears; until then a
-branded panel shows. The full list of slots, file names and sizes is in `PHOTOS.md`. Add `?photos` to any URL to
+Every image slot is a `<figure data-photo="id">`. Upload `assets/photos/<id>.jpg` and it appears; until then the
+slot is hidden and the layout falls back to text. The full list of slots, file names and sizes is in `PHOTOS.md`. Add `?photos` to any URL to
 see each slot labelled.
 
 ## Local preview
