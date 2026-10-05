@@ -82,6 +82,19 @@
     if (open) open.querySelector('.nav__trigger').focus();
   });
 
+  // Header: a soft shadow once the page has scrolled
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var ticking = false;
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { header.classList.toggle('is-scrolled', window.scrollY > 8); ticking = false; });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   // Mobile menu
   var menuBtn = document.querySelector('[data-menu-toggle]');
   var mobileNav = document.getElementById('mobile-nav');

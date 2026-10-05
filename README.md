@@ -49,12 +49,19 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
 
 ## Design
 
-Deep purple and technical. Dark purple grounds (`.tone-1`, `.tone-2`, `.tone-3`) with lavender `.paper` sections
-for forms and long reading; lilac for links; cyan as the single accent, kept for the primary button, focus
-outlines and the figure. Components read semantic variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`,
-`--link`), so a surface class only swaps values. Type is one family: IBM Plex Sans and Plex Sans Arabic for
-headings and text, Plex Mono for small labels. Content sits on 1px rules rather than in boxed cards, with numbers
-only where there is a real sequence. No glows, blurs or gradient fills.
+An academy look: mostly light pages with cards, and deep purple kept for accents. White (`.tone-1`) and soft
+lavender (`.tone-2`, `.paper`) carry most sections; deep purple (`.tone-3`) is used for heroes, the Studio feature,
+quote bands, the consultation form and the footer. On light grounds violet `#5B21B6` is the link and button colour;
+on purple, cyan is the single accent (primary button, focus outlines, the figure). Components read semantic
+variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`, `--link`, `--surface`, `--card-border`, `--badge-bg`,
+`--btn-bg`), so a surface class only swaps values and every card works on both grounds.
+
+Content sits in cards (radius 16px, hairline border, soft shadow; a 2px lift on hover with a mouse): audience cards,
+programme cards with a photo on top, badges, details and price, day cards for the Studio, numbered document cards,
+and checklists held in a single card. The header is white with a shadow once the page scrolls; the language switch
+is a sliding pill (EN | ع) whose thumb follows the page language. Type is one family: IBM Plex Sans and Plex Sans
+Arabic for headings and text, Plex Mono for small labels. No glows, blurs or gradient fills. All text meets WCAG AA
+contrast.
 
 The recurring figure (`assets/motif/`) is al-Khwarizmi's own: the completing-the-square diagram from his book of
 algebra, which solves x² + 10x = 39. The SVGs are plain files and can be edited by hand.
@@ -65,7 +72,7 @@ Every image slot is a `<figure data-photo="id">`. Upload the original `assets/ph
 `Photos` workflow (`.github/workflows/photos.yml`, script `tools/photos.mjs`, using sharp) writes WebP sizes from
 640 to 3840 px to `assets/photos/web/` and lists them in `assets/photos/manifest.json`. `main.js` reads the manifest
 and gives each slot a `srcset`, so browsers download only the width they need; ids not in the manifest make no
-request. Bands and programme images show a framed placeholder while empty; other slots stay hidden. The full list
+request. Bands and programme images show a framed placeholder while empty (a light frame where a dark one would merge with a neighbouring purple section); other slots stay hidden. The full list
 of slots, file names and sizes is in `PHOTOS.md`. Add `?photos` to any URL to see each slot labelled.
 
 ## Local preview
