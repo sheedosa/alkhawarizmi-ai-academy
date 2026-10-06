@@ -1447,3 +1447,83 @@ html:not(.show-photo-slots) .phase .photo--art:not(.is-filled) { display: none; 
 .spec-index a:hover .spec-index__name { color: var(--link); }
 .hero.has-photo .spec-card { box-shadow: none; }
 .hero.has-photo .spec-index a:hover .spec-index__name { color: var(--accent); }
+
+/* =====================================================================
+   Home conversion structure
+   ===================================================================== */
+/* Catalogue: "I am..." chips and audience tabs in one filter group */
+.filter-tabs--catalogue { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+.filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.filter-row__label { flex: 0 0 auto; min-width: 54px; margin-inline-end: 4px; font-size: 14px; font-weight: 600; color: var(--fg-soft); }
+.filter-row--persona button { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; background: #FFFFFF; border-color: var(--card-border); color: var(--fg); font-weight: 600; box-shadow: var(--card-shadow); }
+html[dir="rtl"] .filter-row--persona button { padding: 8px 10px 8px 14px; }
+.filter-row--persona button .icon { width: 20px; height: 20px; color: var(--violet); }
+.filter-row--persona button[aria-pressed="true"] .icon { color: #FFFFFF; }
+.persona-note { margin-top: 20px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px 18px; padding: 16px 20px; border-radius: 16px; background: var(--amber-soft); border: 1px solid #F1DDAA; }
+.persona-note[hidden] { display: none; }
+.persona-note p { font-size: 16px; line-height: 1.55; color: var(--fg-soft); }
+.persona-note b { color: var(--fg); font-weight: 600; }
+.persona-note__ask { font-size: 15px; font-weight: 600; color: var(--link); white-space: nowrap; text-decoration: underline; text-underline-offset: 4px; }
+.cat-grid { margin-top: 24px; }
+.cat-more { margin-top: 24px; font-size: 16px; color: var(--fg-soft); }
+.cat-more a { font-weight: 600; color: var(--link); text-decoration: underline; text-underline-offset: 4px; }
+
+/* Next groups: every programme opens the enquiry form; a notify link closes the row */
+.next-groups__notify { margin-inline-start: auto; font-size: 15px; font-weight: 600; color: var(--link); white-space: nowrap; }
+.next-groups__notify:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Optional photo bands take no space until their photo exists */
+html:not(.show-photo-slots) .photo-band--optional:not(:has(.has-src, .is-filled)) { display: none; }
+
+/* Closing panel with the enquiry form */
+.cta-panel--form { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: stretch; gap: 48px; }
+.cta-panel--form .cta-panel__text { display: flex; flex-direction: column; }
+.cta-panel--form .cta-panel__person { flex: 1; min-height: 240px; margin-top: 24px; }
+.cta-panel--form .cta-panel__photo.photo { bottom: -56px; height: calc(100% + 56px); }
+.cta-panel--form .cta-panel__art { width: 100%; inset-inline-end: auto; inset-inline-start: 0; bottom: -40px; }
+.form--enquire { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid var(--card-border); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6); }
+.form--enquire .field:has(select), .form--enquire .field:has(textarea), .form--enquire .form__actions, .form--enquire .form__error { grid-column: 1 / -1; }
+.form--enquire .field textarea { min-height: 84px; }
+.form--enquire .btn { padding: 13px 24px; }
+.cta-panel__form .form-sent { margin: 0; }
+
+/* Home action bar sits above the closing panel's form */
+.page-home .action-bar .btn, body:not([data-programme]) .action-bar .btn { white-space: nowrap; }
+
+@media (max-width: 960px) {
+  .cta-panel--form { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-bottom: 28px; }
+  .cta-panel--form .cta-panel__person { display: none; }
+  .next-groups__notify { margin-inline-start: 0; }
+}
+@media (max-width: 700px) {
+  .filter-row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding: 4px var(--gutter) 8px; scroll-padding-inline: var(--gutter); }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-row button { flex: 0 0 auto; white-space: nowrap; }
+  .filter-row__label { min-width: 0; }
+  .persona-note { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+  .persona-note .icon-circle { display: none; }
+  /* Compact catalogue cards: a small picture beside the title, one detail row, price and link */
+  .cat-grid { gap: 12px; }
+  .cat-card { display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 14px; padding: 14px; }
+  .cat-card .course-card__img.photo { width: 96px; height: 96px; aspect-ratio: 1; min-height: 0; border-radius: 12px; grid-row: 1; align-self: start; }
+  .cat-card .course-card__img .art { padding: 6%; }
+  .cat-card__body { padding: 0; gap: 4px; display: contents; }
+  .cat-card .course-card__badges { grid-column: 2; grid-row: 1; align-self: start; display: none; }
+  .cat-card .course-card__name { grid-column: 2; grid-row: 1; align-self: center; font-size: 19px; }
+  .cat-card .course-card__line { grid-column: 1 / -1; margin-top: 10px; font-size: 14.5px; }
+  .cat-card .course-card__meta { grid-column: 1 / -1; margin-top: 8px; }
+  .cat-card .course-card__meta .meta-row:nth-child(2) { display: none; }
+  .cat-card .course-card__foot { grid-column: 1 / -1; margin-top: 10px; padding-top: 10px; }
+  .form--enquire { grid-template-columns: minmax(0, 1fr); padding: 20px 16px; }
+  .form--enquire .btn { width: 100%; }
+}
+@media (pointer: coarse) {
+  .next-groups__notify, .persona-note__ask { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (max-width: 700px) {
+  .cat-card .course-card__img.photo { width: 72px; height: 72px; }
+  .cat-card { grid-template-columns: 72px minmax(0, 1fr); }
+  .cat-card .meta-row--next { display: none; }
+  .cat-card .course-card__line { margin-top: 8px; }
+  .cat-card .course-card__foot { margin-top: 8px; padding-top: 8px; }
+}

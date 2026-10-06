@@ -64,6 +64,17 @@ catalogue with filter tabs · the academy (photo collage, badge, checklist) · w
 numbers · how we teach · the Studio · the Strategy Week · how to join · testimonials · FAQ · from the academy · closing
 panel with a cut-out photo. Inner-page heroes are light with an at-a-glance card; a hero photo turns them dark.
 
+Home is built as a funnel. The hero buttons land on the programme catalogue with the right filter applied; an "I am…"
+row (founder, career-changer, executive, team lead, policymaker) narrows it to one programme and explains why. Every
+"Ask about this programme", "Next groups" and "Send an enquiry" link opens the enquiry form at the foot of the page
+(`#enquire`) with the programme already chosen, and a sticky bar offers it once the hero has scrolled away. The form
+posts to the Google Sheet like the other forms (Form column = the chosen programme, or `contact` for "Not sure yet";
+Page column = `/index.html#enquire`). Edge-to-edge photo bands on Home take no space until their photo is uploaded.
+
+Analytics: every button and link carries a `data-track` event (`select_route`, `cta_click`, `filter_programmes`,
+`form_start`, `generate_lead`). They are sent to GA4 once `GA4_ID` is set in `config.js`; mark `generate_lead` as a
+key event in GA4 to measure enquiries.
+
 Content lives in the scratchpad generators: `content.py` holds the next-group dates (`NEXT_GROUPS`), the numbers
 (`STATS`), the FAQ, and `TESTIMONIALS` / `PARTNERS`. The testimonials section and the partner logos stay hidden
 until those lists contain real quotes and real partners. Every number on the site is a real programme fact.

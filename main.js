@@ -195,7 +195,7 @@
     var att = attribution();
     return Object.assign({
       form: (data.programme && FORM_AUDIENCE[data.programme]) ? data.programme : kind,
-      audience: data.audience || FORM_AUDIENCE[kind] || null,
+      audience: data.audience || FORM_AUDIENCE[data.programme] || FORM_AUDIENCE[kind] || null,
       programme: data.programme || kind,
       edition: data.edition || null,
       name: data.name, email: data.email, phone: data.phone || null,
@@ -293,12 +293,14 @@
     var scope = row.closest('section') || document;
     var cards = scope.querySelectorAll('[data-cat-item]');
     if (!cards.length) cards = document.querySelectorAll('[data-cat-item]');
+    var notes = scope.querySelectorAll('[data-note-for]');
     var count = document.getElementById('index-count');
     var name = row.getAttribute('data-filter-name') || 'insights';
     var current = 'all';
     var apply = function (cat, track) {
       var n = 0;
-      cards.forEach(function (c) { var show = cat === 'all' || c.getAttribute('data-cat-item') === cat; c.classList.toggle('is-hidden', !show); if (show) n++; });
+      cards.forEach(function (c) { var show = cat === 'all' || (' ' + c.getAttribute('data-cat-item') + ' ').indexOf(' ' + cat + ' ') > -1; c.classList.toggle('is-hidden', !show); if (show) n++; });
+      notes.forEach(function (el) { el.hidden = el.getAttribute('data-note-for') !== cat; });
       tabs.forEach(function (t) { t.setAttribute('aria-pressed', String(t.getAttribute('data-cat') === cat)); });
       if (count && name === 'insights') {
         var label = row.querySelector('button[data-cat="' + cat + '"]');
@@ -311,9 +313,33 @@
       if (track) AKAA.track('filter_' + name, { category: cat });
     };
     tabs.forEach(function (t) { t.addEventListener('click', function () { apply(t.getAttribute('data-cat'), true); }); });
+    row.__apply = apply;
     apply('all', false);
     document.addEventListener('akaa:lang', function () { apply(current, false); });
   });
+
+  // ---- Links that land on the catalogue with a filter already applied (Home hero buttons)
+  document.querySelectorAll('a[data-filter-go]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var target = document.querySelector(a.getAttribute('href'));
+      var row = target && target.querySelector('.filter-tabs');
+      if (row && row.__apply) row.__apply(a.getAttribute('data-filter-go'), true);
+    });
+  });
+
+  // ---- Links that open the Home enquiry form with a programme already chosen
+  var enquire = document.getElementById('enquire');
+  if (enquire) {
+    var enqSel = enquire.querySelector('select[name="programme"]');
+    document.querySelectorAll('a[data-enquire]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var v = a.getAttribute('data-enquire');
+        if (enqSel && enqSel.querySelector('option[value="' + v + '"]')) enqSel.value = v;
+        var nameField = enquire.querySelector('input[name="name"]');
+        if (nameField) setTimeout(function () { nameField.focus({ preventScroll: true }); }, 450);
+      });
+    });
+  }
 })();
 
 
