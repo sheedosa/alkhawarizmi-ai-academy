@@ -37,8 +37,8 @@
   --placeholder: #9A90B5;
   --frame-bg: #EDE7FA url(assets/motif/jabr-violet.svg) center / auto 80% no-repeat;
 
-  --font: 'IBM Plex Sans', 'IBM Plex Sans Arabic', 'Helvetica Neue', Arial, sans-serif;
-  --mono: 'IBM Plex Mono', 'IBM Plex Sans Arabic', ui-monospace, monospace;
+  --font: 'IBM Plex Sans', 'Tajawal', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', 'Tajawal', ui-monospace, monospace;
   --display-weight: 600;
   --h1-size: clamp(40px, 5vw, 72px);
   --h1-lh: 1.06;
@@ -58,8 +58,9 @@ html[lang="ar"] {
   --pass-lh: 1.85;
   --track-h1: 0;
   --track-h2: 0;
-  /* Plex Mono's wide space breaks Arabic words apart, so Arabic labels use the text face */
-  --mono: 'IBM Plex Sans Arabic', 'IBM Plex Mono', sans-serif;
+  /* Arabic pages: Tajawal for all text; Plex Sans only for the few marks Tajawal lacks (« » · – … ©) */
+  --font: 'Tajawal', 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'Tajawal', 'IBM Plex Sans', sans-serif;
 }
 
 /* Surfaces */
@@ -248,7 +249,7 @@ html[lang="ar"] .lang-toggle::before { transform: translateX(100%); }
   position: relative; z-index: 1; min-width: 40px; display: flex; align-items: center; justify-content: center; padding: 0 10px;
   font-size: 13px; font-weight: 700; letter-spacing: 0.02em; color: var(--muted); transition: color .2s;
 }
-.lang-toggle__opt--ar { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 16px; letter-spacing: 0; line-height: 1; }
+.lang-toggle__opt--ar { font-family: 'Tajawal', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0; line-height: 1; }
 html:not([lang="ar"]) .lang-toggle__opt--en, html[lang="ar"] .lang-toggle__opt--ar { color: var(--fg); }
 .lang-toggle:hover { border-color: #CDBDF2; }
 
@@ -573,7 +574,7 @@ html[lang="ar"] .quote-band .quote { letter-spacing: 0; }
 }
 .field textarea { resize: vertical; min-height: 110px; }
 .field select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-inline-end: 38px; }
-html[dir="rtl"] .field select { background-position: 20px 50%, 14px 50%; padding-inline-end: 14px; padding-inline-start: 38px; }
+html[dir="rtl"] .field select { background-position: 14px 50%, 20px 50%; }  /* the arrow sits at the inline end (left); padding-inline-end already reserves its space */
 .field select option { color: #1A1033; }
 .field:focus-within { color: var(--link); }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.14); }
@@ -1160,18 +1161,18 @@ html[lang="ar"] .swipe-hint { font-family: var(--font); }
 
 /* =====================================================================
    Type and accent system
-   Headings and titles: Outfit (Readex Pro in Arabic), a rounded geometric sans. Text and labels: IBM Plex Sans.
+   Headings and titles: Outfit, a rounded geometric sans (Tajawal in Arabic). Text and labels: IBM Plex Sans (Tajawal in Arabic).
    Purple is the brand colour; amber is the warm accent (secondary buttons, badges, the bar before section labels).
    ===================================================================== */
 :root {
-  --display: 'Outfit', 'Readex Pro', 'IBM Plex Sans', system-ui, sans-serif;
+  --display: 'Outfit', 'Tajawal', 'IBM Plex Sans', system-ui, sans-serif;
   --amber: #F5B83D;
   --amber-soft: #FDF1D6;
   --amber-ink: #8A5A00;
   --glow-a: radial-gradient(closest-side, rgba(185, 162, 255, 0.35), rgba(185, 162, 255, 0) 100%);
   --glow-b: radial-gradient(closest-side, rgba(245, 184, 61, 0.22), rgba(245, 184, 61, 0) 100%);
 }
-html[lang="ar"] { --display: 'Readex Pro', 'Outfit', 'IBM Plex Sans Arabic', system-ui, sans-serif; }
+html[lang="ar"] { --display: 'Tajawal', 'Outfit', 'IBM Plex Sans', system-ui, sans-serif; }
 
 /* Page and section titles */
 .hero h1, .h2, .masthead h1, .contact-page h1, .notfound h1, .form-block h2, .lead-feature h2, .bar-title, .eyebrow-heading {
@@ -1526,4 +1527,65 @@ html:not(.show-photo-slots) .photo-band--optional:not(:has(.has-src, .is-filled)
   .cat-card .meta-row--next { display: none; }
   .cat-card .course-card__line { margin-top: 8px; }
   .cat-card .course-card__foot { margin-top: 8px; padding-top: 8px; }
+}
+
+/* =====================================================================
+   Arabic reading
+   One family (Tajawal) for every Arabic size. Arabic letters carry dots and vowel marks above and below the line,
+   so lines get more room than Latin; small labels never drop below 14px; nothing is tracked or italicised.
+   ===================================================================== */
+html[lang="ar"] body { line-height: 1.75; }
+html[lang="ar"] :is(h1, h2, h3, .h2, .hero h1, .eyebrow-heading, .form-block h2) { font-weight: 800; letter-spacing: 0; }
+html[lang="ar"] .hero h1 { line-height: 1.4; }
+html[lang="ar"] :is(.h2, .eyebrow-heading, .form-block h2, .lead-feature h2) { line-height: 1.45; }
+/* Card and item titles: bold, with room for the marks above and below */
+html[lang="ar"] :is(.who-card__who, .course-card__name, .step__name, .doc-tile__name, .day-card__what, .phase__name, .card__lead,
+  .arc__stage strong, .insight__title, .article-card h3, .hero-card__head strong, .certificate__lead, .spec-index__name, .faq summary,
+  .ask-card__title, .principles dt, .collage__badge b) { font-weight: 700; line-height: 1.5; letter-spacing: 0; }
+/* Running text */
+html[lang="ar"] :is(p, li, dd, .lede, .card__rest, .faq__a p, .course-card__line, .step__line, .doc-tile__line, .day-card__how) { letter-spacing: 0; }
+html[lang="ar"] :is(.lede, .hero__support, .academy__body, .week__body, .body-lg) { line-height: 1.85; }
+html[lang="ar"] .passage, html[lang="ar"] .quote-band .quote { font-weight: 500; line-height: 1.8; }
+/* Small labels: at least 14px and medium weight in Arabic */
+html[lang="ar"] :is(.badge, .hero-row__name, .hero-stat__meta, .collage__badge, .day-card__day, .swipe-hint, .arc__tag, .arc__m,
+  .session-bar__labels i, .site-footer__copy, .action-bar__text > span, .spec-index__meta, .hero__art-cap, .meta-row, .next-groups__date,
+  .form__privacy, .field, .phase__time, .insight__cat, .stats__l, .filter-row__label, .academy__fig figcaption, .timeline::after) {
+  font-size: 14.5px; line-height: 1.6; letter-spacing: 0;
+}
+html[lang="ar"] :is(.badge, .day-card__day, .phase__time, .insight__cat, .arc__tag, .hero-row__name) { font-weight: 700; }
+/* Buttons and navigation */
+html[lang="ar"] :is(.btn, .btn-contact, .nav a, .nav__trigger, .filter-tabs button, .mobile-nav a) { font-weight: 700; letter-spacing: 0; }
+html[lang="ar"] .brand__ar { font-weight: 800; line-height: 1.4; }
+/* Form fields: inputs read at 16px (also stops phones zooming in) */
+html[lang="ar"] :is(.field input, .field select, .field textarea) { font-size: 16px; }
+html[lang="ar"] :is(.spec-card__list dt, .article-meta, .article-meta .cat, .article-meta .soon, .cat, .soon, .index__count) { font-size: 14.5px; line-height: 1.6; letter-spacing: 0; }
+html[lang="ar"] .prose h2 { font-weight: 800; line-height: 1.5; letter-spacing: 0; }
+html[lang="ar"] :is(.btn, .action-bar .btn) { line-height: 1.5; }
+
+/* =====================================================================
+   Programme pages: practical details, programme FAQ, "not the right fit?"
+   ===================================================================== */
+.practical { margin: 36px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.practical > div { padding: 18px 20px; border-radius: 14px; background: var(--lavender); border: 1px solid var(--card-border); }
+.practical dt { font-size: 14px; font-weight: 600; color: var(--muted); }
+.practical dd { margin: 6px 0 0; font-size: 16.5px; font-weight: 500; line-height: 1.5; color: var(--fg); }
+.faq--programme .faq__list { max-width: 860px; }
+.fit .container { padding-block: 88px 96px; }
+.fit-grid { margin-top: 32px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.fit-card { display: flex; flex-direction: column; gap: 6px; padding: 20px 20px 22px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--card-border); box-shadow: var(--card-shadow); }
+.fit-card__aud { font-size: 13.5px; font-weight: 600; color: var(--link); }
+.fit-card__name { font-family: var(--display); font-weight: 600; font-size: 19px; line-height: 1.3; color: var(--fg); }
+.fit-card__line { font-size: 15px; line-height: 1.55; color: var(--fg-soft); }
+.fit-card__name::after { content: ' →'; color: var(--link); }
+html[dir="rtl"] .fit-card__name::after { content: ' ←'; }
+@media (hover: hover) { .fit-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; } .fit-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); border-color: #CDBDF2; } }
+@media (prefers-reduced-motion: reduce) { .fit-card { transition: none; } }
+html[lang="ar"] .fit-card__name { font-weight: 700; line-height: 1.5; }
+html[lang="ar"] :is(.practical dt, .fit-card__aud) { font-size: 14.5px; }
+.studio .sec-head .lede { color: var(--fg-soft); }
+@media (max-width: 1100px) { .fit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .practical { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .practical { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .fit .container { padding-block: 56px 64px; }
+  .fit-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
 }

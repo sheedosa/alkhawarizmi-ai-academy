@@ -38,7 +38,8 @@ every slot labelled with its number, file name, what to photograph and the size.
 These carry the design; the rest can follow.
 
 1. The five programme images: `prog-studio`, `prog-diploma`, `prog-week`, `prog-custom`, `prog-policy`. Each appears in
-   the Home hero row, the programme catalogue and the programme's own page. Until it is uploaded, a drawing of the
+   the Home hero row, the programme catalogue and the programme's own page (Studio, Diploma, Strategy Week,
+   Custom Training, Policy Briefing). Until it is uploaded, a drawing of the
    programme shows in its place.
 2. `home-room` and `home-concept`: the two photos in "The academy" collage on Home (an arch and a circle). Keep the
    subject in the centre; the shapes crop the edges.
@@ -64,9 +65,9 @@ These carry the design; the rest can follow.
 | 02 | `home-room.jpg` | Home | Band before the Studio | Edge-to-edge band | The Studio room mid-session, seen from the back | قاعة الاستوديو أثناء الجلسة، من آخر القاعة | 21:9 (wide band) | 3840 × 1646 |
 | 03 | `prog-studio.jpg` | Home + Studio | Programme image: the Studio (Home programmes, Studio hero) | Programme image | The Studio: participants building in the room, screens visible | الاستوديو: مشاركون يبنون في القاعة والشاشات ظاهرة | 3:2 | 3840 × 2560 |
 | 04 | `prog-diploma.jpg` | Home + Diploma | Programme image: the Diploma (Home programmes, Diploma hero) | Programme image | The Diploma: a practitioner working with data and code | الدبلوم: ممارس يعمل على البيانات والشيفرة | 3:2 | 3840 × 2560 |
-| 05 | `prog-week.jpg` | Home + Organisations | Programme image: the AI Strategy Week | Programme image | A leadership team around printed strategy documents | فريق قيادي حول وثائق استراتيجية مطبوعة | 3:2 | 3840 × 2560 |
-| 06 | `prog-custom.jpg` | Home + Organisations | Programme image: Custom Training | Programme image | A team training on its own systems and data | فريق يتدرّب على أنظمته وبياناته | 3:2 | 3840 × 2560 |
-| 07 | `prog-policy.jpg` | Home + Organisations | Programme image: the Policy Briefing | Programme image | Officials in the seminar room | مسؤولون في قاعة الندوات | 3:2 | 3840 × 2560 |
+| 05 | `prog-week.jpg` | Home + Strategy Week  | Programme image: the AI Strategy Week | Programme image | A leadership team around printed strategy documents | فريق قيادي حول وثائق استراتيجية مطبوعة | 3:2 | 3840 × 2560 |
+| 06 | `prog-custom.jpg` | Home + Custom Training  | Programme image: Custom Training | Programme image | A team training on its own systems and data | فريق يتدرّب على أنظمته وبياناته | 3:2 | 3840 × 2560 |
+| 07 | `prog-policy.jpg` | Home + Policy Briefing  | Programme image: the Policy Briefing | Programme image | Officials in the seminar room | مسؤولون في قاعة الندوات | 3:2 | 3840 × 2560 |
 | 08 | `home-studio.jpg` | Home | The Studio | Photo | A participant showing the app they built on a phone | مشارك يعرض على هاتفه التطبيق الذي بناه | 4:3 | 3840 × 2880 |
 | 09 | `home-band-build.jpg` | Home | Band after the Studio | Edge-to-edge band | Close-up: hands on a keyboard, a working app on screen | لقطة قريبة: أيدٍ على لوحة المفاتيح وتطبيق يعمل على الشاشة | 21:9 (wide band) | 3840 × 1646 |
 | 10 | `home-week.jpg` | Home | The AI Strategy Week | Photo | A leadership team around a table with a printed roadmap | فريق قيادي حول طاولة وأمامه خريطة طريق مطبوعة | 16:10 | 3840 × 2400 |
@@ -87,9 +88,9 @@ These carry the design; the rest can follow.
 | 25 | `diploma-band-lab.jpg` | Diploma | Band after Why we built it | Edge-to-edge band | A Diploma lab: participants at screens, the instructor at a whiteboard | مختبر الدبلوم: مشاركون أمام الشاشات والمدرّب عند السبورة | 21:9 (wide band) | 3840 × 1646 |
 | 26 | `diploma-portfolio.jpg` | Diploma | What you leave with | Photo | A portfolio review with a mentor | مراجعة ملف أعمال مع مرشد | 4:3 | 3840 × 2880 |
 | 27 | `diploma-band-cohort.jpg` | Diploma | Band before the form | Edge-to-edge band | The Diploma group together, wide | دفعة الدبلوم معاً، لقطة واسعة | 21:9 (wide band) | 3840 × 1646 |
-| 28 | `org-hero.jpg` | Organisations | Hero | Photo | A leadership team in a workshop | فريق قيادي في ورشة عمل | 3:4 (portrait) | 2880 × 3840 |
-| 29 | `org-band-boardroom.jpg` | Organisations | Band after the programme index | Edge-to-edge band | A leadership workshop in progress, wide | ورشة قيادية قائمة، لقطة واسعة | 21:9 (wide band) | 3840 × 1646 |
-| 30 | `org-band-workshop.jpg` | Organisations | Band before Custom Training | Edge-to-edge band | A team at work on its own data: screens and notes | فريق يعمل على بياناته: شاشات وملاحظات | 21:9 (wide band) | 3840 × 1646 |
+| 28 | `org-hero.jpg` | Organisations (overview)  | Hero | Photo | A leadership team in a workshop | فريق قيادي في ورشة عمل | 3:4 (portrait) | 2880 × 3840 |
+| 29 | `org-band-boardroom.jpg` | Strategy Week  | Band after the programme index | Edge-to-edge band | A leadership workshop in progress, wide | ورشة قيادية قائمة، لقطة واسعة | 21:9 (wide band) | 3840 × 1646 |
+| 30 | `org-band-workshop.jpg` | Custom Training  | Band before Custom Training | Edge-to-edge band | A team at work on its own data: screens and notes | فريق يعمل على بياناته: شاشات وملاحظات | 21:9 (wide band) | 3840 × 1646 |
 | 31 | `about-hero.jpg` | About | Hero | Photo | The seminar room in morning light | قاعة الندوات في ضوء الصباح | 4:5 (portrait) | 3072 × 3840 |
 | 32 | `about-khwarizmi.jpg` | About | The name | Photo | A portrait or manuscript page of al-Khwarizmi | صورة أو صفحة مخطوطة للخوارزمي | 3:4 (portrait) | 2880 × 3840 |
 | 33 | `about-lab.jpg` | About | Band after How we teach | Edge-to-edge band | A lab session in progress, wide | جلسة مختبر قائمة، لقطة واسعة | 21:9 (wide band) | 3840 × 1646 |

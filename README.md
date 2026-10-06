@@ -16,7 +16,7 @@ Static HTML/CSS/JS — no build step, no dependencies.
 | `about.html`, `insights.html`, `contact.html`, `privacy.html` | Academy pages |
 | `404.html` | Shown for any unknown URL |
 | `styles.css` | Design tokens, sections, components, responsive + touch rules, Arabic typography resets |
-| `fonts.css`, `assets/fonts/` | Self-hosted IBM Plex Sans, Plex Sans Arabic and Plex Mono (woff2 subsets, OFL). No Google Fonts request. |
+| `fonts.css`, `assets/fonts/` | Self-hosted Outfit, IBM Plex Sans, Tajawal (Arabic) and Plex Mono (woff2 subsets, OFL). No Google Fonts request. |
 | `main.js` | Language toggle, header dropdowns, mobile menu, lead forms, analytics events, Insights filter |
 | `config.js` | **Fill this in:** Supabase URL + anon key, GA4 measurement id |
 | `supabase/` | `001_leads.sql` (run once in your Supabase project) and setup notes |
@@ -55,9 +55,13 @@ the brand colour; amber (`--amber`) is the warm accent for secondary buttons, ba
 section label. Components read semantic variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`, `--link`,
 `--surface`, `--card-border`, `--badge-bg`, `--btn-bg`), so a surface class only swaps values.
 
-Type: headings and card titles in Outfit (Readex Pro in Arabic), text and labels in IBM Plex Sans and Plex Sans
-Arabic; all self-hosted in `assets/fonts/`. Headings carry no closing full stop. Labels are sentence case with an amber
-bar, tags are coloured text separated by dots, and each page has one title in the reader's language.
+Type: headings and card titles in Outfit, text and labels in IBM Plex Sans. Arabic uses one family, Tajawal, for
+everything (chosen for its large, open letter shapes at small sizes): weight 400 is served by Tajawal Medium because the
+regular cut is thin on screens, `size-adjust: 106%` keeps Arabic the same visual size as the Latin text, Arabic lines get
+more leading (1.75 for text, 1.4 to 1.5 for headings) for the dots and vowel marks, and Arabic labels never go below
+14.5px. All fonts are self-hosted in `assets/fonts/`; three are preloaded (Plex Sans, Outfit, Tajawal Medium). Headings
+carry no closing full stop. Labels are sentence case with an amber bar, tags are coloured text separated by dots, and
+each page has one title in the reader's language.
 
 Home runs: hero (centred title, two buttons, a row of programme frames with a stat card) · next groups · programme
 catalogue with filter tabs · the academy (photo collage, badge, checklist) · who it's for (3 × 2 cards) · the academy in
@@ -70,6 +74,15 @@ row (founder, career-changer, executive, team lead, policymaker) narrows it to o
 (`#enquire`) with the programme already chosen, and a sticky bar offers it once the hero has scrolled away. The form
 posts to the Google Sheet like the other forms (Form column = the chosen programme, or `contact` for "Not sure yet";
 Page column = `/index.html#enquire`). Edge-to-edge photo bands on Home take no space until their photo is uploaded.
+
+Programme pages share one structure, ordered by the questions a visitor asks: hero with an at-a-glance card → who
+it's for / why we built it → what you do (the Studio's day-by-day plan, the Diploma's eight months, the Week's nine
+documents) → what you leave with → practical details → how to join (three steps) → programme FAQ (also published as
+FAQPage data) → the form → "Not the right fit?" links to the other four programmes. The five programme pages are
+`studio.html`, `diploma.html`, `strategy-week.html`, `custom-training.html` and `policy-briefing.html`;
+`organisations.html` is a short overview with one consultation form for organisations that are not sure yet. Old links
+to `organisations.html#week`, `#custom` and `#policy` redirect to the new pages. Practical details that are not known
+yet are kept in `content.py` as `None` and stay off the page; `DETAILS.md` lists them for the academy to fill in.
 
 Analytics: every button and link carries a `data-track` event (`select_route`, `cta_click`, `filter_programmes`,
 `form_start`, `generate_lead`). They are sent to GA4 once `GA4_ID` is set in `config.js`; mark `generate_lead` as a
