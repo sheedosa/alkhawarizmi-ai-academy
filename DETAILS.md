@@ -57,6 +57,19 @@ Shown on Home, in the programme cards and in each page's At a glance card. Today
 - **The AI Strategy Week** (strategy-week.html): start date
   - Answer: 
 
+## Who teaches (About page)
+
+The About page has a "Who teaches" section that stays hidden until there are real people in it. For each person:
+
+- **Name** (English and Arabic)
+  - Answer: 
+- **Role**, e.g. "Lead instructor, the Studio"
+  - Answer: 
+- **One line** about them, e.g. what they have built or taught
+  - Answer: 
+- **Portrait photo**: upload to `assets/photos/` as `team-1.jpg`, `team-2.jpg` … (up to six), portrait shape, plain background
+  - Answer: 
+
 ## Optional, when you have them
 
 - **Testimonials**: real quotes with the person's name and role, and their permission. The section stays hidden until there are some.

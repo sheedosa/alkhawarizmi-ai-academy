@@ -84,6 +84,11 @@ FAQPage data) → the form → "Not the right fit?" links to the other four prog
 to `organisations.html#week`, `#custom` and `#policy` redirect to the new pages. Practical details that are not known
 yet are kept in `content.py` as `None` and stay off the page; `DETAILS.md` lists them for the academy to fill in.
 
+The About page tells the academy's story visually: an at-a-glance card, a four-step timeline from al-Khwarizmi to AI,
+the site's figure explained in three drawn steps (how x² + 10x = 39 is solved by completing the square), the teaching
+method as a session bar and icon tiles, the AI definition as a three-step diagram, a visit card with a drawn street map,
+the numbers band and the five programmes. A "Who teaches" section appears once `TEAM` in `content.py` has real people.
+
 Analytics: every button and link carries a `data-track` event (`select_route`, `cta_click`, `filter_programmes`,
 `form_start`, `generate_lead`). They are sent to GA4 once `GA4_ID` is set in `config.js`; mark `generate_lead` as a
 key event in GA4 to measure enquiries.
