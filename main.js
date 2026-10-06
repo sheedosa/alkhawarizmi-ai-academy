@@ -323,11 +323,13 @@
   var bar = document.querySelector('[data-action-bar]');
   if (bar) {
     var hero = document.querySelector('main .hero');
+    // The hero's own button is the anchor: once it has scrolled away the bar takes over, however tall the hero is.
+    var anchor = hero ? (hero.querySelector('.hero__ctas') || hero) : null;
     var target = document.querySelector(bar.getAttribute('data-target'));
     var ticking = false;
     var update = function () {
       ticking = false;
-      var pastHero = hero ? hero.getBoundingClientRect().bottom < 0 : true;
+      var pastHero = anchor ? anchor.getBoundingClientRect().bottom < 0 : true;
       var formReached = target ? target.getBoundingClientRect().top < window.innerHeight * 0.85 : false;
       var show = pastHero && !formReached;
       if (show !== bar.classList.contains('is-visible')) {

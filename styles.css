@@ -458,6 +458,8 @@ html[lang="ar"] .phase__name { letter-spacing: 0; }
 a.insight:hover .insight__title { color: var(--link); }
 
 /* ---------- Footer ---------- */
+/* After a deep-purple last section the footer needs its own edge, or the two read as one block */
+main:has(> section.tone-3:last-child) + .site-footer, main:has(> .action-bar:last-child > *) + .site-footer { border-top: 1px solid rgba(196, 181, 253, 0.18); }
 .site-footer { background: var(--night-3); color: var(--fg); }
 .site-footer__inner {
   max-width: 1320px; margin: 0 auto; padding: 72px clamp(20px, 4vw, 64px) 40px;
@@ -1089,4 +1091,69 @@ a.who-card:active, a.course-card:active, a.insight:active, .offer-index a:active
 @media (max-height: 500px) and (orientation: landscape) {
   .site-header { position: relative; }
   .site-header__inner { min-height: 56px; padding-block: 6px; }
+}
+
+/* =====================================================================
+   Phone layout pass: compact heroes, side-rail steps, swipe rows for long card sets
+   ===================================================================== */
+/* A small cue above each swipe row (hidden on wider screens, where the cards sit in a grid) */
+.swipe-hint { display: none; align-items: center; gap: 8px; margin-top: 20px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.swipe-hint .icon { width: 18px; height: 18px; }
+html[lang="ar"] .swipe-hint { font-family: var(--font); }
+@media (max-width: 700px) {
+  /* Heroes: the drawing shrinks, Home relies on its outcomes card; the spec card loses its duplicate button */
+  .hero--home .hero__art { display: none; }
+  .hero__art .art { max-height: 140px; }
+  .hero__art-cap { display: none; }
+  .hero__visual { gap: 16px; }
+  .spec-card { padding: 16px 16px 6px; }
+  .spec-card .btn { display: none; }
+  .spec-card__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 14px; }
+  .spec-card__list > div { grid-template-columns: minmax(0, 1fr); gap: 3px; padding: 10px 0 12px; }
+  .spec-card__list dd { font-size: 14.5px; }
+  .spec-index a { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .spec-index__meta { text-align: start; }
+
+  /* Audience cards: icon beside the title instead of above it */
+  .who-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 14px; row-gap: 8px; align-items: center; }
+  .who-card .icon-circle { margin: 0; }
+  .who-card__need, .who-card__route { grid-column: 1 / -1; }
+
+  /* How to join: number on a side rail, text beside it */
+  .steps::before { display: none; }
+  .step { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; row-gap: 4px; }
+  .step__n { grid-row: 1 / span 2; margin: 0; }
+  .step__name { align-self: center; font-size: 18px; }
+  .step__line { grid-column: 2; }
+  .step:not(:last-child)::after { content: ''; position: absolute; top: 50px; bottom: -22px; inset-inline-start: 21px; width: 2px; border-radius: 1px; background: var(--rule-strong); }
+
+  /* Long card sets become a swipe row with the next card peeking in */
+  .doc-tiles, .card-grid--deliverables, .principles--tiles, .card-grid:not(.card-grid--editions):not(.card-grid--routes) {
+    display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter)); padding: 4px var(--gutter) 18px; scroll-padding-inline: var(--gutter);
+  }
+  .doc-tiles::-webkit-scrollbar, .card-grid--deliverables::-webkit-scrollbar, .principles--tiles::-webkit-scrollbar, .card-grid::-webkit-scrollbar { display: none; }
+  .doc-tiles > *, .card-grid--deliverables > *, .principles--tiles > *, .card-grid:not(.card-grid--editions):not(.card-grid--routes) > * {
+    flex: 0 0 min(82%, 320px); scroll-snap-align: start;
+  }
+  .swipe-hint { display: flex; }
+  .swipe-hint + .doc-tiles, .swipe-hint + .card-grid, .swipe-hint + .principles--tiles { margin-top: 10px; }
+  /* The academy band: until the classroom photo exists, the figure above is the only picture */
+  html:not(.show-photo-slots) .academy__photo:not(.has-src):not(.is-filled) { display: none; }
+
+  /* Empty edge-to-edge bands are placeholders; on a phone they only add blank height. They reappear once a photo exists. */
+  html:not(.show-photo-slots) .photo-band--bleed:not(:has(.has-src, .is-filled)) { display: none; }
+
+  /* Sticky action bar: the title gives way before the button does */
+  .action-bar__inner { gap: 12px; }
+  .action-bar__text { min-width: 0; flex: 1 1 auto; }
+  .action-bar__text strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .action-bar .btn { flex: 0 1 auto; max-width: 62%; white-space: normal; text-align: center; line-height: 1.25; }
+}
+/* The narrowest phones (320–350px): keep the English wordmark on one line */
+@media (max-width: 350px) {
+  .brand { gap: 8px; }
+  .brand__en { font-size: 15px; white-space: nowrap; }
+  .header-actions { gap: 4px; }
+  .lang-toggle__opt { min-width: 32px; padding: 0 6px; }
 }
