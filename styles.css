@@ -108,7 +108,7 @@ section { scroll-margin-top: 90px; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 
 /* ---------- Layout ---------- */
-.container { max-width: 1320px; margin: 0 auto; padding-inline: var(--gutter); }
+.container { max-width: 1320px; margin: 0 auto; padding-inline: var(--gutter); padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
 .grid12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; }
 .span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; } .span-5 { grid-column: span 5; }
 .span-6 { grid-column: span 6; } .span-7 { grid-column: span 7; } .span-8 { grid-column: span 8; }
@@ -461,7 +461,7 @@ a.insight:hover .insight__title { color: var(--link); }
 /* ---------- Footer ---------- */
 /* After a deep-purple last section the footer needs its own edge, or the two read as one block */
 main:has(> section.tone-3:last-child) + .site-footer, main:has(> .action-bar:last-child > *) + .site-footer { border-top: 1px solid rgba(196, 181, 253, 0.18); }
-.site-footer { background: var(--night-3); color: var(--fg); }
+.site-footer { background: var(--night-3); color: var(--fg); padding-bottom: env(safe-area-inset-bottom); }
 .site-footer__inner {
   max-width: 1320px; margin: 0 auto; padding: 72px clamp(20px, 4vw, 64px) 40px;
   display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 40px 32px; font-size: 15px; line-height: 1.7;
@@ -496,7 +496,7 @@ html[dir="rtl"] .hero--interior { background-position: left -110px top -70px; }
 .hero__photo { grid-column: span 4; }
 .hero__photo--3x4 { grid-column: span 3; }
 .hero__photo.photo { border-radius: var(--radius); }
-.hero__foot { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter) 72px; }
+.hero__foot { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter) 72px; padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
 .hero__foot:empty, .hero__foot--empty { padding-bottom: 0; }
 
 /* Facts under interior heroes: small rounded badges */
@@ -658,7 +658,7 @@ html[lang="ar"] .article-card h3 { letter-spacing: 0; }
   transform: translateY(-120%); transition: transform .25s ease; box-shadow: 0 12px 28px -18px rgba(26, 16, 51, 0.35);
 }
 .action-bar.is-visible { transform: none; }
-.action-bar__inner { max-width: 1320px; margin: 0 auto; padding: 10px var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.action-bar__inner { max-width: 1320px; margin: 0 auto; padding: 10px var(--gutter); padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .action-bar__text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin: 0; }
 .action-bar__text strong { font-weight: 700; font-size: 17px; }
 .action-bar__text > span { font-size: 13.5px; color: var(--muted); }
@@ -874,7 +874,7 @@ html[lang="ar"] .arc__tag { font-size: 13px; }
   .menu-btn { display: flex; }
   /* The open menu overlays the page instead of making the header taller, so the page underneath never shifts */
   .mobile-nav.is-open {
-    display: flex; flex-direction: column; padding: 8px clamp(20px, 4vw, 64px) 24px;
+    display: flex; flex-direction: column; padding: 8px clamp(20px, 4vw, 64px) 24px; padding-left: max(clamp(20px, 4vw, 64px), env(safe-area-inset-left)); padding-right: max(clamp(20px, 4vw, 64px), env(safe-area-inset-right)); padding-bottom: max(24px, env(safe-area-inset-bottom));
     position: absolute; top: 100%; left: 0; right: 0; z-index: 25;
     background: #FFFFFF; border-top: 1px solid #EEE9F8; border-radius: 0 0 20px 20px;
     box-shadow: 0 30px 60px -20px rgba(26, 16, 51, 0.35);
@@ -1703,3 +1703,22 @@ bdi[dir="ltr"] { unicode-bidi: isolate; direction: ltr; white-space: nowrap; }
 /* Inline links on About read at a 44px tap height on touch screens; step labels at 14.5px in Arabic */
 @media (pointer: coarse) { .visit__list a, .spec-card__list a { display: inline-flex; align-items: center; min-height: 44px; } }
 html[lang="ar"] .solve__n { font-size: 14.5px; }
+html[lang="ar"] .visit__street { font-size: 14.5px; }
+
+/* iPhone safe areas (the page uses viewport-fit=cover): keep header and footer content clear of the notch in landscape */
+.site-header__inner, .site-footer__inner { padding-left: max(clamp(20px, 4vw, 64px), env(safe-area-inset-left)); padding-right: max(clamp(20px, 4vw, 64px), env(safe-area-inset-right)); }
+
+/* Phones: tighter stacked cards and a shorter academy drawing, so long sections take fewer screens */
+@media (max-width: 700px) {
+  .collage { height: min(86vw, 350px); max-width: 380px; }
+  .collage__a.photo { width: 64%; }
+  .collage__b.photo { width: 48%; }
+  .day-card { padding: 14px 16px 16px; gap: 6px; }
+  .day-card__what { font-size: 17.5px; }
+  .phases { gap: 10px; }
+  .phase { padding: 18px 20px 20px; gap: 6px; }
+  .phase .photo { margin: -18px -20px 6px; width: calc(100% + 40px); }
+  .solve { gap: 12px; }
+  .solve__step { padding: 18px; gap: 8px; }
+  .solve__art { max-width: 180px; margin-block: 0; }
+}

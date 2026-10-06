@@ -20,7 +20,7 @@ Static HTML/CSS/JS — no build step, no dependencies.
 | `main.js` | Language toggle, header dropdowns, mobile menu, lead forms, analytics events, Insights filter |
 | `config.js` | **Fill this in:** Supabase URL + anon key, GA4 measurement id |
 | `supabase/` | `001_leads.sql` (run once in your Supabase project) and setup notes |
-| `assets/` | Logo, share image `og.png`, the al-Jabr figure in `motif/`, drop-in photos in `photos/` |
+| `assets/` | Logo (`mark.png`, `logo.png`), share image `og-logo.png`, the al-Jabr figure in `motif/`, drop-in photos in `photos/` |
 
 ## Language
 
@@ -88,6 +88,13 @@ The About page tells the academy's story visually: an at-a-glance card, a four-s
 the site's figure explained in three drawn steps (how x² + 10x = 39 is solved by completing the square), the teaching
 method as a session bar and icon tiles, the AI definition as a three-step diagram, a visit card with a drawn street map,
 the numbers band and the five programmes. A "Who teaches" section appears once `TEAM` in `content.py` has real people.
+
+Search and sharing: every page has a title under 65 characters, a description under 160, a canonical URL, Open Graph
+and X/Twitter tags, and structured data (the organisation and website on Home; Course, FAQPage and BreadcrumbList on
+programme pages; BreadcrumbList on the rest). Links shared on WhatsApp, Facebook, LinkedIn or X show `og-logo.png`, the
+logo on white (1200×630). If a platform still shows an old preview, re-scrape the URL in its debugger (Facebook Sharing
+Debugger, LinkedIn Post Inspector). Submit `sitemap.xml` in Google Search Console: on a `github.io` project address
+`robots.txt` is not read from this folder, so the sitemap must be submitted by hand until the site has its own domain.
 
 Analytics: every button and link carries a `data-track` event (`select_route`, `cta_click`, `filter_programmes`,
 `form_start`, `generate_lead`). They are sent to GA4 once `GA4_ID` is set in `config.js`; mark `generate_lead` as a
