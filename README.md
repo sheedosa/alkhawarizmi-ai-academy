@@ -59,7 +59,11 @@ variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`, `--link`, `--surfac
 Content sits in cards (radius 16px, hairline border, soft shadow; a 2px lift on hover with a mouse): audience cards,
 programme cards with a photo on top, badges, details and price, day cards for the Studio, numbered document cards,
 and checklists held in a single card. The header is white with a shadow once the page scrolls; the language switch
-is a sliding pill (EN | ع) whose thumb follows the page language. Type is one family: IBM Plex Sans and Plex Sans
+is a sliding pill (EN | ع) whose thumb follows the page language. Each Home section has its own device: icon
+circles on the audience cards, icon meta rows on the course cards, a timeline rail under the Studio days, document
+tiles for the nine Strategy Week documents, and a proportional session bar above the three teaching phases. Icons are
+inline SVGs in `scratchpad`-generated markup (`icons.py`), drawn in the same 1.5px line as the al-Jabr figure; nothing
+comes from an icon library. Dates for the "Next groups" strip live in `content.py` (`NEXT_GROUPS`). Type is one family: IBM Plex Sans and Plex Sans
 Arabic for headings and text, Plex Mono for small labels. No glows, blurs or gradient fills. All text meets WCAG AA
 contrast.
 
