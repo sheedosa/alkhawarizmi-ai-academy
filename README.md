@@ -63,7 +63,15 @@ is a sliding pill (EN | ع) whose thumb follows the page language. Each Home sec
 circles on the audience cards, icon meta rows on the course cards, a timeline rail under the Studio days, document
 tiles for the nine Strategy Week documents, and a proportional session bar above the three teaching phases. Icons are
 inline SVGs in `scratchpad`-generated markup (`icons.py`), drawn in the same 1.5px line as the al-Jabr figure; nothing
-comes from an icon library. Dates for the "Next groups" strip live in `content.py` (`NEXT_GROUPS`). Type is one family: IBM Plex Sans and Plex Sans
+comes from an icon library. Dates for the "Next groups" strip live in `content.py` (`NEXT_GROUPS`).
+
+Every hero is a text panel beside a visual column: the programme photo once it is uploaded (full-bleed, under a
+night scrim), and until then a line illustration of the programme (`icons.py`, `ART`), which also fills the empty
+programme frames on the course cards. Programme heroes carry an at-a-glance card (duration, place, group, price,
+next group, certificate); Home carries the "What you leave with" panel. Home runs in the order a visitor asks
+questions: is this for me (audience cards), what and how much (course cards), how to join (three steps), can I
+trust you (the academy: the name, the room, the facts), then the Studio and Week features, the method, pieces from
+the academy, and a closing "Talk to us". Type is one family: IBM Plex Sans and Plex Sans
 Arabic for headings and text, Plex Mono for small labels. No glows, blurs or gradient fills. All text meets WCAG AA
 contrast.
 
