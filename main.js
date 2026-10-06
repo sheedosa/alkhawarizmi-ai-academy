@@ -286,30 +286,34 @@
     });
   }
 
-  // ---- Insights: category filter
-  var tabs = document.querySelectorAll('.filter-tabs button[data-cat]');
-  if (tabs.length) {
-    var cards = document.querySelectorAll('[data-cat-item]');
+  // ---- Category filters (Insights index, Home programme catalogue): each tab row filters the items in its own section
+  document.querySelectorAll('.filter-tabs').forEach(function (row) {
+    var tabs = row.querySelectorAll('button[data-cat]');
+    if (!tabs.length) return;
+    var scope = row.closest('section') || document;
+    var cards = scope.querySelectorAll('[data-cat-item]');
+    if (!cards.length) cards = document.querySelectorAll('[data-cat-item]');
     var count = document.getElementById('index-count');
+    var name = row.getAttribute('data-filter-name') || 'insights';
     var current = 'all';
-    var apply = function (cat) {
+    var apply = function (cat, track) {
       var n = 0;
       cards.forEach(function (c) { var show = cat === 'all' || c.getAttribute('data-cat-item') === cat; c.classList.toggle('is-hidden', !show); if (show) n++; });
       tabs.forEach(function (t) { t.setAttribute('aria-pressed', String(t.getAttribute('data-cat') === cat)); });
-      if (count) {
-        var label = document.querySelector('.filter-tabs button[data-cat="' + cat + '"]');
-        var name = function (l) { var el = label && label.querySelector('[data-l="' + l + '"]'); return el ? el.textContent : ''; };
-        var en = (n === 1 ? '1 piece' : n + ' pieces') + ' · ' + name('en');
-        var ar = (n === 1 ? 'مقالة واحدة' : n === 2 ? 'مقالتان' : (n >= 3 && n <= 10) ? n + ' مقالات' : n + ' مقالة') + ' · ' + name('ar');
+      if (count && name === 'insights') {
+        var label = row.querySelector('button[data-cat="' + cat + '"]');
+        var txt = function (l) { var el = label && label.querySelector('[data-l="' + l + '"]'); return el ? el.textContent : ''; };
+        var en = (n === 1 ? '1 piece' : n + ' pieces') + ' · ' + txt('en');
+        var ar = (n === 1 ? 'مقالة واحدة' : n === 2 ? 'مقالتان' : (n >= 3 && n <= 10) ? n + ' مقالات' : n + ' مقالة') + ' · ' + txt('ar');
         count.innerHTML = '<span data-l="en">' + en + '</span><span data-l="ar">' + ar + '</span>';
       }
       current = cat;
-      AKAA.track('filter_insights', { category: cat });
+      if (track) AKAA.track('filter_' + name, { category: cat });
     };
-    tabs.forEach(function (t) { t.addEventListener('click', function () { apply(t.getAttribute('data-cat')); }); });
-    apply('all');
-    document.addEventListener('akaa:lang', function () { apply(current); });
-  }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { apply(t.getAttribute('data-cat'), true); }); });
+    apply('all', false);
+    document.addEventListener('akaa:lang', function () { apply(current, false); });
+  });
 })();
 
 

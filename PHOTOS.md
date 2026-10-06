@@ -1,6 +1,6 @@
 # Photos for the website
 
-The site has **38 photos**, shown in 47 places. Each one has a file name. Upload a photo with that
+The site has **39 photos**, shown in about 50 places. Each one has a file name. Upload a photo with that
 exact name to `assets/photos/` and the site shows it everywhere that name is used. No code changes are needed.
 
 ## Upload 4K, the site does the rest
@@ -33,6 +33,19 @@ removed automatically.
 Add `?photos` to any address (for example `https://sheedosa.github.io/alkhawarizmi-ai-academy/?photos`) to see
 every slot labelled with its number, file name, what to photograph and the size. `?photos=0` turns it off.
 
+## Start with these eight
+
+These carry the design; the rest can follow.
+
+1. The five programme images: `prog-studio`, `prog-diploma`, `prog-week`, `prog-custom`, `prog-policy`. Each appears in
+   the Home hero row, the programme catalogue and the programme's own page. Until it is uploaded, a drawing of the
+   programme shows in its place.
+2. `home-room` and `home-concept`: the two photos in "The academy" collage on Home (an arch and a circle). Keep the
+   subject in the centre; the shapes crop the edges.
+3. `cta-person.png`: one participant, from the waist up, **cut out on a transparent background** and saved as PNG. It
+   stands in the closing panel on Home with the head above the panel's top edge, so leave a little space above the
+   head and none below the crop. Until it is uploaded, the Studio drawing stands there instead.
+
 ## What works best
 
 - **Bands** (21:9) run from screen edge to edge. Wide, calm compositions work: the whole room, a long table, the
@@ -47,7 +60,7 @@ every slot labelled with its number, file name, what to photograph and the size.
 
 | # | File | Page | Section | Type | What to photograph | ما يُصوَّر | Shape | Best size (px) |
 |---|---|---|---|---|---|---|---|---|
-| 01 | `home-hero.jpg` | Home | Hero background | Photo | Wide shot of a session at the academy: people at laptops, natural light | لقطة واسعة لجلسة في الأكاديمية: مشاركون أمام حواسيبهم في ضوء طبيعي | wide background | 3840 × 2240 |
+| 01 | `home-hero.jpg` | Home | Hero background (not used in the current Home design) | Photo | Wide shot of a session at the academy: people at laptops, natural light | لقطة واسعة لجلسة في الأكاديمية: مشاركون أمام حواسيبهم في ضوء طبيعي | wide background | 3840 × 2240 |
 | 02 | `home-room.jpg` | Home | Band before the Studio | Edge-to-edge band | The Studio room mid-session, seen from the back | قاعة الاستوديو أثناء الجلسة، من آخر القاعة | 21:9 (wide band) | 3840 × 1646 |
 | 03 | `prog-studio.jpg` | Home + Studio | Programme image: the Studio (Home programmes, Studio hero) | Programme image | The Studio: participants building in the room, screens visible | الاستوديو: مشاركون يبنون في القاعة والشاشات ظاهرة | 3:2 | 3840 × 2560 |
 | 04 | `prog-diploma.jpg` | Home + Diploma | Programme image: the Diploma (Home programmes, Diploma hero) | Programme image | The Diploma: a practitioner working with data and code | الدبلوم: ممارس يعمل على البيانات والشيفرة | 3:2 | 3840 × 2560 |
@@ -85,5 +98,6 @@ every slot labelled with its number, file name, what to photograph and the size.
 | 36 | `insight-agents.jpg` | Insights | Insight: Agents versus chatbots | Photo | A screen showing an AI agent completing a task | شاشة تعرض وكيل ذكاء اصطناعي يُنجز مهمة | 16:10 | 3840 × 2400 |
 | 37 | `insights-band.jpg` | Insights | Band after the lead piece | Edge-to-edge band | A screen close-up: AI output being reviewed | لقطة قريبة لشاشة: مراجعة مخرجات ذكاء اصطناعي | 21:9 (wide band) | 3840 × 1646 |
 | 38 | `contact-band.jpg` | Contact | Band below the form | Edge-to-edge band | The academy entrance or reception | مدخل الأكاديمية أو الاستقبال | 21:9 (wide band) | 3840 × 1646 |
+| 39 | `cta-person.png` | Home | Closing panel (cut-out) | Photo | One participant from the waist up, holding a laptop or tablet, cut out on a transparent background (PNG) | مشارك من الخصر إلى الأعلى يحمل حاسوباً أو جهازاً لوحياً، مقصوص على خلفية شفافة (PNG) | 4:5 (portrait), transparent | 3072 × 3840 |
 
 Photos marked "Home + …" or "… + Contact" appear in two places; one upload fills both.

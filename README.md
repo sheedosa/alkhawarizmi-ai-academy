@@ -49,34 +49,27 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
 
 ## Design
 
-An academy look: mostly light pages with cards, and deep purple kept for accents. White (`.tone-1`) and soft
-lavender (`.tone-2`, `.paper`) carry most sections; deep purple (`.tone-3`) is used for heroes, the Studio feature,
-quote bands, the consultation form and the footer. On light grounds violet `#5B21B6` is the link and button colour;
-on purple, cyan is the single accent (primary button, focus outlines, the figure). Components read semantic
-variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`, `--link`, `--surface`, `--card-border`, `--badge-bg`,
-`--btn-bg`), so a surface class only swaps values and every card works on both grounds.
+An academy look modelled on a course-platform layout: light lavender and white pages with soft corner glows, cards
+with 16px corners, and deep purple for the stats band, the Studio feature, the closing panel and the footer. Purple is
+the brand colour; amber (`--amber`) is the warm accent for secondary buttons, badges and the short bar before each
+section label. Components read semantic variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`, `--link`,
+`--surface`, `--card-border`, `--badge-bg`, `--btn-bg`), so a surface class only swaps values.
 
-Content sits in cards (radius 16px, hairline border, soft shadow; a 2px lift on hover with a mouse): audience cards,
-programme cards with a photo on top, badges, details and price, day cards for the Studio, numbered document cards,
-and checklists held in a single card. The header is white with a shadow once the page scrolls; the language switch
-is a sliding pill (EN | ع) whose thumb follows the page language. Each Home section has its own device: icon
-circles on the audience cards, icon meta rows on the course cards, a timeline rail under the Studio days, document
-tiles for the nine Strategy Week documents, and a proportional session bar above the three teaching phases. Icons are
-inline SVGs in `scratchpad`-generated markup (`icons.py`), drawn in the same 1.5px line as the al-Jabr figure; nothing
-comes from an icon library. Dates for the "Next groups" strip live in `content.py` (`NEXT_GROUPS`).
+Type: headings and card titles in Outfit (Readex Pro in Arabic), text and labels in IBM Plex Sans and Plex Sans
+Arabic; all self-hosted in `assets/fonts/`. Headings carry no closing full stop. Labels are sentence case with an amber
+bar, tags are coloured text separated by dots, and each page has one title in the reader's language.
 
-Every hero is a text panel beside a visual column: the programme photo once it is uploaded (full-bleed, under a
-night scrim), and until then a line illustration of the programme (`icons.py`, `ART`), which also fills the empty
-programme frames on the course cards. Programme heroes carry an at-a-glance card (duration, place, group, price,
-next group, certificate); Home carries the "What you leave with" panel. Home runs in the order a visitor asks
-questions: is this for me (audience cards), what and how much (course cards), how to join (three steps), can I
-trust you (the academy: the name, the room, the facts), then the Studio and Week features, the method, pieces from
-the academy, and a closing "Talk to us". Type is one family: IBM Plex Sans and Plex Sans
-Arabic for headings and text, Plex Mono for small labels. No glows, blurs or gradient fills. All text meets WCAG AA
-contrast.
+Home runs: hero (centred title, two buttons, a row of programme frames with a stat card) · next groups · programme
+catalogue with filter tabs · the academy (photo collage, badge, checklist) · who it's for (3 × 2 cards) · the academy in
+numbers · how we teach · the Studio · the Strategy Week · how to join · testimonials · FAQ · from the academy · closing
+panel with a cut-out photo. Inner-page heroes are light with an at-a-glance card; a hero photo turns them dark.
+
+Content lives in the scratchpad generators: `content.py` holds the next-group dates (`NEXT_GROUPS`), the numbers
+(`STATS`), the FAQ, and `TESTIMONIALS` / `PARTNERS`. The testimonials section and the partner logos stay hidden
+until those lists contain real quotes and real partners. Every number on the site is a real programme fact.
 
 The recurring figure (`assets/motif/`) is al-Khwarizmi's own: the completing-the-square diagram from his book of
-algebra, which solves x² + 10x = 39. The SVGs are plain files and can be edited by hand.
+algebra, which solves x² + 10x = 39. Programme drawings (`icons.py`) use the same 1.5px line.
 
 ## Photos
 
