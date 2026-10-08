@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 1480 1450" fill="none" stroke="url(#g)" stroke-width="1.1" stroke-linejoin="round" vector-effect="non-scaling-stroke">
+<defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="1370" x2="1400" y2="0"><stop offset="0" stop-color="#09C98E"/><stop offset="1" stop-color="#534CB6"/></linearGradient>
+<path id="s" d="M187.1 10.0L267.3 40.0L347.5 30.0L427.7 50.0L516.8 80.0L561.3 180.0L632.6 200.0L748.4 230.0L819.7 280.0L882.1 290.0L935.6 230.0L953.4 160.0L953.4 100.0L1006.8 60.0L1087.0 30.0L1176.1 30.0L1265.2 90.0L1327.6 120.0L1398.9 160.0L1390.0 370.0L1390.0 1120.0L1300.9 1220.0L1300.9 1370.0L1211.8 1340.0L899.9 1170.0L588.1 980.0L499.0 1020.0L427.7 1060.0L365.3 1000.0L222.8 970.0L187.1 900.0L98.0 860.0L35.6 780.0L0.0 690.0L44.6 570.0L26.7 490.0L44.6 370.0L8.9 300.0L80.2 230.0L80.2 150.0L196.0 80.0Z" vector-effect="non-scaling-stroke"/></defs>
+<use href="#s" transform="translate(361.6 1052.0) scale(0.120)" opacity="0.18"/>
+<use href="#s" transform="translate(340.3 990.1) scale(0.172)" opacity="0.22"/>
+<use href="#s" transform="translate(319.1 928.2) scale(0.224)" opacity="0.26"/>
+<use href="#s" transform="translate(297.8 866.4) scale(0.275)" opacity="0.31"/>
+<use href="#s" transform="translate(276.5 804.5) scale(0.327)" opacity="0.35"/>
+<use href="#s" transform="translate(255.2 742.6) scale(0.379)" opacity="0.39"/>
+<use href="#s" transform="translate(234.0 680.7) scale(0.431)" opacity="0.43"/>
+<use href="#s" transform="translate(212.7 618.8) scale(0.482)" opacity="0.48"/>
+<use href="#s" transform="translate(191.4 556.9) scale(0.534)" opacity="0.52"/>
+<use href="#s" transform="translate(170.2 495.1) scale(0.586)" opacity="0.56"/>
+<use href="#s" transform="translate(148.9 433.2) scale(0.638)" opacity="0.60"/>
+<use href="#s" transform="translate(127.6 371.3) scale(0.689)" opacity="0.65"/>
+<use href="#s" transform="translate(106.4 309.4) scale(0.741)" opacity="0.69"/>
+<use href="#s" transform="translate(85.1 247.5) scale(0.793)" opacity="0.73"/>
+<use href="#s" transform="translate(63.8 185.6) scale(0.845)" opacity="0.77"/>
+<use href="#s" transform="translate(42.5 123.8) scale(0.896)" opacity="0.82"/>
+<use href="#s" transform="translate(21.3 61.9) scale(0.948)" opacity="0.86"/>
+<use href="#s" transform="translate(0.0 0.0) scale(1.000)" opacity="0.90"/>
+</svg>

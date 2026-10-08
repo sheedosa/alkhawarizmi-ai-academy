@@ -1,4 +1,4 @@
-# AlKhwarizmi AI — Website
+# AlKhwarizmi AI Academy — Website
 
 Libya's first AI academy. Bilingual (English / العربية) site with full right-to-left support.
 
@@ -20,7 +20,7 @@ Static HTML/CSS/JS — no build step, no dependencies.
 | `main.js` | Language toggle, header dropdowns, mobile menu, lead forms, analytics events, Insights filter |
 | `config.js` | **Fill this in:** Supabase URL + anon key, GA4 measurement id |
 | `supabase/` | `001_leads.sql` (run once in your Supabase project) and setup notes |
-| `assets/` | Logo (`mark.png`, `logo.png`), share image `og-logo.png`, the al-Jabr figure in `motif/`, drop-in photos in `photos/` |
+| `assets/` | Logo (`mark.svg` vector mark used in the header, footer and favicon; `mark.png` fallback; `logo.png`), share image `og-logo.png`, the identity's line art in `brand/`, the al-Jabr figure in `motif/` (About only), drop-in photos in `photos/` |
 
 ## Language
 
@@ -68,26 +68,38 @@ catalogue with filter tabs · the academy (photo collage, badge, checklist) · w
 numbers · how we teach · the Studio · the Strategy Week · how to join · testimonials · FAQ · from the academy · closing
 panel with a cut-out photo. Inner-page heroes are light with an at-a-glance card; a hero photo turns them dark.
 
-Home is built as a funnel. The hero buttons land on the programme catalogue with the right filter applied; an "I am…"
-row (founder, career-changer, executive, team lead, policymaker) narrows it to one programme and explains why. Every
-"Ask about this programme", "Next groups" and "Send an enquiry" link opens the enquiry form at the foot of the page
-(`#enquire`) with the programme already chosen, and a sticky bar offers it once the hero has scrolled away. The form
-posts to the Google Sheet like the other forms (Form column = the chosen programme, or `contact` for "Not sure yet";
-Page column = `/index.html#enquire`). Edge-to-edge photo bands on Home take no space until their photo is uploaded.
+Home is six sections: hero (two buttons that preset the programme filter) → the five programme cards with
+All / Individuals / Organisations tabs → why us (four points and the numbers band) → how to join (three steps) →
+four common questions → the enquiry form at `#enquire`, which every "enquire" link opens with the programme
+preselected; a sticky bar offers it once the hero has scrolled away. The form posts to the Google Sheet like the
+other forms (Form column = the chosen programme, or `contact` for "Not sure yet"; Page column = `/index.html#enquire`).
+Nothing on Home repeats a programme page: the day-by-day plan, the nine documents and the teaching method live on
+their own pages and on About.
 
 Programme pages share one structure, ordered by the questions a visitor asks: hero with an at-a-glance card → who
-it's for / why we built it → what you do (the Studio's day-by-day plan, the Diploma's eight months, the Week's nine
-documents) → what you leave with → practical details → how to join (three steps) → programme FAQ (also published as
-FAQPage data) → the form → "Not the right fit?" links to the other four programmes. The five programme pages are
+it's for (one short passage) → what you do (the Studio's day-by-day plan, the Diploma's eight months, the Week's nine
+documents, Custom Training's five steps) → what you leave with → editions → practical details → four questions (also
+published as FAQPage data) → the form → other programmes as one line of links. The five programme pages are
 `studio.html`, `diploma.html`, `strategy-week.html`, `custom-training.html` and `policy-briefing.html`;
 `organisations.html` is a short overview with one consultation form for organisations that are not sure yet. Old links
 to `organisations.html#week`, `#custom` and `#policy` redirect to the new pages. Practical details that are not known
 yet are kept in `content.py` as `None` and stay off the page; `DETAILS.md` lists them for the academy to fill in.
+Copy rules: headings of at most eight words, intros of at most two sentences, one call to action per section.
 
 The About page tells the academy's story visually: an at-a-glance card, a four-step timeline from al-Khwarizmi to AI,
 the site's figure explained in three drawn steps (how x² + 10x = 39 is solved by completing the square), the teaching
-method as a session bar and icon tiles, the AI definition as a three-step diagram, a visit card with a drawn street map,
-the numbers band and the five programmes. A "Who teaches" section appears once `TEAM` in `content.py` has real people.
+method as a session bar and icon tiles, a visit card with a drawn street map, the numbers band and a line of links to the programmes. A "Who teaches" section appears once `TEAM` in `content.py` has real people.
+
+Brand: the site follows the 2026 visual identity. Colours are Emerald Teal `#09C98E`, Royal Indigo `#534CB6` and
+Midnight Navy `#111128` (tokens `--teal`, `--indigo`/`--violet`, `--night-3`, gradient `--grad`); teal is never used for
+small text on white (its contrast is too low), only for bars, buttons on navy, icons and large text on navy, with
+`--teal-ink` for text. Fonts, all free and self-hosted in `assets/fonts/`: Aileron (CC0) for English headlines and
+the wordmark, Oxygen (OFL) for English text, Alexandria (OFL, the nearest free face to the identity's Noor) for
+Arabic headlines and the wordmark, Noto Naskh Arabic (OFL, a Naskh text face like Greta Arabic) for Arabic text.
+`assets/brand/` holds the identity's devices as SVG: the geometric-expansion line art of the map, the K and the خ
+(`expand-*.svg`, drawn behind navy sections), the dot marker (`dots.svg`, section openers) and the K pattern strip
+(`k-pattern.svg`). The al-Jabr figure now appears only in the About story. The logo lockup is the mark beside the
+two-line name (ALKHWARIZMI / AI ACADEMY, أكاديمية الخوارزمي / للذكاء الاصطناعي).
 
 Search and sharing: every page has a title under 65 characters, a description under 160, a canonical URL, Open Graph
 and X/Twitter tags, and structured data (the organisation and website on Home; Course, FAQPage and BreadcrumbList on
