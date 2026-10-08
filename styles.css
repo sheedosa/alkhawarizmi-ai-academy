@@ -1892,3 +1892,14 @@ html:not([lang="ar"]) .lang-toggle__opt--en img, html[lang="ar"] .lang-toggle__o
 .lang-toggle:hover .lang-toggle__opt img { opacity: 1; filter: none; }
 @media (max-width: 400px) { .lang-toggle__opt { min-width: 40px; padding: 0 6px; } .lang-toggle__opt img { width: 24px; height: 16px; } }
 @media (max-width: 350px) { .lang-toggle__opt { min-width: 36px; padding: 0 4px; } .lang-toggle__opt img { width: 22px; height: 15px; } }
+
+/* Language switch: a single flag button that shows the language you can switch TO (Libyan flag on the English site, British flag on the Arabic site); no sliding pill */
+.lang-toggle { display: inline-flex; align-items: center; justify-content: center; grid-template-columns: none; height: 44px; min-width: 44px; padding: 0 4px; border: 0; border-radius: 10px; background: none; }
+.lang-toggle::before { display: none; }
+.lang-toggle:hover { border-color: transparent; background: var(--lavender); }
+.lang-toggle__opt { min-width: 0; padding: 0; }
+html:not([lang="ar"]) .lang-toggle__opt--en, html[lang="ar"] .lang-toggle__opt--ar { display: none; }
+.lang-toggle__opt img, .lang-toggle:hover .lang-toggle__opt img { width: 32px; height: 21px; opacity: 1; filter: none; border-radius: 4px; box-shadow: 0 0 0 1px rgba(17, 17, 40, 0.18), 0 1px 3px rgba(17, 17, 40, 0.15); transition: transform .15s; }
+.lang-toggle:hover .lang-toggle__opt img { transform: scale(1.06); }
+.lang-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (max-width: 400px), (max-width: 350px) { .lang-toggle { min-width: 40px; padding: 0 2px; } .lang-toggle__opt img { width: 28px; height: 19px; } }
