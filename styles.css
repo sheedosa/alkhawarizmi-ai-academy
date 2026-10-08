@@ -1193,7 +1193,7 @@ html[lang="ar"] :is(.who-card__who, .course-card__name, .step__name, .doc-tile__
 /* Lead passages and quotes */
 .quote-band .quote, .quote-band blockquote { font-family: var(--display); font-weight: 500; letter-spacing: -0.015em; }
 .passage { font-family: var(--display); font-weight: 400; letter-spacing: -0.01em; }
-html[lang="ar"] :is(.quote-band .quote, .quote-band blockquote, .passage) { font-weight: 500; letter-spacing: 0; }
+html[lang="ar"] :is(.quote-band .quote, .quote-band blockquote) { font-weight: 500; letter-spacing: 0; }
 
 /* Numbers that are part of the design */
 .glance__list dt, .stats__n { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; }
@@ -1531,7 +1531,7 @@ html:not(.show-photo-slots) .photo-band--optional:not(:has(.has-src, .is-filled)
    so lines get more room than Latin; small labels never drop below 14px; nothing is tracked or italicised.
    ===================================================================== */
 html[lang="ar"] body { line-height: 1.75; }
-html[lang="ar"] :is(h1, h2, h3, .h2, .hero h1, .eyebrow-heading, .form-block h2) { font-weight: 800; letter-spacing: 0; }
+html[lang="ar"] :is(h1, h2, h3, .h2, .hero h1, .eyebrow-heading, .form-block h2) { font-weight: 600; letter-spacing: 0; }
 html[lang="ar"] .hero h1 { line-height: 1.4; }
 html[lang="ar"] :is(.h2, .eyebrow-heading, .form-block h2, .lead-feature h2) { line-height: 1.45; }
 /* Card and item titles: bold, with room for the marks above and below */
@@ -1541,7 +1541,7 @@ html[lang="ar"] :is(.who-card__who, .course-card__name, .step__name, .doc-tile__
 /* Running text */
 html[lang="ar"] :is(p, li, dd, .lede, .card__rest, .faq__a p, .course-card__line, .step__line, .doc-tile__line, .day-card__how) { letter-spacing: 0; }
 html[lang="ar"] :is(.lede, .hero__support, .academy__body, .week__body, .body-lg) { line-height: 1.85; }
-html[lang="ar"] .passage, html[lang="ar"] .quote-band .quote { font-weight: 500; line-height: 1.8; }
+html[lang="ar"] .quote-band .quote { font-weight: 500; line-height: 1.8; }
 /* Small labels: at least 14px and medium weight in Arabic */
 html[lang="ar"] :is(.badge, .hero-row__name, .hero-stat__meta, .collage__badge, .day-card__day, .swipe-hint, .arc__tag, .arc__m,
   .session-bar__labels i, .site-footer__copy, .action-bar__text > span, .spec-index__meta, .hero__art-cap, .meta-row, .next-groups__date,
@@ -1550,12 +1550,12 @@ html[lang="ar"] :is(.badge, .hero-row__name, .hero-stat__meta, .collage__badge, 
 }
 html[lang="ar"] :is(.badge, .day-card__day, .phase__time, .insight__cat, .arc__tag, .hero-row__name) { font-weight: 700; }
 /* Buttons and navigation */
-html[lang="ar"] :is(.btn, .btn-contact, .nav a, .nav__trigger, .filter-tabs button, .mobile-nav a) { font-weight: 700; letter-spacing: 0; }
+html[lang="ar"] :is(.btn, .btn-contact, .nav a, .nav__trigger, .filter-tabs button, .mobile-nav a) { letter-spacing: 0; }
 html[lang="ar"] .brand__ar { line-height: 1.4; }
 /* Form fields: inputs read at 16px (also stops phones zooming in) */
 html[lang="ar"] :is(.field input, .field select, .field textarea) { font-size: 16px; }
 html[lang="ar"] :is(.spec-card__list dt, .article-meta, .article-meta .cat, .article-meta .soon, .cat, .soon, .index__count) { font-size: 14.5px; line-height: 1.6; letter-spacing: 0; }
-html[lang="ar"] .prose h2 { font-weight: 800; line-height: 1.5; letter-spacing: 0; }
+html[lang="ar"] .prose h2 { font-weight: 600; line-height: 1.55; letter-spacing: 0; }
 html[lang="ar"] :is(.btn, .action-bar .btn) { line-height: 1.5; }
 
 /* =====================================================================
@@ -1903,3 +1903,143 @@ html:not([lang="ar"]) .lang-toggle__opt--en, html[lang="ar"] .lang-toggle__opt--
 .lang-toggle:hover .lang-toggle__opt img { transform: scale(1.06); }
 .lang-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 @media (max-width: 400px), (max-width: 350px) { .lang-toggle { min-width: 40px; padding: 0 2px; } .lang-toggle__opt img { width: 28px; height: 19px; } }
+/* Flag button, refined: small, flat, a hairline edge, no motion */
+.lang-toggle { min-width: 44px; padding: 0 8px; border-radius: 8px; }
+.lang-toggle:hover { background: var(--lavender); }
+.lang-toggle__opt img, .lang-toggle:hover .lang-toggle__opt img { width: 22px; height: 15px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(17, 17, 40, 0.12); transform: none; transition: none; }
+@media (max-width: 400px) { .lang-toggle { min-width: 40px; padding: 0 6px; } .lang-toggle__opt img { width: 21px; height: 14px; } }
+
+/* =====================================================================
+   Language button, final: a quiet outlined button with the flag and the name of the other language
+   ("العربية" on English pages, "English" on Arabic pages); the flag alone on phones
+   ===================================================================== */
+.lang-toggle { gap: 8px; height: 38px; min-width: 0; padding: 0 12px; border: 1px solid var(--rule-strong); border-radius: 8px; background: #FFFFFF; color: var(--fg); transition: border-color .15s, background-color .15s; }
+.lang-toggle:hover { background: var(--lavender); border-color: #B9B6E6; }
+.lang-toggle__opt { display: inline-flex; align-items: center; gap: 8px; }
+.lang-toggle__name { font-size: 14px; font-weight: 600; line-height: 1; white-space: nowrap; color: var(--fg); }
+.lang-toggle__opt--ar .lang-toggle__name { font-family: 'Alexandria', 'Noto Naskh Arabic', sans-serif; font-weight: 500; font-size: 14.5px; }
+.lang-toggle__opt--en .lang-toggle__name { font-family: 'Aileron', 'Oxygen', sans-serif; }
+.lang-toggle__opt img, .lang-toggle:hover .lang-toggle__opt img { width: 20px; height: 14px; }
+@media (max-width: 1100px) { .lang-toggle__name { display: none; } .lang-toggle { width: 44px; padding: 0; justify-content: center; } }
+@media (pointer: coarse) { .lang-toggle { height: 44px; } }
+
+/* =====================================================================
+   Arabic typography: one system.
+   Alexandria for headings and interface text (buttons, menu, labels, tabs, badges, prices);
+   Noto Naskh Arabic for reading text, with generous line spacing and a comfortable line length.
+   ===================================================================== */
+html[lang="ar"] { --h1-size: clamp(28px, 3.3vw, 44px); --h1-lh: 1.45; --h2-lh: 1.5; }
+/* Headings: lighter and smaller than before, so dense words do not turn into dark blocks */
+html[lang="ar"] :is(.hero h1, .masthead h1, .contact-page h1, .notfound h1) { font-weight: 600; line-height: 1.45; }
+html[lang="ar"] .hero--home h1 { font-size: clamp(27px, 3.4vw, 44px); line-height: 1.45; }
+html[lang="ar"] .hero--interior .hero__panel h1, html[lang="ar"] .page-about .hero__panel h1 { font-size: clamp(26px, 3vw, 40px); line-height: 1.5; }
+html[lang="ar"] :is(.h2, .form-block h2, .lead-feature h2, .bar-title) { font-weight: 600; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.55; }
+html[lang="ar"] .eyebrow-heading { font-weight: 600; font-size: clamp(22px, 2.1vw, 28px); line-height: 1.55; }
+html[lang="ar"] .eyebrow-heading--sm { font-size: clamp(20px, 1.8vw, 24px); }
+/* Titles of cards, steps, days, questions */
+html[lang="ar"] :is(.course-card__name, .who-card__who, .step__name, .doc-tile__name, .day-card__what, .phase__name, .card__lead, .arc__stage strong,
+  .insight__title, .article-card h3, .hero-card__head strong, .certificate__lead, .spec-index__name, .cat-card__name, .offer-card__title, .faq summary,
+  .principles dt > span:last-child, .principles:not(.principles--tiles) dt, .solve__what, .history__when, .team-card__name, .ask-card__title) { font-weight: 600; line-height: 1.6; letter-spacing: 0; }
+html[lang="ar"] :is(.course-card__name, .step__name) { font-size: 19px; }
+html[lang="ar"] :is(.day-card__what, .doc-tile__name, .card__lead) { font-size: 17px; }
+html[lang="ar"] .faq summary { font-size: 16.5px; }
+/* Interface text in Alexandria, never bold Naskh */
+html[lang="ar"] :is(.btn, .btn-contact, .nav a, .nav__trigger, .mobile-nav a, .filter-tabs button, .badge, .eyebrow, .course-card__cta, .course-card__price,
+  .meta-row, .day-card__day, .phase__time, .practical dt, .spec-card__list dt, .spec-card__title, .field label, .checks li, .stats__l, .footer-col h3, .footer-col h2,
+  .action-bar__text strong, .text-link, .cat-more a, .fit__label, .history__when, .solve__n, .insight__cat, .hero-row__name, .collage__badge, .swipe-hint, .step__n,
+  .session-bar__labels, .arc__tag, .define__step b, .visit__street, .persona-note__ask, .next-groups__title) { font-family: 'Alexandria', 'Noto Naskh Arabic', sans-serif; letter-spacing: 0; }
+html[lang="ar"] :is(.btn, .btn-contact) { font-weight: 600; font-size: 15px; line-height: 1.6; }
+html[lang="ar"] :is(.nav a, .nav__trigger, .mobile-nav a, .filter-tabs button) { font-weight: 500; font-size: 15px; }
+html[lang="ar"] :is(.badge, .meta-row, .practical dt, .spec-card__list dt, .field label, .stats__l, .day-card__day, .phase__time, .insight__cat) { font-weight: 500; font-size: 14px; line-height: 1.7; }
+html[lang="ar"] .checks li { font-weight: 500; font-size: 15.5px; }
+html[lang="ar"] .eyebrow { font-weight: 600; font-size: 14px; line-height: 1.7; }
+html[lang="ar"] .course-card__price { font-weight: 600; }
+/* Reading text in Naskh: 17px, line spacing 1.9, about 60 characters a line */
+html[lang="ar"] :is(.lede, .hero__support, .academy__body, .faq__a p, .ruled-list li, .card__rest, .form-block__line, .body-lg, .week__body, .studio__aside p,
+  .closing__inner .lede, .insights__note p, .ask-card__line, .define__warn, .solve__moral) { font-family: 'Noto Naskh Arabic', 'Alexandria', serif; font-weight: 400; line-height: 1.95; }
+html[lang="ar"] :is(.lede, .hero__support, .academy__body, .body-lg) { font-size: 17.5px; max-width: 38em; }
+html[lang="ar"] :is(.faq__a p, .ruled-list li, .card__rest, .form-block__line) { font-size: 16.5px; }
+/* Short descriptions under titles: more room between lines than before (was 1.55–1.6) */
+html[lang="ar"] :is(.course-card__line, .step__line, .day-card__how, .doc-tile__line, .who-card__need, .phase__line, .principles dd, .history__what, .fit-card__line,
+  .card__rest, .spec-index__meta, .team-card__line, .define__step span) { font-family: 'Noto Naskh Arabic', 'Alexandria', serif; font-weight: 400; font-size: 15.5px; line-height: 1.85; }
+/* "Who it's for": a reading paragraph, not a display line */
+html[lang="ar"] .passage { font-family: 'Noto Naskh Arabic', 'Alexandria', serif; font-weight: 400; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.95; max-width: 34em; }
+/* Values in facts cards read as text */
+html[lang="ar"] :is(.practical dd, .spec-card__list dd) { font-family: 'Noto Naskh Arabic', 'Alexandria', serif; font-weight: 500; font-size: 16px; line-height: 1.8; }
+/* Breathing room between a heading and what follows */
+html[lang="ar"] .sec-head .lede { margin-top: 14px; }
+html[lang="ar"] .hero .eyebrow { margin-bottom: 18px; }
+html[lang="ar"] .hero__support { margin-top: 18px; }
+@media (max-width: 700px) {
+  html[lang="ar"] .hero--home h1 { font-size: clamp(25px, 7vw, 29px); }
+  html[lang="ar"] .hero--interior .hero__panel h1, html[lang="ar"] .page-about .hero__panel h1 { font-size: clamp(24px, 6.6vw, 28px); }
+  html[lang="ar"] :is(.h2, .form-block h2, .lead-feature h2, .bar-title) { font-size: clamp(22px, 6.2vw, 26px); }
+  html[lang="ar"] .eyebrow-heading { font-size: clamp(20px, 5.6vw, 23px); }
+  html[lang="ar"] :is(.lede, .hero__support, .academy__body, .body-lg) { font-size: 16.5px; }
+  html[lang="ar"] .passage { font-size: 17.5px; }
+  html[lang="ar"] :is(.course-card__name, .step__name) { font-size: 18px; }
+}
+html[lang="ar"] :is(.footer-col a, .footer-brand__addr) { font-family: 'Alexandria', 'Noto Naskh Arabic', sans-serif; font-weight: 400; font-size: 14.5px; line-height: 1.8; }
+
+/* =====================================================================
+   The academy in numbers: a quiet editorial band. A title column, then four large light figures
+   separated by hairlines; no icon badges.
+   ===================================================================== */
+.stats .container.stats__grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 9fr); gap: 0 48px; align-items: stretch; padding-block: 72px; }
+.stats__title { margin: 0; padding-top: 6px; font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5; color: var(--teal); }
+.stats__title::before { content: ''; display: block; width: 32px; height: 4px; border-radius: 2px; background: var(--grad); margin-bottom: 16px; }
+.stats__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.stats__list li { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 4px 28px 0; border-inline-start: 1px solid rgba(255, 255, 255, 0.12); }
+.stats__n { font-family: var(--display); font-weight: 400; font-size: clamp(44px, 4.6vw, 68px); line-height: 0.95; letter-spacing: -0.03em; color: #FFFFFF; font-variant-numeric: tabular-nums lining-nums; }
+.stats__l { margin: 0; font-size: 15px; line-height: 1.5; color: var(--fg-soft); max-width: 13em; }
+html[lang="ar"] .stats__title { font-family: 'Alexandria', sans-serif; font-size: 14px; letter-spacing: 0; text-transform: none; }
+html[lang="ar"] .stats__n { letter-spacing: 0; }
+html[lang="ar"] .stats__l { font-family: 'Alexandria', sans-serif; font-weight: 400; font-size: 14.5px; line-height: 1.7; }
+@media (max-width: 960px) {
+  .stats .container.stats__grid { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 56px; }
+  .stats__list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+  .stats__list li:nth-child(odd) { border-inline-start: 0; padding-inline-start: 0; }
+}
+@media (max-width: 700px) {
+  .stats .container.stats__grid { padding-block: 44px; gap: 24px; }
+  .stats__list li { padding-inline: 18px 0; gap: 10px; }
+  .stats__n { font-size: clamp(38px, 11vw, 46px); }
+  .stats__l { font-size: 14px; }
+}
+
+/* =====================================================================
+   How to join: heading and the call to action on one line, then the three steps as one bordered strip
+   with a continuous indigo-to-teal bar across the top (the sequence reads left to right, or right to left in Arabic)
+   ===================================================================== */
+.join__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; }
+.join__head .eyebrow { margin-bottom: 14px; }
+.join__head .lede { margin-top: 12px; }
+.join__head .btn { flex: none; }
+.steps.steps--strip { margin-top: 44px; gap: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--card-border); border-radius: var(--radius); background: #FFFFFF; overflow: hidden; position: relative; }
+.steps.steps--strip::before { display: block; content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: auto; width: auto; height: 3px; background: var(--grad); }
+html[dir="rtl"] .steps.steps--strip::before { background: linear-gradient(270deg, #534CB6, #09C98E); }
+.steps--strip .step { display: flex; flex-direction: column; gap: 10px; padding: 36px 32px 34px; }
+.steps--strip .step + .step { border-inline-start: 1px solid var(--card-border); }
+.steps--strip .step::after { display: none; }
+.steps--strip .step__n { width: auto; height: auto; border-radius: 0; background: none; display: block; margin: 0 0 6px; font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-ink); box-shadow: none; }
+.steps--strip .step__name { font-size: 20px; line-height: 1.35; }
+.steps--strip .step__line { font-size: 15.5px; line-height: 1.65; color: var(--fg-soft); }
+html[lang="ar"] .steps--strip .step__n { letter-spacing: 0; text-transform: none; font-size: 14px; }
+@media (max-width: 960px) {
+  .steps.steps--strip { grid-template-columns: minmax(0, 1fr); }
+  .steps--strip .step + .step { border-inline-start: 0; border-top: 1px solid var(--card-border); }
+}
+@media (max-width: 700px) {
+  .join__head { align-items: stretch; flex-direction: column; }
+  .join__head .btn { width: 100%; text-align: center; order: 2; }
+  .steps.steps--strip { margin-top: 28px; order: 1; }
+  .join .container { display: flex; flex-direction: column; }
+  .steps--strip .step { padding: 24px 22px; display: flex; }
+  .steps--strip .step__n { grid-row: auto; }
+  .steps--strip .step__name { font-size: 18px; align-self: auto; }
+}
+.join__cta-end { display: none; }
+@media (max-width: 700px) {
+  .join__head .btn { display: none; }
+  .join__cta-end { display: block; margin-top: 20px; width: 100%; text-align: center; }
+}
