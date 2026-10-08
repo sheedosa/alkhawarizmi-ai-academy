@@ -1314,8 +1314,6 @@ html[lang="ar"] .hero--home h1 { max-width: 18ch; font-size: clamp(36px, 4.6vw, 
 /* The art is drawn on white: multiply lets the section's lavender show through instead of a white box */
 .why-art__img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
 /* Physical left in both languages: the illustration does not mirror, and its empty corner is bottom left */
-.why-art__badge { position: absolute; bottom: 5%; left: -32px; display: flex; flex-direction: column; padding: 14px 18px; border-radius: 18px; background: var(--teal); color: #141427; font-size: 13.5px; font-weight: 500; box-shadow: 0 16px 30px -18px rgba(17, 17, 40, 0.5); }
-.why-art__badge b { font-family: var(--display); font-size: 22px; font-weight: 700; line-height: 1.2; }
 .academy-c__text .eyebrow { margin-bottom: 18px; }
 .checks { list-style: none; margin: 26px 0 30px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; }
 .checks li { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: var(--fg); }
@@ -1704,10 +1702,6 @@ html[lang="ar"] .visit__street { font-size: 14.5px; }
 /* Phones: tighter stacked cards and a shorter academy drawing, so long sections take fewer screens */
 @media (max-width: 700px) {
   .why-art { max-width: min(300px, 78vw); }
-  /* Phones: the badge sits under the art as one centred line, so it never covers the robot */
-  .why-art__badge { position: static; flex-direction: row; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 2px 8px;
-    width: fit-content; max-width: 100%; margin: 6px auto 0; padding: 8px 14px; border-radius: 12px; font-size: 13px; text-align: center; }
-  .why-art__badge b { font-size: 17px; line-height: 1.3; }
   .day-card { padding: 14px 16px 16px; gap: 6px; }
   .day-card__what { font-size: 17.5px; }
   .phases { gap: 10px; }
@@ -2049,18 +2043,18 @@ html[lang="ar"] .steps--strip .step__n { letter-spacing: 0; text-transform: none
    ===================================================================== */
 .social { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0; }
 .social[hidden] { display: none; }
-.social__label { flex-basis: 100%; font-family: var(--display); font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.social__label { flex-basis: 100%; font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
 html[lang="ar"] .social__label { font-family: 'Alexandria', sans-serif; font-size: 13.5px; letter-spacing: 0; text-transform: none; }
 .social__link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 40px; height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--rule-strong); background: var(--surface); color: var(--fg-soft); text-decoration: none; transition: color .15s, border-color .15s, background-color .15s; }
 .social__link .icon { width: 20px; height: 20px; flex: none; }
 .social__link span { font-size: 14px; font-weight: 600; line-height: 1; white-space: nowrap; color: var(--fg); }
-.social__link:hover { color: var(--violet); border-color: var(--violet); background: var(--lavender); }
+a.social__link:hover { color: var(--violet); border-color: var(--violet); background: var(--lavender); }
 .social__link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .social--icons .social__link { width: 40px; padding: 0; }
 /* On navy (footer) */
 .site-footer .social__label { color: var(--muted); }
 .site-footer .social__link { background: transparent; border-color: rgba(255, 255, 255, 0.18); color: #C4C6DF; }
-.site-footer .social__link:hover { color: #FFFFFF; border-color: var(--teal); background: rgba(9, 201, 142, 0.1); }
+.site-footer a.social__link:hover { color: #FFFFFF; border-color: var(--teal); background: rgba(9, 201, 142, 0.1); }
 .footer-social { margin-top: 20px; }
 .contact-details + .social { margin-top: 18px; }
 .visit__list + .social { margin: -8px 0 28px; }
@@ -2080,3 +2074,37 @@ html[lang="ar"] .social__label { font-family: 'Alexandria', sans-serif; font-siz
   .hero--art .hero-row { margin-top: 8px; }
 }
 @media (max-width: 700px) { .hero-art { max-width: min(320px, 80vw); margin-top: 20px; } }
+
+/* Emblem slots: a badge illustration shown whole, centred on its frame colour */
+.photo--emblem { background: #EEF0F8; }
+.photo--emblem--navy { background: var(--night-3); }
+.photo--emblem picture { position: absolute; inset: 0; }
+.photo--emblem img { object-fit: contain; padding: 9%; box-sizing: border-box; }
+.hero-row__item:hover .photo--emblem img { transform: scale(1.03); transition: transform .3s ease; }
+@media (max-width: 700px) { .cat-card .course-card__img.photo--emblem img { padding: 4%; } }
+
+.social__link--static { cursor: default; }
+
+/* "In person" badge: a frosted card with a gradient pin, a bold title and a quiet subline */
+.why-art__badge { position: absolute; bottom: 6%; left: -28px; z-index: 2; display: inline-flex; align-items: center; gap: 12px;
+  padding: 10px 20px 10px 10px; border-radius: 18px; background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 1px 0 rgba(17, 17, 40, 0.04), 0 18px 40px -18px rgba(17, 17, 40, 0.35), 0 0 0 1px rgba(83, 76, 182, 0.08); }
+html[dir="rtl"] .why-art__badge { padding: 10px 10px 10px 20px; }
+.why-art__badge-icon { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--grad); color: #FFFFFF;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 18px -8px rgba(83, 76, 182, 0.7); }
+.why-art__badge-icon .icon { width: 21px; height: 21px; }
+.why-art__badge-text { display: flex; flex-direction: column; gap: 3px; line-height: 1.15; }
+.why-art__badge b { font-family: var(--display); font-size: 17px; font-weight: 700; letter-spacing: -0.01em; color: #141427; }
+.why-art__badge-sub { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: #45456A; white-space: nowrap; }
+.why-art__badge-sub i { width: 4px; height: 4px; border-radius: 50%; background: var(--teal); flex: none; }
+html[lang="ar"] .why-art__badge b { font-family: 'Alexandria', sans-serif; font-size: 16.5px; letter-spacing: 0; line-height: 1.4; }
+html[lang="ar"] .why-art__badge-sub { font-family: 'Alexandria', sans-serif; font-size: 13.5px; line-height: 1.5; }
+@media (max-width: 700px) {
+  /* Phones: under the art and centred, so it never covers the robot */
+  .why-art__badge { position: relative; left: auto; bottom: auto; display: flex; width: fit-content; margin: 6px auto 0; gap: 10px; border-radius: 16px; padding: 8px 18px 8px 8px; }
+  html[dir="rtl"] .why-art__badge { padding: 8px 8px 8px 18px; }
+  .why-art__badge-icon { width: 36px; height: 36px; border-radius: 11px; }
+  .why-art__badge-icon .icon { width: 18px; height: 18px; }
+  .why-art__badge b { font-size: 15.5px; }
+}

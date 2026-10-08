@@ -375,7 +375,8 @@
   }
 
   // Social accounts (config.js SOCIAL): rendered as badges wherever the page has [data-social]; icons only, or icon + name (data-social="pills").
-  // Each is a trust mark and a link, so only accounts with a real https:// URL are shown, and the same URLs go into the organisation's structured data.
+  // LinkedIn, Facebook, Instagram and TikTok always show; each becomes a link once it has a real https:// URL, and those URLs go into the
+  // organisation's structured data. X and YouTube show only when they have a URL.
   var NAMES = { linkedin: 'LinkedIn', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', x: 'X', youtube: 'YouTube' };
   var ICONS = {
     linkedin: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10.5v6"/><circle cx="8" cy="7.6" r="1" fill="currentColor" stroke="none"/><path d="M12 16.5v-6"/><path d="M12 13.2c0-1.6 1-2.7 2.3-2.7 1.3 0 2.2 1 2.2 2.6v3.4"/>',
@@ -385,17 +386,19 @@
     x: '<path d="M5 4l14 16M19 4L5 20"/>',
     youtube: '<rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.5v5l4.2-2.5z" fill="currentColor" stroke="none"/>'
   };
+  var CORE = { linkedin: 1, facebook: 1, instagram: 1, tiktok: 1 };
   var social = cfg.SOCIAL || {}, sameAs = [];
   Object.keys(NAMES).forEach(function (k) { if (social[k] && /^https:\/\//.test(social[k])) sameAs.push(social[k]); });
   document.querySelectorAll('[data-social]').forEach(function (el) {
     var pills = el.getAttribute('data-social') === 'pills';
     Object.keys(NAMES).forEach(function (k) {
-      var url = social[k];
-      if (!url || !/^https:\/\//.test(url)) return;
-      var a = document.createElement('a');
-      a.className = 'social__link'; a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      var url = social[k], live = !!url && /^https:\/\//.test(url);
+      if (!live && !CORE[k]) return;
+      var a = document.createElement(live ? 'a' : 'span');
+      a.className = 'social__link' + (live ? '' : ' social__link--static');
+      if (live) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('data-track', 'cta_click:social_' + k); }
+      else a.setAttribute('role', 'img');
       a.setAttribute('aria-label', NAMES[k]); a.title = NAMES[k];
-      a.setAttribute('data-track', 'cta_click:social_' + k);
       a.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + ICONS[k] + '</svg>' + (pills ? '<span>' + NAMES[k] + '</span>' : '');
       el.appendChild(a);
     });
