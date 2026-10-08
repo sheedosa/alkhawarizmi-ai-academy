@@ -108,6 +108,10 @@ logo on white (1200×630). If a platform still shows an old preview, re-scrape t
 Debugger, LinkedIn Post Inspector). Submit `sitemap.xml` in Google Search Console: on a `github.io` project address
 `robots.txt` is not read from this folder, so the sitemap must be submitted by hand until the site has its own domain.
 
+Social badges: the academy's accounts in `config.js` (`SOCIAL`) appear as outlined icon badges in the footer and on
+About, and as icon-and-name pills on Contact; `main.js` renders them only for accounts with a real `https://` link and
+adds the same links as `sameAs` on the organisation's structured data. Empty accounts are not shown.
+
 Analytics: every button and link carries a `data-track` event (`select_route`, `cta_click`, `filter_programmes`,
 `form_start`, `generate_lead`). They are sent to GA4 once `GA4_ID` is set in `config.js`; mark `generate_lead` as a
 key event in GA4 to measure enquiries.

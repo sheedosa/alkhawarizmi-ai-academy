@@ -15,6 +15,7 @@
     document.querySelectorAll('option[data-en]').forEach(function (o) { o.textContent = o.getAttribute('data-' + lang); });
     document.querySelectorAll('[data-ph-en]').forEach(function (el) { el.placeholder = el.getAttribute('data-ph-' + lang); });
     document.querySelectorAll('[data-aria-en]').forEach(function (el) { el.setAttribute('aria-label', el.getAttribute('data-aria-' + lang)); });
+    document.querySelectorAll('img[data-alt-en]').forEach(function (el) { el.alt = el.getAttribute('data-alt-' + lang); });
     var md = document.querySelector('meta[name="description"][data-ar]');
     if (md) md.setAttribute('content', md.getAttribute('data-' + lang) || md.getAttribute('content'));
     document.dispatchEvent(new CustomEvent('akaa:lang', { detail: { lang: lang } }));
@@ -373,20 +374,43 @@
     update();
   }
 
-  // Footer social links: rendered only for accounts set in config.js
-  var NAMES = { linkedin: 'LinkedIn', instagram: 'Instagram', facebook: 'Facebook', x: 'X', youtube: 'YouTube', tiktok: 'TikTok' };
-  var social = cfg.SOCIAL || {};
+  // Social accounts (config.js SOCIAL): rendered as badges wherever the page has [data-social]; icons only, or icon + name (data-social="pills").
+  // Each is a trust mark and a link, so only accounts with a real https:// URL are shown, and the same URLs go into the organisation's structured data.
+  var NAMES = { linkedin: 'LinkedIn', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', x: 'X', youtube: 'YouTube' };
+  var ICONS = {
+    linkedin: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10.5v6"/><circle cx="8" cy="7.6" r="1" fill="currentColor" stroke="none"/><path d="M12 16.5v-6"/><path d="M12 13.2c0-1.6 1-2.7 2.3-2.7 1.3 0 2.2 1 2.2 2.6v3.4"/>',
+    facebook: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M13.4 21v-7.3h2.4l.4-2.8h-2.8V9.2c0-.8.4-1.4 1.5-1.4h1.4V5.3c-.3 0-1.1-.1-2-.1-2.1 0-3.6 1.3-3.6 3.7v2H8.3v2.8h2.4V21"/>',
+    instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/>',
+    tiktok: '<path d="M13.6 3.5v10.9a3.4 3.4 0 1 1-2.8-3.3"/><path d="M13.6 3.5c.2 2.8 2.1 4.8 4.9 5"/>',
+    x: '<path d="M5 4l14 16M19 4L5 20"/>',
+    youtube: '<rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.5v5l4.2-2.5z" fill="currentColor" stroke="none"/>'
+  };
+  var social = cfg.SOCIAL || {}, sameAs = [];
+  Object.keys(NAMES).forEach(function (k) { if (social[k] && /^https:\/\//.test(social[k])) sameAs.push(social[k]); });
   document.querySelectorAll('[data-social]').forEach(function (el) {
+    var pills = el.getAttribute('data-social') === 'pills';
     Object.keys(NAMES).forEach(function (k) {
       var url = social[k];
       if (!url || !/^https:\/\//.test(url)) return;
       var a = document.createElement('a');
-      a.href = url; a.textContent = NAMES[k]; a.target = '_blank'; a.rel = 'noopener';
+      a.className = 'social__link'; a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      a.setAttribute('aria-label', NAMES[k]); a.title = NAMES[k];
       a.setAttribute('data-track', 'cta_click:social_' + k);
+      a.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + ICONS[k] + '</svg>' + (pills ? '<span>' + NAMES[k] + '</span>' : '');
       el.appendChild(a);
     });
-    if (el.children.length) el.hidden = false;
+    if (el.querySelector('.social__link')) el.hidden = false;
   });
+  // The same accounts as sameAs on the organisation entity, so search engines connect the profiles to the academy
+  if (sameAs.length) {
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(function (sc) {
+      try {
+        var d = JSON.parse(sc.textContent), changed = false;
+        (d['@graph'] || [d]).forEach(function (n) { if (n && n['@type'] === 'EducationalOrganization' && n.logo) { n.sameAs = sameAs; changed = true; } });
+        if (changed) sc.textContent = JSON.stringify(d);
+      } catch (e) {}
+    });
+  }
 })();
 
 

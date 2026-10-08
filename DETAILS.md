@@ -75,3 +75,16 @@ The About page has a "Who teaches" section that stays hidden until there are rea
 - **Testimonials**: real quotes with the person's name and role, and their permission. The section stays hidden until there are some.
 - **Partner logos**: organisations you work with, with permission to show their logo.
 - **Google Analytics 4 Measurement ID** (`G-XXXXXXX`), so enquiries and drop-offs can be measured.
+
+## Social accounts
+
+Full links to the academy's profiles. They appear as badges in the footer, on the Contact page and on About, and are
+added to the site's search data as the academy's official profiles. An empty one is simply not shown.
+
+- LinkedIn: 
+- Facebook: 
+- Instagram: 
+- TikTok: 
+- X and YouTube (if the academy has them): 
+
+These go into `config.js` under `SOCIAL`.

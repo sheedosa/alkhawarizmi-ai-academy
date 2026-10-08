@@ -1306,19 +1306,16 @@ html[lang="ar"] .hero--home h1 { max-width: 18ch; font-size: clamp(36px, 4.6vw, 
 .cat-card .meta-row--next { margin-top: 0; padding-top: 0; border-top: 0; }
 .cat-card .course-card__foot { margin-top: auto; padding: 12px 0 0; border-top: 1px solid var(--rule); }
 
-/* The academy: collage + text + checklist */
+/* The academy: illustration + text + checklist */
 .academy .container { padding-block: 104px 112px; }
 .academy-c { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 72px; align-items: center; }
-.collage { position: relative; min-height: 500px; }
-.collage__a.photo { position: absolute; top: 0; inset-inline-start: 0; width: 70%; aspect-ratio: 3 / 4; border-radius: 999px 999px 28px 28px; }
-.collage__b.photo { position: absolute; bottom: 0; inset-inline-end: 0; width: 52%; aspect-ratio: 1; border-radius: 50%; border: 8px solid var(--bg); }
-.collage__a.photo--art:not(.is-filled) { --frame-bg: var(--night-3); color: var(--lilac); --art-accent: var(--accent); }
-.collage__a.photo--art:not(.is-filled) .art { padding: 22% 10% 10%; }
-.collage__b.photo--art:not(.is-filled) { --frame-bg: #FFFFFF; }
-.collage__b.photo--art:not(.is-filled) .art { padding: 18%; }
-.collage__dots { position: absolute; top: 4%; inset-inline-end: 4%; width: 120px; height: 96px; background-image: radial-gradient(var(--violet) 1.6px, transparent 1.7px); background-size: 14px 14px; opacity: 0.35; }
-.collage__badge { position: absolute; bottom: 10%; inset-inline-start: 0; display: flex; flex-direction: column; padding: 14px 18px; border-radius: 18px; background: var(--teal); color: #141427; font-size: 13.5px; font-weight: 500; box-shadow: 0 16px 30px -18px rgba(17, 17, 40, 0.5); }
-.collage__badge b { font-family: var(--display); font-size: 22px; font-weight: 700; line-height: 1.2; }
+.why-art { position: relative; margin: 0; width: 100%; max-width: 440px; justify-self: center; }
+.why-art picture { display: block; }
+/* The art is drawn on white: multiply lets the section's lavender show through instead of a white box */
+.why-art__img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+/* Physical left in both languages: the illustration does not mirror, and its empty corner is bottom left */
+.why-art__badge { position: absolute; bottom: 5%; left: -32px; display: flex; flex-direction: column; padding: 14px 18px; border-radius: 18px; background: var(--teal); color: #141427; font-size: 13.5px; font-weight: 500; box-shadow: 0 16px 30px -18px rgba(17, 17, 40, 0.5); }
+.why-art__badge b { font-family: var(--display); font-size: 22px; font-weight: 700; line-height: 1.2; }
 .academy-c__text .eyebrow { margin-bottom: 18px; }
 .checks { list-style: none; margin: 26px 0 30px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; }
 .checks li { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: var(--fg); }
@@ -1398,7 +1395,7 @@ html[dir="rtl"] .cta-panel { background-position: left -120px top -160px; }
   .catalogue .container, .academy .container, .faq .container { padding-block: 72px 80px; }
   .cat-grid { grid-template-columns: minmax(0, 1fr); }
   .academy-c { grid-template-columns: minmax(0, 1fr); }
-  .collage { min-height: 0; height: min(110vw, 440px); max-width: 460px; width: 100%; margin-inline: auto; }
+  .why-art { max-width: 380px; }
   .faq-c { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .faq-photos { display: none; }
   .cta-wrap .container { padding-block: 72px 80px; }
@@ -1537,13 +1534,13 @@ html[lang="ar"] :is(.h2, .eyebrow-heading, .form-block h2, .lead-feature h2) { l
 /* Card and item titles: bold, with room for the marks above and below */
 html[lang="ar"] :is(.who-card__who, .course-card__name, .step__name, .doc-tile__name, .day-card__what, .phase__name, .card__lead,
   .arc__stage strong, .insight__title, .article-card h3, .hero-card__head strong, .certificate__lead, .spec-index__name, .faq summary,
-  .ask-card__title, .principles dt, .collage__badge b) { font-weight: 700; line-height: 1.5; letter-spacing: 0; }
+  .ask-card__title, .principles dt, .why-art__badge b) { font-weight: 700; line-height: 1.5; letter-spacing: 0; }
 /* Running text */
 html[lang="ar"] :is(p, li, dd, .lede, .card__rest, .faq__a p, .course-card__line, .step__line, .doc-tile__line, .day-card__how) { letter-spacing: 0; }
 html[lang="ar"] :is(.lede, .hero__support, .academy__body, .week__body, .body-lg) { line-height: 1.85; }
 html[lang="ar"] .quote-band .quote { font-weight: 500; line-height: 1.8; }
 /* Small labels: at least 14px and medium weight in Arabic */
-html[lang="ar"] :is(.badge, .hero-row__name, .hero-stat__meta, .collage__badge, .day-card__day, .swipe-hint, .arc__tag, .arc__m,
+html[lang="ar"] :is(.badge, .hero-row__name, .hero-stat__meta, .why-art__badge, .day-card__day, .swipe-hint, .arc__tag, .arc__m,
   .session-bar__labels i, .site-footer__copy, .action-bar__text > span, .spec-index__meta, .hero__art-cap, .meta-row, .next-groups__date,
   .form__privacy, .field, .phase__time, .insight__cat, .stats__l, .filter-row__label, .academy__fig figcaption, .timeline::after) {
   font-size: 14.5px; line-height: 1.6; letter-spacing: 0;
@@ -1706,9 +1703,11 @@ html[lang="ar"] .visit__street { font-size: 14.5px; }
 
 /* Phones: tighter stacked cards and a shorter academy drawing, so long sections take fewer screens */
 @media (max-width: 700px) {
-  .collage { height: min(86vw, 350px); max-width: 380px; }
-  .collage__a.photo { width: 64%; }
-  .collage__b.photo { width: 48%; }
+  .why-art { max-width: min(300px, 78vw); }
+  /* Phones: the badge sits under the art as one centred line, so it never covers the robot */
+  .why-art__badge { position: static; flex-direction: row; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 2px 8px;
+    width: fit-content; max-width: 100%; margin: 6px auto 0; padding: 8px 14px; border-radius: 12px; font-size: 13px; text-align: center; }
+  .why-art__badge b { font-size: 17px; line-height: 1.3; }
   .day-card { padding: 14px 16px 16px; gap: 6px; }
   .day-card__what { font-size: 17.5px; }
   .phases { gap: 10px; }
@@ -1946,7 +1945,7 @@ html[lang="ar"] .faq summary { font-size: 16.5px; }
 /* Interface text in Alexandria, never bold Naskh */
 html[lang="ar"] :is(.btn, .btn-contact, .nav a, .nav__trigger, .mobile-nav a, .filter-tabs button, .badge, .eyebrow, .course-card__cta, .course-card__price,
   .meta-row, .day-card__day, .phase__time, .practical dt, .spec-card__list dt, .spec-card__title, .field label, .checks li, .stats__l, .footer-col h3, .footer-col h2,
-  .action-bar__text strong, .text-link, .cat-more a, .fit__label, .history__when, .solve__n, .insight__cat, .hero-row__name, .collage__badge, .swipe-hint, .step__n,
+  .action-bar__text strong, .text-link, .cat-more a, .fit__label, .history__when, .solve__n, .insight__cat, .hero-row__name, .why-art__badge, .swipe-hint, .step__n,
   .session-bar__labels, .arc__tag, .define__step b, .visit__street, .persona-note__ask, .next-groups__title) { font-family: 'Alexandria', 'Noto Naskh Arabic', sans-serif; letter-spacing: 0; }
 html[lang="ar"] :is(.btn, .btn-contact) { font-weight: 600; font-size: 15px; line-height: 1.6; }
 html[lang="ar"] :is(.nav a, .nav__trigger, .mobile-nav a, .filter-tabs button) { font-weight: 500; font-size: 15px; }
@@ -2043,3 +2042,41 @@ html[lang="ar"] .steps--strip .step__n { letter-spacing: 0; text-transform: none
   .join__head .btn { display: none; }
   .join__cta-end { display: block; margin-top: 20px; width: 100%; text-align: center; }
 }
+
+/* =====================================================================
+   Social badges: the academy's accounts as a row of quiet outlined marks (icons only), or icon + name pills.
+   Rendered by main.js from config.js SOCIAL; hidden until accounts are set.
+   ===================================================================== */
+.social { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0; }
+.social[hidden] { display: none; }
+.social__label { flex-basis: 100%; font-family: var(--display); font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+html[lang="ar"] .social__label { font-family: 'Alexandria', sans-serif; font-size: 13.5px; letter-spacing: 0; text-transform: none; }
+.social__link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 40px; height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--rule-strong); background: var(--surface); color: var(--fg-soft); text-decoration: none; transition: color .15s, border-color .15s, background-color .15s; }
+.social__link .icon { width: 20px; height: 20px; flex: none; }
+.social__link span { font-size: 14px; font-weight: 600; line-height: 1; white-space: nowrap; color: var(--fg); }
+.social__link:hover { color: var(--violet); border-color: var(--violet); background: var(--lavender); }
+.social__link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.social--icons .social__link { width: 40px; padding: 0; }
+/* On navy (footer) */
+.site-footer .social__label { color: var(--muted); }
+.site-footer .social__link { background: transparent; border-color: rgba(255, 255, 255, 0.18); color: #C4C6DF; }
+.site-footer .social__link:hover { color: #FFFFFF; border-color: var(--teal); background: rgba(9, 201, 142, 0.1); }
+.footer-social { margin-top: 20px; }
+.contact-details + .social { margin-top: 18px; }
+.visit__list + .social { margin: -8px 0 28px; }
+@media (pointer: coarse) { .social__link { min-width: 44px; height: 44px; } .social--icons .social__link { width: 44px; } }
+
+/* Home hero on white, with the glass illustration beside the title. The art carries its own transparency and shadow. */
+.hero--art { background: radial-gradient(60% 75% at 84% 30%, rgba(9, 201, 142, 0.10), transparent 70%), radial-gradient(50% 60% at 6% 0%, rgba(83, 76, 182, 0.08), transparent 70%), #FFFFFF; }
+.hero--art .hero-c { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); column-gap: 48px; align-items: center; }
+.hero--art .hero-c__text { margin: 0; max-width: none; }
+.hero--art .hero-row { grid-column: 1 / -1; margin-top: 40px; }
+.hero-art { margin: 0; justify-self: end; width: 100%; max-width: 500px; }
+.hero-art picture, .hero-art img { display: block; width: 100%; height: auto; }
+@media (max-width: 1100px) { .hero-art { max-width: 440px; } }
+@media (max-width: 960px) {
+  .hero--art .hero-c { grid-template-columns: minmax(0, 1fr); }
+  .hero-art { justify-self: center; max-width: 400px; margin-top: 28px; }
+  .hero--art .hero-row { margin-top: 8px; }
+}
+@media (max-width: 700px) { .hero-art { max-width: min(320px, 80vw); margin-top: 20px; } }

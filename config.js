@@ -8,13 +8,13 @@ window.AKAA_CONFIG = {
   SUPABASE_ANON_KEY: '',   // the "anon" / "publishable" key — safe in the browser because of RLS
   // Google Analytics 4 measurement id.
   GA4_ID: '',              // e.g. 'G-XXXXXXXXXX'
-  // Social accounts shown in the footer. Full https:// URLs; leave empty to hide.
+  // Social accounts, shown as badges in the footer, on Contact and on About. Full https:// URLs; an empty one is not shown.
   SOCIAL: {
     linkedin: '',
-    instagram: '',
     facebook: '',
+    instagram: '',
+    tiktok: '',
     x: '',
-    youtube: '',
-    tiktok: ''
+    youtube: ''
   }
 };
