@@ -1769,12 +1769,6 @@ html[lang="ar"] .eyebrow { text-transform: none; letter-spacing: 0; font-size: 1
 html[lang="ar"] body { line-height: 1.9; }
 html[lang="ar"] :is(p, li, dd, .lede, .hero__support) { line-height: 1.9; }
 
-/* The "1ST AI academy in Libya" lockup above the Home title */
-.first-mark { display: inline-flex; align-items: center; gap: 12px; margin: 0 auto 22px; }
-.first-mark__n { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: #FFFFFF; }
-.first-mark__t { font-family: var(--display); font-weight: 600; font-size: 12px; line-height: 1.25; letter-spacing: 0.12em; text-transform: uppercase; text-align: start; color: var(--teal); }
-html[lang="ar"] .first-mark__n { font-size: 30px; letter-spacing: 0; }
-html[lang="ar"] .first-mark__t { font-size: 13px; letter-spacing: 0; text-transform: none; }
 
 /* Navy surfaces carry the geometric-expansion line art, drawn behind the content at the inline end */
 .hero--brand, .stats.tone-3, .studio.tone-3, .cta-panel.tone-3, .site-footer, .form-block.tone-3 { position: relative; isolation: isolate; overflow: hidden; }
@@ -1826,12 +1820,10 @@ html:not([lang="ar"]) .page-about .hero__panel h1 { max-width: 22ch; font-size: 
 .tone-3 .form .btn--teal, .cta-panel .form .btn--teal { background: var(--teal); border-color: var(--teal); color: #141427; }
 .tone-3 .form .btn--teal:hover, .cta-panel .form .btn--teal:hover { background: #07B07C; border-color: #07B07C; color: #141427; }
 html[lang="ar"] .brand__ar-2 { font-size: 13px; }
-html[lang="ar"] .first-mark__t { font-size: 14.5px; line-height: 1.5; }
 /* About hero: the map art fills the visual column */
 .hero__art--map { display: flex; flex-direction: column; align-items: center; }
 .hero__art--map img { width: 100%; max-width: 520px; height: auto; }
 .brand__en-2 { font-size: 11px; }
-html:not([lang="ar"]) .first-mark__t { font-size: 13px; }
 
 /* Lean pages: "Other programmes" as one line of links; "Who it's for" as one short passage */
 .fit--links .container { padding-block: 40px 56px; }
@@ -1841,3 +1833,28 @@ html:not([lang="ar"]) .first-mark__t { font-size: 13px; }
 .fit--links .cat-more { margin-top: 10px; }
 .who-sec .container { padding-block: 64px 48px; }
 .who-sec .passage { margin-top: 14px; max-width: 46em; }
+
+/* Home hero: text at the start, two-line title, the map art at the end (as on the identity's cover) */
+.hero--home .hero-c { text-align: start; padding-block: 72px 0; }
+.hero-c__text { max-width: 640px; margin: 0; }
+.hero--home .eyebrow { justify-content: flex-start; margin-bottom: 20px; }
+html:not([lang="ar"]) .hero--home h1 { margin-inline: 0; max-width: 13ch; font-size: clamp(34px, 4.6vw, 62px); line-height: 1.04; letter-spacing: 0; font-weight: 700; }
+html[lang="ar"] .hero--home h1 { margin-inline: 0; max-width: 15ch; font-size: clamp(30px, 4vw, 54px); line-height: 1.3; }
+.hero--home .hero__support { margin: 20px 0 0; max-width: 30em; font-size: 19px; }
+.hero-c__ctas { justify-content: flex-start; margin-top: 28px; }
+.hero--home.hero--brand::before { inset-inline-end: -4%; top: 0; width: min(46vw, 640px); height: 100%; opacity: 0.5; background-position: center; }
+@media (max-width: 700px) {
+  .hero--home .hero-c { padding-top: 40px; }
+  .hero--home .eyebrow { margin-bottom: 14px; }
+  html:not([lang="ar"]) .hero--home h1 { max-width: none; font-size: clamp(30px, 8.6vw, 36px); }
+  html[lang="ar"] .hero--home h1 { max-width: none; font-size: clamp(27px, 7.6vw, 32px); }
+  .hero--home .hero__support { font-size: 17px; }
+  .hero--home.hero--brand::before { width: 80vw; inset-inline-end: -36%; opacity: 0.3; }
+}
+/* Two-line Home title on desktop and phone */
+html:not([lang="ar"]) .hero--home h1 { max-width: 19ch; font-size: clamp(32px, 4.1vw, 56px); }
+html[lang="ar"] .hero--home h1 { max-width: 18ch; font-size: clamp(28px, 3.7vw, 50px); }
+@media (max-width: 700px) {
+  html:not([lang="ar"]) .hero--home h1 { font-size: clamp(27px, 7.8vw, 31px); }
+  html[lang="ar"] .hero--home h1 { font-size: clamp(26px, 7.2vw, 30px); }
+}
