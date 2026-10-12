@@ -570,3 +570,29 @@
     io.observe(el);
   });
 })();
+
+/* Video band: config.js VIDEO_URL is a YouTube or Vimeo page link. Nothing loads until the visitor presses play;
+   without a link the poster and the "coming soon" pill stay and there is no control. */
+(function () {
+  var frame = document.querySelector('[data-video]');
+  if (!frame) return;
+  var url = (window.AKAA_CONFIG && window.AKAA_CONFIG.VIDEO_URL) || '', embed = null, m;
+  if ((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/))) embed = 'https://www.youtube-nocookie.com/embed/' + m[1] + '?autoplay=1&rel=0';
+  else if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) embed = 'https://player.vimeo.com/video/' + m[1] + '?autoplay=1';
+  if (!embed) return;
+  var soon = frame.querySelector('.video__soon');
+  if (soon) soon.remove();
+  var mark = frame.querySelector('.video__play'), ar = document.documentElement.lang === 'ar';
+  var btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'video__play'; btn.innerHTML = mark.innerHTML;
+  btn.setAttribute('aria-label', ar ? 'شغّل الفيديو' : 'Play the video');
+  btn.setAttribute('data-aria-en', 'Play the video'); btn.setAttribute('data-aria-ar', 'شغّل الفيديو');
+  btn.setAttribute('data-track', 'cta_click:video_play');
+  mark.replaceWith(btn);
+  btn.addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.src = embed; f.title = ar ? 'الأكاديمية في دقيقتين' : 'The academy in two minutes';
+    f.allow = 'autoplay; fullscreen; picture-in-picture'; f.setAttribute('allowfullscreen', ''); f.setAttribute('loading', 'lazy');
+    frame.appendChild(f); frame.classList.add('is-playing');
+  });
+})();

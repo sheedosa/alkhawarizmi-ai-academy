@@ -11,7 +11,7 @@ Static HTML/CSS/JS — no build step, no dependencies.
 | File | What it is |
 |---|---|
 | `index.html` | Home |
-| `studio.html`, `diploma.html` | Individuals route (register-interest forms) |
+| `ai-productivity.html`, `diploma.html` | Individuals route (register-interest forms). `studio.html` is a redirect stub kept for old links |
 | `organisations.html` | Enterprise & Government: Strategy Week `#week`, Custom Training `#custom`, Policy Briefing `#policy`, consultation form `#consult` |
 | `about.html`, `insights.html`, `contact.html`, `privacy.html` | Academy pages |
 | `404.html` | Shown for any unknown URL |
@@ -50,7 +50,7 @@ persists in `localStorage` (`akaa-lang`). Every piece of copy exists twice in th
 ## Design
 
 An academy look modelled on a course-platform layout: light lavender and white pages with soft corner glows, cards
-with 16px corners, and deep purple for the stats band, the Studio feature, the closing panel and the footer. Purple is
+with 16px corners, and deep purple for the stats band, the AI Productivity feature, the closing panel and the footer. Purple is
 the brand colour; amber (`--amber`) is the warm accent for secondary buttons, badges and the short bar before each
 section label. Components read semantic variables (`--bg`, `--fg`, `--fg-soft`, `--muted`, `--rule`, `--link`,
 `--surface`, `--card-border`, `--badge-bg`, `--btn-bg`), so a surface class only swaps values.
@@ -65,7 +65,7 @@ each page has one title in the reader's language.
 
 Home runs: hero (centred title, two buttons, a row of programme frames with a stat card) · next groups · programme
 catalogue with filter tabs · the academy (photo collage, badge, checklist) · who it's for (3 × 2 cards) · the academy in
-numbers · how we teach · the Studio · the Strategy Week · how to join · testimonials · FAQ · from the academy · closing
+who we are (hero) · video · the founder · why the academy (materials) · programme router · who teaches (when `TEAM` is filled) · numbers · enquiry
 panel with a cut-out photo. Inner-page heroes are light with an at-a-glance card; a hero photo turns them dark.
 
 Home is six sections: hero (two buttons that preset the programme filter) → the five programme cards with
@@ -77,10 +77,10 @@ Nothing on Home repeats a programme page: the day-by-day plan, the nine document
 their own pages and on About.
 
 Programme pages share one structure, ordered by the questions a visitor asks: hero with an at-a-glance card → who
-it's for (one short passage) → what you do (the Studio's day-by-day plan, the Diploma's eight months, the Week's nine
+it's for (one short passage) → what you do (AI Productivity's day-by-day plan, the Diploma's eight months, the Week's nine
 documents, Custom Training's five steps) → what you leave with → editions → practical details → four questions (also
 published as FAQPage data) → the form → other programmes as one line of links. The five programme pages are
-`studio.html`, `diploma.html`, `strategy-week.html`, `custom-training.html` and `policy-briefing.html`;
+`ai-productivity.html`, `diploma.html`, `strategy-week.html`, `custom-training.html` and `policy-briefing.html`;
 `organisations.html` is a short overview with one consultation form for organisations that are not sure yet. Old links
 to `organisations.html#week`, `#custom` and `#policy` redirect to the new pages. Practical details that are not known
 yet are kept in `content.py` as `None` and stay off the page; `DETAILS.md` lists them for the academy to fill in.
@@ -144,3 +144,9 @@ Then open http://localhost:8080/.
 
 Served via GitHub Pages from the `main` branch root. `404.html` uses `<base href="/alkhawarizmi-ai-academy/">`
 so it renders correctly at any depth; change it if the site moves to a custom domain.
+
+Home, founder and video: `FOUNDER` and `FOUNDER_PLACES` in `content.py` feed the founder section on Home and About
+(`founder_block()` in `progblocks.py`); the "Where he has worked" badges render only when `FOUNDER_PLACES` has entries.
+`VIDEO_URL` in `config.js` (YouTube or Vimeo page link) turns the Home video poster into a player; empty keeps the poster
+and the "Video coming soon" pill. The Studio was renamed AI Productivity: the page is `ai-productivity.html`, the internal
+slug and lead value stay `studio` (sheet and database unchanged), and `studio.html` is a hand-written redirect stub.

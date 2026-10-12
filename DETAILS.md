@@ -5,7 +5,7 @@ are hidden. Answer below (English and Arabic if you can; I can translate), send 
 
 Nothing here is published until you confirm it.
 
-## The Studio (`studio.html`)
+## AI Productivity (`ai-productivity.html`, formerly the Studio)
 
 - **Days and times** (الأيام والأوقات): Which days, and what hours? e.g. Sunday–Thursday, 5–8 pm, over two weeks
   - Answer: 
@@ -50,7 +50,7 @@ Nothing here is published until you confirm it.
 
 Shown on Home, in the programme cards and in each page's At a glance card. Today they read "Dates announced soon".
 
-- **The Studio** (studio.html): start date
+- **AI Productivity** (ai-productivity.html): start date
   - Answer: 
 - **The Diploma** (diploma.html): start date
   - Answer: 
@@ -63,7 +63,7 @@ The About page has a "Who teaches" section that stays hidden until there are rea
 
 - **Name** (English and Arabic)
   - Answer: 
-- **Role**, e.g. "Lead instructor, the Studio"
+- **Role**, e.g. "Lead instructor, AI Productivity"
   - Answer: 
 - **One line** about them, e.g. what they have built or taught
   - Answer: 
@@ -88,3 +88,22 @@ added to the site's search data as the academy's official profiles. An empty one
 - X and YouTube (if the academy has them): 
 
 These go into `config.js` under `SOCIAL`.
+
+## The founder (Home and About)
+
+Home now leads with Dr. Ali Abusnina: his portrait from the previous site, his own words ("I spent years working with AI
+outside Libya…") and "From Libya, for Libya." Nothing else about him is published yet. To add trust badges under his quote
+("Where he has worked"), send:
+
+- Employers or institutions, with his role and the years at each
+- His degree and field, and the awarding university
+- Two or three achievements worth a line each (projects led, teams built, publications)
+- Logo files for the badges (SVG or PNG, with permission to show them), or we show the names as text badges
+
+These go into `FOUNDER` and `FOUNDER_PLACES` in the content file; the badge strip stays hidden until the list has entries.
+
+## The Home video
+
+The band under the hero shows a poster with "Video coming soon" until a link is set. Send a YouTube or Vimeo page link for
+`VIDEO_URL` in `config.js`. Nothing loads until a visitor presses play. A two-minute cut works best: who you are, how a
+session runs, what participants leave with.

@@ -19,7 +19,7 @@ var COLUMNS = {
   'UTM source': 'utm_source', 'UTM medium': 'utm_medium', 'UTM campaign': 'utm_campaign', 'Session': 'session_id'
 };
 var FORM_NAMES = {
-  studio: 'The Studio', diploma: 'The Diploma', week: 'The AI Strategy Week', custom: 'Custom Training',
+  studio: 'AI Productivity', diploma: 'The Diploma', week: 'The AI Strategy Week', custom: 'Custom Training',
   policy: 'The Policy Briefing', contact: 'Contact form', newsletter: 'Insights newsletter'
 };
 var MAX_LEN = 2000;

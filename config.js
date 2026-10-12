@@ -8,6 +8,8 @@ window.AKAA_CONFIG = {
   SUPABASE_ANON_KEY: '',   // the "anon" / "publishable" key — safe in the browser because of RLS
   // Google Analytics 4 measurement id.
   GA4_ID: '',              // e.g. 'G-XXXXXXXXXX'
+  // The Home video: a YouTube or Vimeo page link. Empty shows the poster with "Video coming soon".
+  VIDEO_URL: '',           // e.g. 'https://www.youtube.com/watch?v=XXXXXXXXXXX'
   // Social accounts, shown as badges in the footer, on Contact and on About. Full https:// URLs; an empty one is not shown.
   SOCIAL: {
     linkedin: '',
