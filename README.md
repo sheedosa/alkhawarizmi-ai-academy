@@ -150,3 +150,8 @@ Home, founder and video: `FOUNDER` and `FOUNDER_PLACES` in `content.py` feed the
 `VIDEO_URL` in `config.js` (YouTube or Vimeo page link) turns the Home video poster into a player; empty keeps the poster
 and the "Video coming soon" pill. The Studio was renamed AI Productivity: the page is `ai-productivity.html`, the internal
 slug and lead value stay `studio` (sheet and database unchanged), and `studio.html` is a hand-written redirect stub.
+
+Design restraint (October 2026): section headings stand alone, with no small label above them. One brand device per
+section at most (the dot marker only on openers marked `sec-head--mark`, the K strip above the footer, the gradient bar on
+the footer). No glow backgrounds, frosted panels, pill tags, round arrow buttons, hover lifts or counting numbers. Links
+carry no arrow characters. "We reply within two working days" appears in thank-you messages and on Contact only.

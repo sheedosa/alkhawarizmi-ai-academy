@@ -537,40 +537,6 @@
     });
   });
 })();
-
-/* The academy in numbers: each figure counts up once when its card scrolls into view.
-   The real number is in the HTML (search engines, no-JS, reduced motion); the width is locked first so nothing shifts. */
-(function () {
-  var els = document.querySelectorAll('[data-count]');
-  if (!els.length || !('IntersectionObserver' in window)) return;
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var run = function (el, delay) {
-    var to = parseInt(el.getAttribute('data-count'), 10), t0 = null, dur = to > 99 ? 1400 : 900;
-    var step = function (t) {
-      if (t0 === null) t0 = t + delay;
-      var k = Math.min(Math.max((t - t0) / dur, 0), 1), e = 1 - Math.pow(1 - k, 3);
-      el.textContent = String(Math.round(to * e));
-      if (k < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (!en.isIntersecting) return;
-      io.unobserve(en.target);
-      run(en.target, Array.prototype.indexOf.call(els, en.target) % 4 * 90);
-    });
-  }, { threshold: 0.6 });
-  els.forEach(function (el) {
-    var r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) return;     // already on screen at load: leave it as is
-    el.style.minWidth = el.offsetWidth + 'px';
-    el.style.display = 'inline-block';
-    el.textContent = '0';
-    io.observe(el);
-  });
-})();
-
 /* Video band: config.js VIDEO_URL is a YouTube or Vimeo page link. Nothing loads until the visitor presses play;
    without a link the poster and the "coming soon" pill stay and there is no control. */
 (function () {
@@ -580,8 +546,8 @@
   if ((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/))) embed = 'https://www.youtube-nocookie.com/embed/' + m[1] + '?autoplay=1&rel=0';
   else if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) embed = 'https://player.vimeo.com/video/' + m[1] + '?autoplay=1';
   if (!embed) return;
-  var soon = frame.querySelector('.video__soon');
-  if (soon) soon.remove();
+  var note = frame.parentNode.querySelector('.video__note');
+  if (note) note.remove();
   var mark = frame.querySelector('.video__play'), ar = document.documentElement.lang === 'ar';
   var btn = document.createElement('button');
   btn.type = 'button'; btn.className = 'video__play'; btn.innerHTML = mark.innerHTML;
