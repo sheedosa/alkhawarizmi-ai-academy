@@ -46,7 +46,7 @@ These carry the design; the rest can follow.
 3. `cta-person.png`: one participant, from the waist up, **cut out on a transparent background** and saved as PNG. It
    stands in the closing panel on Home with the head above the panel's top edge, so leave a little space above the
    head and none below the crop. Until it is uploaded, the AI Productivity drawing stands there instead.
-   Note: on Home, the Diploma frame and card already carry the Diploma emblem illustration (`assets/illustrations/diploma-*`); a `prog-diploma` photo only fills the Diploma page hero.
+   Note: Home shows the programmes as a table without pictures; a `prog-diploma` photo fills the Diploma page hero.
 
 ## What works best
 

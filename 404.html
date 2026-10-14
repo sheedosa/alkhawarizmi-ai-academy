@@ -13,7 +13,8 @@
     try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
     // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
     var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
+    // A missing /ar/ path means the visitor was reading Arabic
+    if (saved === 'ar' || (!saved && (/^ar\b/i.test(nav) || /\/ar\//.test(location.pathname)))) {
       document.documentElement.lang = 'ar';
       document.documentElement.dir = 'rtl';
     }
@@ -23,8 +24,8 @@
 <meta name="theme-color" content="#170C33">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="icon" type="image/png" href="assets/mark.png">
-<link rel="stylesheet" href="styles.css">
-<script src="config.js"></script>
+<link rel="stylesheet" href="styles.min.css">
+<script src="config.js" defer></script>
 <script src="main.js" defer></script>
 <style>
   .notfound { min-height: calc(100vh - 72px); display: flex; align-items: center; border-bottom: 0; }
@@ -34,6 +35,8 @@
   .notfound .btn { margin-top: 36px; }
   .notfound__fig { width: 100%; max-width: 360px; justify-self: end; opacity: 0.85; }
   .notfound a.inline { color: var(--link); text-decoration: underline; text-underline-offset: 4px; }
+  .notfound__links { margin: 32px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 15.5px; }
+  .notfound__links a { color: var(--link); font-weight: 600; }
   @media (max-width: 760px) { .notfound { min-height: 0; } .notfound .container { grid-template-columns: 1fr; gap: 28px; padding-block: 48px 72px; } .notfound__fig { max-width: 132px; justify-self: start; order: -1; } }
 </style>
 </head>
@@ -56,6 +59,13 @@
     <h1><span data-l="en">We could not find that page</span><span data-l="ar">لم نعثر على هذه الصفحة</span></h1>
     <p class="lede"><span data-l="en">The link may be old or mistyped. Start from the homepage, or email us at <a class="inline" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span><span data-l="ar">قد يكون الرابط قديماً أو خاطئاً. ابدأ من الصفحة الرئيسية، أو راسلنا على البريد: <a class="inline" href="mailto:info@alkhawarizmi.ai" dir="ltr">info@alkhawarizmi.ai</a></span></p>
     <a class="btn btn--primary" href="index.html"><span data-l="en">Back to the homepage</span><span data-l="ar">العودة إلى الصفحة الرئيسية</span></a>
+    <ul class="notfound__links">
+      <li><a href="ai-productivity.html"><span data-l="en">AI Productivity</span><span data-l="ar">الإنتاجية بالذكاء الاصطناعي</span></a></li>
+      <li><a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a></li>
+      <li><a href="organisations.html"><span data-l="en">For organisations</span><span data-l="ar">للمؤسسات</span></a></li>
+      <li><a href="about.html"><span data-l="en">About</span><span data-l="ar">عن الأكاديمية</span></a></li>
+      <li><a href="contact.html"><span data-l="en">Contact</span><span data-l="ar">تواصل معنا</span></a></li>
+    </ul>
     </div>
     <img class="notfound__fig" src="assets/motif/jabr-violet.svg" alt="" width="376" height="376">
   </div>

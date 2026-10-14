@@ -5,8 +5,8 @@ _October 2026. Covers the static site in this repository._
 ## 1. Where the site stands
 
 **Built**
-- Eight pages: Home, Studio, Diploma, Enterprise & Government (Strategy Week · Custom Training · Policy
-  Briefing · consultation), About, Insights, Contact, Privacy, plus a 404.
+- Eleven pages: Home, AI Productivity, Diploma, Organisations overview, Strategy Week, Custom Training, Policy
+  Briefing, About, Insights, Contact, Privacy, plus a 404; each exists in English at the root and in Arabic under `/ar/`.
 - Fully bilingual EN/AR with real RTL; the choice persists and is applied before first paint.
 - Two audiences routed from the first screen: Individuals → Studio/Diploma → *Register interest*;
   Enterprise & Government → Organisations → *Book a consultation*; undecided → Contact (routes by radio).
@@ -16,7 +16,7 @@ _October 2026. Covers the static site in this repository._
 - GA4 event model: `view_programme → select_route → cta_click → form_start → generate_lead` (+ `form_error`,
   `lang_toggle`, `filter_insights`). GA4 loads only once an id is set in `config.js`.
 - SEO basics: per-page titles/descriptions/canonicals, Open Graph, JSON-LD (`EducationalOrganization`,
-  `Course` ×5, `AboutPage`, `ContactPage`, `CollectionPage`), sitemap with 8 URLs.
+  `Course` ×5, `AboutPage`, `ContactPage`, `CollectionPage`, `ItemList`), hreflang pairs, sitemap with 22 URLs.
 - Mobile verified 320–1440px in both languages: no horizontal scroll, touch targets.
 - Own visual identity (October 2026): deep purple grounds with one cyan accent, IBM Plex in both languages,
   ruled layouts instead of card grids, and al-Khwarizmi's completing-the-square figure as the recurring motif.
@@ -66,12 +66,11 @@ form_start** (is the page convincing?) and **form_start → generate_lead** (is 
 3. After the first cohort: 2–3 short participant quotes with first name + role, placed on Studio and Home.
 4. Keep the brief's rules: no dates, no "seats remaining", no accreditation claims.
 
-### Step 3 — Arabic SEO (week 2–4)
-1. Generate two URL trees from the same content — `/` (EN) and `/ar/` (AR) — with a small Node build script
-   (the bilingual `data-l` spans make this mechanical). Add `<link rel="alternate" hreflang>` pairs and
-   `x-default`.
-2. Keep the toggle: it switches between the two URLs instead of flipping classes.
-3. Google Search Console: verify, submit the sitemap, request indexing of `/ar/` pages.
+### Step 3 — Arabic SEO (done, October 2026)
+1. Two URL trees from the same content — `/` (EN) and `/ar/` (AR) — written by `localize.py` after the build,
+   with `<link rel="alternate" hreflang>` pairs and `x-default` on both.
+2. The toggle switches between the two URLs instead of flipping classes.
+3. Still to do: Google Search Console: verify, submit the sitemap, request indexing of `/ar/` pages.
 
 ### Step 4 — Custom domain (when the DNS owner is available)
 1. Add `CNAME` file with `alkhawarizmi.ai` (or `www.`), point DNS at GitHub Pages, enforce HTTPS.

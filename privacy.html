@@ -3,24 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title data-en="Privacy | AlKhwarizmi AI Academy" data-ar="الخصوصية | أكاديمية الخوارزمي للذكاء الاصطناعي">Privacy | AlKhwarizmi AI Academy</title>
+<title data-en="Privacy | AlKhwarizmi AI Academy" data-ar="الخصوصية | أكاديمية الخوارزمي">Privacy | AlKhwarizmi AI Academy</title>
 <meta name="description" content="What the AlKhwarizmi AI Academy website stores when you use its forms, and how long we keep it." data-ar="ما يحفظه موقع أكاديمية الخوارزمي للذكاء الاصطناعي حين تستخدم نماذجه، ومدة الاحتفاظ به.">
 <script>
   // Apply the saved language before first paint (shared key with the design prototype).
+  // Every page exists twice: English at the root, Arabic under /ar/. The page's own lang always matches its URL,
+  // so a visitor who chose the other language (or, on a first visit, whose browser is Arabic) is sent to the twin.
   (function () {
+    document.documentElement.classList.add('has-js');
     var saved = null;
     try { saved = localStorage.getItem('akaa-lang'); } catch (e) {}
-    // First visit with no saved choice: follow the browser's language (Arabic first, per the brief).
     var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-    if (saved === 'ar' || (!saved && /^ar\b/i.test(nav))) {
-      document.documentElement.lang = 'ar';
-      document.documentElement.dir = 'rtl';
-    }
+    var inAr = /\/ar\/[^\/]*$/.test(location.pathname);
+    var file = location.pathname.split('/').pop();
+    var twin = (inAr ? '../' : 'ar/') + file + location.search + location.hash;
+    if (!inAr && (saved === 'ar' || (!saved && /^ar\b/i.test(nav)))) location.replace(twin);
+    else if (inAr && saved === 'en') location.replace(twin);
   })();
 </script>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/205f35f3d41b.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/d284eb7dc38a.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/281446647726.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/b851857ec568.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/c29acec518ad.woff2" crossorigin>
 <link rel="stylesheet" href="fonts.css">
 <meta name="theme-color" content="#111128">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -42,11 +45,14 @@
 <meta name="twitter:image" content="https://sheedosa.github.io/alkhawarizmi-ai-academy/assets/og-logo.png">
 <meta name="twitter:image:alt" content="AlKhwarizmi AI Academy logo">
 <link rel="canonical" href="https://sheedosa.github.io/alkhawarizmi-ai-academy/privacy.html">
+<link rel="alternate" hreflang="en" href="https://sheedosa.github.io/alkhawarizmi-ai-academy/privacy.html">
+<link rel="alternate" hreflang="ar" href="https://sheedosa.github.io/alkhawarizmi-ai-academy/ar/privacy.html">
+<link rel="alternate" hreflang="x-default" href="https://sheedosa.github.io/alkhawarizmi-ai-academy/privacy.html">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="icon" type="image/png" href="assets/mark.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css">
-<script src="config.js"></script>
+<link rel="stylesheet" href="styles.min.css">
+<script src="config.js" defer></script>
 <script src="main.js" defer></script>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sheedosa.github.io/alkhawarizmi-ai-academy/"}, {"@type": "ListItem", "position": 2, "name": "Privacy", "item": "https://sheedosa.github.io/alkhawarizmi-ai-academy/privacy.html"}]}]}
@@ -84,6 +90,10 @@
           <span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span><span class="chev" aria-hidden="true"></span>
         </button>
         <div class="dropdown" id="dd-enterprise">
+          <a href="organisations.html" data-track="select_route:nav_organisations">
+            <span class="dropdown__label"><span data-l="en">For organisations</span><span data-l="ar">للمؤسسات</span></span>
+            <span class="dropdown__sub"><span data-l="en">The three programmes at a glance</span><span data-l="ar">البرامج الثلاثة في لمحة</span></span>
+          </a>
           <a href="strategy-week.html">
             <span class="dropdown__label"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></span>
             <span class="dropdown__sub"><span data-l="en">5 days</span><span data-l="ar">5 أيام</span></span>
@@ -116,6 +126,7 @@
     <a href="diploma.html"><span data-l="en">The Diploma</span><span data-l="ar">الدبلوم</span></a>
     <a href="ai-productivity.html"><span data-l="en">AI Productivity</span><span data-l="ar">الإنتاجية بالذكاء الاصطناعي</span></a>
     <span class="mobile-nav__title"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></span>
+    <a href="organisations.html" data-track="select_route:nav_organisations"><span data-l="en">For organisations: overview</span><span data-l="ar">للمؤسسات: نظرة عامة</span></a>
     <a href="strategy-week.html"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
     <a href="custom-training.html"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
     <a href="policy-briefing.html"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>
@@ -139,7 +150,8 @@
     <p><span data-l="en">Submissions are stored in a private Google Sheet in the academy's Google account, and each new one is also emailed to the academy. Only academy staff can read them.</span><span data-l="ar">تُحفَظ الطلبات في جدول بيانات خاص من Google ضمن حساب الأكاديمية، ويُرسَل كل طلب جديد أيضاً إلى بريد الأكاديمية. ولا يقرؤها إلا موظفو الأكاديمية.</span></p>
 
     <h2><span data-l="en">Visit counting</span><span data-l="ar">عدّ الزيارات</span></h2>
-    <p><span data-l="en">We use Google Analytics 4, with your IP address shortened, to count visits and see which pages and buttons are used. It sets cookies on your device. We do not sell or share this data, and we do not use it for advertising.</span><span data-l="ar">نستخدم Google Analytics 4، مع اختصار عنوان IP الخاص بك، لعدّ الزيارات ومعرفة الصفحات والأزرار المستخدمة. ويضع ملفات تعريف ارتباط على جهازك. لا نبيع هذه البيانات ولا نشاركها، ولا نستخدمها للإعلانات.</span></p>
+    <p data-if-analytics hidden><span data-l="en">We use Google Analytics 4, with your IP address shortened, to count visits and see which pages and buttons are used. It sets cookies on your device. We do not sell or share this data, and we do not use it for advertising.</span><span data-l="ar">نستخدم Google Analytics 4، مع اختصار عنوان IP الخاص بك، لعدّ الزيارات ومعرفة الصفحات والأزرار المستخدمة. ويضع ملفات تعريف ارتباط على جهازك. لا نبيع هذه البيانات ولا نشاركها، ولا نستخدمها للإعلانات.</span></p>
+    <p data-if-no-analytics><span data-l="en">At the moment this site runs no analytics and sets no cookies for it. If we switch visit counting on, this page will say so, and it will shorten your IP address and never be used for advertising.</span><span data-l="ar">لا يشغّل هذا الموقع حالياً أي أداة تحليلات ولا يضع ملفات تعريف ارتباط لها. وإن شغّلنا عدّ الزيارات فستذكر هذه الصفحة ذلك، مع اختصار عنوان IP الخاص بك ودون أي استخدام للإعلانات.</span></p>
 
     <h2><span data-l="en">Your language choice</span><span data-l="ar">اختيارك للغة</span></h2>
     <p><span data-l="en">The site remembers whether you chose Arabic or English, in your browser's local storage. Nothing about this is sent to us.</span><span data-l="ar">يتذكّر الموقع اختيارك للعربية أو الإنجليزية في التخزين المحلي لمتصفحك. ولا يُرسَل إلينا شيء من ذلك.</span></p>
@@ -152,6 +164,8 @@
     <p class="fig__caption"><span data-l="en">AlKhwarizmi AI Academy · Zawiat Dahmani Street, Tripoli, Libya · Last updated: October 2026.</span><span data-l="ar">أكاديمية الخوارزمي للذكاء الاصطناعي · شارع زاوية الدهماني، طرابلس، ليبيا · آخر تحديث: أكتوبر 2026.</span></p>
   </div>
 </section>
+
+<section class="fit fit--links tone-1" aria-labelledby="fit-h"><div class="container"><p class="fit__line"><span class="fit__label" id="fit-h"><span data-l="en">The programmes</span><span data-l="ar">البرامج</span></span> <a href="ai-productivity.html" data-track="select_route:fit_studio"><span data-l="en">AI Productivity</span><span data-l="ar">الإنتاجية بالذكاء الاصطناعي</span></a> · <a href="diploma.html" data-track="select_route:fit_diploma"><span data-l="en">The AI Practitioner Diploma</span><span data-l="ar">دبلوم ممارس الذكاء الاصطناعي</span></a> · <a href="strategy-week.html" data-track="select_route:fit_week"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a> · <a href="custom-training.html" data-track="select_route:fit_custom"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a> · <a href="policy-briefing.html" data-track="select_route:fit_policy"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a></p></div></section>
 
 <div class="k-strip" aria-hidden="true"></div>
 </main>
@@ -170,7 +184,7 @@
       <a href="ai-productivity.html"><span data-l="en">AI Productivity</span><span data-l="ar">الإنتاجية بالذكاء الاصطناعي</span></a>
     </nav>
     <nav class="footer-col" aria-label="Organisations">
-      <span class="footer-col__title"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></span>
+      <a class="footer-col__title" href="organisations.html"><span data-l="en">Organisations</span><span data-l="ar">للمؤسسات</span></a>
       <a href="strategy-week.html"><span data-l="en">The AI Strategy Week</span><span data-l="ar">أسبوع استراتيجية الذكاء الاصطناعي</span></a>
       <a href="custom-training.html"><span data-l="en">Custom Training</span><span data-l="ar">التدريب المخصّص</span></a>
       <a href="policy-briefing.html"><span data-l="en">The Policy Briefing</span><span data-l="ar">إحاطة السياسات</span></a>

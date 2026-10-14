@@ -5,6 +5,13 @@ are hidden. Answer below (English and Arabic if you can; I can translate), send 
 
 Nothing here is published until you confirm it.
 
+**Arabic copy to sign off:** the October copy pass rewrote many lines in both languages. `COPY-REVIEW.md` lists every
+changed line (old English, new English, new Arabic) so the Arabic can be checked before it goes live.
+
+**Two more things the programme pages would benefit from:** a day-by-day plan for the Strategy Week and the Policy
+Briefing (AI Productivity already has one), and the names of the certificate levels, so "the level you reached" can be
+stated rather than implied.
+
 ## AI Productivity (`ai-productivity.html`, formerly the Studio)
 
 - **Days and times** (الأيام والأوقات): Which days, and what hours? e.g. Sunday–Thursday, 5–8 pm, over two weeks
@@ -48,7 +55,9 @@ Nothing here is published until you confirm it.
 
 ## Dates for the next groups
 
-Shown on Home, in the programme cards and in each page's At a glance card. Today they read "Dates announced soon".
+Shown in each programme page's At a glance card and in the forms. Until they are set the pages say "Not yet scheduled.
+Register and you hear first", and every form promises a reply within two working days; the three "what happens next"
+steps beside each form come from `JOIN` in the content file. Once a date is known it replaces that line everywhere.
 
 - **AI Productivity** (ai-productivity.html): start date
   - Answer: 
@@ -74,7 +83,8 @@ The About page has a "Who teaches" section that stays hidden until there are rea
 
 - **Testimonials**: real quotes with the person's name and role, and their permission. The section stays hidden until there are some.
 - **Partner logos**: organisations you work with, with permission to show their logo.
-- **Google Analytics 4 Measurement ID** (`G-XXXXXXX`), so enquiries and drop-offs can be measured.
+- **Google Analytics 4 Measurement ID** (`G-XXXXXXX`), so enquiries and drop-offs can be measured. Until it is set,
+  nothing is measured and the Privacy page says so; once set, the page switches to the analytics paragraph by itself.
 
 ## Social accounts
 
@@ -92,15 +102,16 @@ These go into `config.js` under `SOCIAL`.
 ## The founder (Home and About)
 
 Home now leads with Dr. Ali Abusnina: his portrait from the previous site, his own words ("I spent years working with AI
-outside Libya…") and "From Libya, for Libya." Nothing else about him is published yet. To add trust badges under his quote
-("Where he has worked"), send:
+outside Libya…") and "From Libya, for Libya." Nothing else about him is published yet. Two slots are ready and stay
+hidden until filled:
 
-- Employers or institutions, with his role and the years at each
-- His degree and field, and the awarding university
-- Two or three achievements worth a line each (projects led, teams built, publications)
-- Logo files for the badges (SVG or PNG, with permission to show them), or we show the names as text badges
-
-These go into `FOUNDER` and `FOUNDER_PLACES` in the content file; the badge strip stays hidden until the list has entries.
+1. **A biography paragraph** (`FOUNDER["bio"]`, English and Arabic): his degree and field, the awarding university, the
+   years he worked with AI and where, and one or two achievements worth a line each. About shows the whole paragraph
+   under his quote; Home shows its first sentence.
+   - Answer: 
+2. **Where he has worked** (`FOUNDER_PLACES`): employers or institutions, each with his role and the years. They appear
+   as a row of named badges under the quote; send logo files (SVG or PNG, with permission) and the badge carries the logo.
+   - Answer: 
 
 ## The Home video
 

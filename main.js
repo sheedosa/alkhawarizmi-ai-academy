@@ -30,9 +30,19 @@
   if (md0 && !md0.hasAttribute('data-en')) md0.setAttribute('data-en', md0.getAttribute('content'));
   applyLang(root.lang === 'ar' ? 'ar' : 'en');
 
+  // Pages built with an Arabic twin (a hreflang link is present) switch language by going to the twin, so the
+  // URL always says which language the page is in. Pages without one (404, old previews) switch in place.
+  var twinUrl = function () {
+    if (!document.querySelector('link[rel="alternate"][hreflang]')) return null;
+    var inAr = /\/ar\/[^\/]*$/.test(location.pathname);
+    return (inAr ? '../' : 'ar/') + location.pathname.split('/').pop() + location.search + location.hash;
+  };
   document.querySelectorAll('[data-lang-toggle]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      setLang(root.lang === 'ar' ? 'en' : 'ar');
+      var next = root.lang === 'ar' ? 'en' : 'ar';
+      var twin = twinUrl();
+      if (twin) { try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {} location.href = twin; return; }
+      setLang(next);
     });
   });
 
@@ -168,6 +178,9 @@
     document.head.appendChild(s);
     gtag('js', new Date());
     gtag('config', cfg.GA4_ID, { anonymize_ip: true, language: root.lang });
+    // The privacy notice describes analytics only while it runs
+    document.querySelectorAll('[data-if-analytics]').forEach(function (el) { el.removeAttribute('hidden'); });
+    document.querySelectorAll('[data-if-no-analytics]').forEach(function (el) { el.setAttribute('hidden', ''); });
   }
   AKAA.track = function (name, params) {
     var p = Object.assign({ lang: root.lang, page: location.pathname.split('/').pop() || 'index.html' }, params || {});
@@ -183,7 +196,7 @@
     AKAA.track(parts[0], { label: parts[1] || el.textContent.trim().slice(0, 60) });
   });
   document.querySelectorAll('[data-lang-toggle]').forEach(function (b) {
-    b.addEventListener('click', function () { AKAA.track('lang_toggle', { to: root.lang }); });
+    b.addEventListener('click', function () { AKAA.track('lang_toggle', { to: root.lang === 'ar' ? 'en' : 'ar' }); }, true);
   });
 
   // ---- Lead forms: <form data-lead="studio|diploma|week|custom|policy|contact">
@@ -245,8 +258,14 @@
       var sentOk = document.getElementById(form.getAttribute('data-sent'));
       var sentMail = document.getElementById(form.getAttribute('data-sent-mailto'));
       form.classList.remove('is-error'); form.classList.add('is-busy');
+      // The button says what is happening while the request is in flight, in both languages
+      var btn = form.querySelector('button[type="submit"]'), labels = btn ? btn.querySelectorAll('[data-l]') : [];
+      var saved = Array.prototype.map.call(labels, function (el) { return el.textContent; });
+      var SENDING = { en: 'Sending', ar: 'جارٍ الإرسال' };
+      labels.forEach(function (el) { el.textContent = SENDING[el.getAttribute('data-l')] || el.textContent; });
+      var restore = function () { labels.forEach(function (el, i) { el.textContent = saved[i]; }); };
       var finish = function (via) {
-        form.classList.remove('is-busy'); form.classList.add('is-sent');
+        restore(); form.classList.remove('is-busy'); form.classList.add('is-sent');
         var sent = (via === 'mailto' && sentMail) ? sentMail : sentOk;
         if (sent) { sent.classList.add('is-visible'); sent.setAttribute('tabindex', '-1'); sent.focus(); }
         AKAA.track('generate_lead', { form: row.form, programme: row.programme, audience: row.audience, via: via });
@@ -255,7 +274,7 @@
         : supabaseInsert(row).then(function () { return 'supabase'; });
       save.then(finish).catch(function (err) {
         if (err.message === 'not-configured') { mailtoFallback(row); finish('mailto'); return; }
-        form.classList.remove('is-busy'); form.classList.add('is-error');
+        restore(); form.classList.remove('is-busy'); form.classList.add('is-error');
         AKAA.track('form_error', { form: row.form, error: err.message });
       });
     });
@@ -356,7 +375,7 @@
     var hero = document.querySelector('main .hero');
     // The hero's own button is the anchor: once it has scrolled away the bar takes over, however tall the hero is.
     var anchor = hero ? (hero.querySelector('.hero__ctas') || hero) : null;
-    var target = document.querySelector(bar.getAttribute('data-target'));
+    var target = document.querySelector(bar.getAttribute('data-target'));   // null when the bar leads to another page: then it never hides
     var ticking = false;
     var update = function () {
       ticking = false;
@@ -452,13 +471,27 @@
    Loading starts when a slot's section nears the viewport. ?photos labels every slot; ?photos=0 turns that off. */
 (function () {
   var root = document.documentElement;
-  var DIR = 'assets/photos/';
+  // Asset paths are relative to the site root, which main.js is loaded from ('../' on the /ar/ pages)
+  var ROOT = (function () { var s = document.querySelector('script[src$="main.js"]'); return s ? s.getAttribute('src').replace(/main\.js$/, '') : ''; })();
+  var DIR = ROOT + 'assets/photos/';
   var q = new URLSearchParams(location.search), show = false;
   try {
     if (q.has('photos')) { if (q.get('photos') === '0') localStorage.removeItem('akaa-photos'); else localStorage.setItem('akaa-photos', '1'); }
     show = localStorage.getItem('akaa-photos') === '1';
   } catch (e) { show = q.has('photos') && q.get('photos') !== '0'; }
-  if (show) root.classList.add('show-photo-slots');
+  if (show) {
+    root.classList.add('show-photo-slots');
+    // Slot labels exist only in this preview mode, built from the slot's attributes (nothing crawlable in the markup)
+    document.querySelectorAll('.photo[data-photo]:not(.is-filled)').forEach(function (f) {
+      if (f.querySelector('.photo__label')) return;
+      var l = document.createElement('span'); l.className = 'photo__label';
+      var b = document.createElement('b'); b.dir = 'ltr'; b.textContent = 'PHOTO ' + f.getAttribute('data-tag');
+      var en = document.createElement('span'); en.setAttribute('data-l', 'en'); en.textContent = f.getAttribute('data-alt-en') || '';
+      var ar = document.createElement('span'); ar.setAttribute('data-l', 'ar'); ar.textContent = f.getAttribute('data-alt-ar') || '';
+      var i = document.createElement('i'); i.dir = 'ltr'; i.textContent = f.getAttribute('data-size') || '';
+      l.appendChild(b); l.appendChild(en); l.appendChild(ar); l.appendChild(i); f.appendChild(l);
+    });
+  }
 
   var lang = function () { return root.lang === 'ar' ? 'ar' : 'en'; };
   var manifest = null;
@@ -560,5 +593,39 @@
     f.src = embed; f.title = ar ? 'الأكاديمية في دقيقتين' : 'The academy in two minutes';
     f.allow = 'autoplay; fullscreen; picture-in-picture'; f.setAttribute('allowfullscreen', ''); f.setAttribute('loading', 'lazy');
     frame.appendChild(f); frame.classList.add('is-playing');
+  });
+})();
+
+
+/* The square (al-Khwarizmi's completing-the-square figure) draws itself once it is in view.
+   Under reduced motion, or without observers, it is simply shown drawn. */
+(function () {
+  var figs = document.querySelectorAll('.jabr[data-draw]');
+  if (!figs.length) return;
+  var still = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || !('IntersectionObserver' in window);
+  if (still) { figs.forEach(function (f) { f.classList.add('is-drawn'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (!en.isIntersecting) return; io.unobserve(en.target); en.target.classList.add('is-drawn'); });
+  }, { threshold: 0.3 });
+  figs.forEach(function (f) { io.observe(f); });
+})();
+
+/* Chapter openers settle into place the first time they are seen */
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  var still = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || !('IntersectionObserver' in window);
+  if (still) { els.forEach(function (el) { el.classList.add('is-in'); }); return; }
+  var list = Array.prototype.slice.call(els);
+  // Revealing one opener also reveals every opener above it, so a jump down the page (an anchor link, a reload
+  // mid-page) never leaves an earlier section blank on the way back up.
+  function upTo(i) { for (var k = 0; k <= i; k++) { if (!list[k].classList.contains('is-in')) { list[k].classList.add('is-in'); io.unobserve(list[k]); } } }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) upTo(list.indexOf(en.target)); });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  list.forEach(function (el, i) {
+    var r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight) { upTo(i); return; }
+    io.observe(el);
   });
 })();
