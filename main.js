@@ -200,7 +200,7 @@
   });
 
   // ---- Lead forms: <form data-lead="studio|diploma|week|custom|policy|contact">
-  var FORM_AUDIENCE = { studio: 'individual', diploma: 'individual', week: 'organisation', custom: 'organisation', policy: 'organisation' };
+  var FORM_AUDIENCE = { studio: 'individual', diploma: 'individual', week: 'organisation', custom: 'organisation', policy: 'organisation', demo: 'organisation' };
 
   function leadPayload(form) {
     var fd = new FormData(form), data = {};
@@ -208,7 +208,7 @@
     var kind = form.getAttribute('data-lead');
     var att = attribution();
     return Object.assign({
-      form: (data.programme && FORM_AUDIENCE[data.programme]) ? data.programme : kind,
+      form: (data.programme && FORM_AUDIENCE[data.programme] && data.programme !== 'demo') ? data.programme : kind,
       audience: data.audience || FORM_AUDIENCE[data.programme] || FORM_AUDIENCE[kind] || null,
       programme: data.programme || kind,
       edition: data.edition || null,
@@ -348,7 +348,8 @@
   });
 
   // ---- Links that open the Home enquiry form with a programme already chosen
-  var enquire = document.getElementById('enquire');
+  // The page's enquiry form: Home's #enquire, or the organisation pages' #consult
+  var enquire = document.getElementById('enquire') || document.getElementById('consult');
   if (enquire) {
     var enqSel = enquire.querySelector('select[name="programme"]');
     document.querySelectorAll('a[data-enquire]').forEach(function (a) {
@@ -610,16 +611,24 @@
   figs.forEach(function (f) { io.observe(f); });
 })();
 
-/* Chapter openers settle into place the first time they are seen */
+/* Chapter openers settle into place the first time they are seen; rows inside a revealed group follow in order */
 (function () {
+  var GROUPS = '.rlist, .ptable, .next-steps, .figures__row, .faq__list, .card-grid, .practical, .day-cards, .arc__stages, .method-fig__steps, .principles, .history, .article-grid, .ruled-list';
+  var ITEMS = ':scope > li, :scope > .ptable__row, :scope > .ptable__group, :scope > div, :scope > details, :scope > .card, :scope > article';
+  document.querySelectorAll(GROUPS).forEach(function (g) {
+    if (g.closest('.hero')) return;
+    var items = g.querySelectorAll(ITEMS); if (!items.length) return;
+    g.classList.add('reveal', 'reveal--group');
+    items.forEach(function (it, i) { it.classList.add('stagger'); it.style.setProperty('--i', String(Math.min(i, 14))); });
+  });
   var els = document.querySelectorAll('.reveal');
   if (!els.length) return;
   var still = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || !('IntersectionObserver' in window);
-  if (still) { els.forEach(function (el) { el.classList.add('is-in'); }); return; }
+  if (still) { els.forEach(function (el) { el.classList.add('is-in'); var sec = el.closest('.chapter-sec'); if (sec) sec.classList.add('is-in'); }); return; }
   var list = Array.prototype.slice.call(els);
   // Revealing one opener also reveals every opener above it, so a jump down the page (an anchor link, a reload
   // mid-page) never leaves an earlier section blank on the way back up.
-  function upTo(i) { for (var k = 0; k <= i; k++) { if (!list[k].classList.contains('is-in')) { list[k].classList.add('is-in'); io.unobserve(list[k]); } } }
+  function upTo(i) { for (var k = 0; k <= i; k++) { if (!list[k].classList.contains('is-in')) { list[k].classList.add('is-in'); io.unobserve(list[k]); var sec = list[k].closest('.chapter-sec'); if (sec) sec.classList.add('is-in'); } } }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) { if (en.isIntersecting) upTo(list.indexOf(en.target)); });
   }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
@@ -628,4 +637,105 @@
     if (r.top < window.innerHeight) { upTo(i); return; }
     io.observe(el);
   });
+})();
+
+
+/* The headline's words rise into place once the page is ready */
+(function () {
+  var root = document.documentElement;
+  var h1 = document.querySelector('main .hero h1');
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (h1 && !still) {
+    var lang = root.lang === 'ar' ? 'ar' : 'en';
+    var span = h1.querySelector('[data-l="' + lang + '"]') || h1;
+    var plain = Array.prototype.every.call(span.childNodes, function (n) { return n.nodeType === 3; });
+    if (plain) {
+      var words = span.textContent.split(/(\s+)/), i = 0, frag = document.createDocumentFragment();
+      words.forEach(function (w) {
+        if (!w) return;
+        if (/^\s+$/.test(w)) { frag.appendChild(document.createTextNode(' ')); return; }
+        var outer = document.createElement('span'), inner = document.createElement('span');
+        outer.className = 'w'; inner.textContent = w; inner.style.setProperty('--i', String(i++));
+        outer.appendChild(inner); frag.appendChild(outer);
+      });
+      span.textContent = ''; span.appendChild(frag);
+    }
+  }
+  requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.add('is-ready'); }); });
+})();
+
+/* One scroll loop: the gradient progress line in the header and the slow drift of the art layers */
+(function () {
+  var header = document.querySelector('.site-header');
+  var layers = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches && !('ontouchstart' in window);
+  var drift = !still && fine && layers.length;
+  var ticking = false;
+  var update = function () {
+    ticking = false;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if (header) header.style.setProperty('--progress', String(max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0));
+    if (!drift) return;
+    var vh = window.innerHeight;
+    layers.forEach(function (el) {
+      var host = el.parentElement, r = host.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      var f = parseFloat(el.getAttribute('data-parallax')) || 0;
+      var py = Math.max(-40, Math.min(40, (vh / 2 - (r.top + r.height / 2)) * f));
+      el.style.setProperty('--py', py.toFixed(1) + 'px');
+    });
+  };
+  var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+/* Inertia scrolling for mouse wheels: the page eases toward where the wheel asked for, instead of jumping.
+   Off on touch devices, under reduced motion, while the menu is open, and inside anything that scrolls itself.
+   Any other scroll (keyboard, scrollbar, an anchor link, a script) simply resets the target. */
+(function () {
+  var root = document.documentElement;
+  if (!(window.matchMedia && window.matchMedia('(pointer: fine)').matches) || ('ontouchstart' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var target = window.scrollY, current = target, running = false, pausedUntil = 0;
+  var scrollsItself = function (el) {
+    for (; el && el !== document.body; el = el.parentElement) {
+      if (el.tagName === 'SELECT' || el.tagName === 'TEXTAREA') return true;
+      var o = getComputedStyle(el).overflowY;
+      if ((o === 'auto' || o === 'scroll') && el.scrollHeight > el.clientHeight + 1) return true;
+    }
+    return false;
+  };
+  var step = function () {
+    var d = target - current;
+    if (Math.abs(d) < 0.5) { current = target; window.scrollTo({ top: current, behavior: 'instant' }); running = false; return; }
+    current += d * 0.12;
+    window.scrollTo({ top: current, behavior: 'instant' });   // 'instant' so the page's smooth scroll-behavior does not animate each frame
+    requestAnimationFrame(step);
+  };
+  window.addEventListener('wheel', function (e) {
+    if (e.ctrlKey || e.defaultPrevented) return;
+    if (root.classList.contains('menu-open') || Date.now() < pausedUntil) return;
+    if (scrollsItself(e.target)) return;
+    var dy = e.deltaY;
+    if (e.deltaMode === 1) dy *= 16; else if (e.deltaMode === 2) dy *= window.innerHeight;
+    if (!dy) return;
+    e.preventDefault();
+    var max = root.scrollHeight - window.innerHeight;
+    if (!running) { current = window.scrollY; target = current; }
+    target = Math.max(0, Math.min(max, target + dy));
+    if (!running) { running = true; requestAnimationFrame(step); }
+  }, { passive: false });
+  window.addEventListener('scroll', function () {
+    // the scroll event arrives after our own scrollTo: it is ours when the page is where we put it
+    if (Math.abs(window.scrollY - current) < 1.5) return;
+    // someone else moved the page (keyboard, scrollbar, an anchor, a script): follow it
+    current = target = window.scrollY; running = false;
+  }, { passive: true });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (a) { pausedUntil = Date.now() + 1200; running = false; }
+  }, true);
 })();

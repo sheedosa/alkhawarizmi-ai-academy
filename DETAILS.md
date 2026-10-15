@@ -86,6 +86,30 @@ The About page has a "Who teaches" section that stays hidden until there are rea
 - **Google Analytics 4 Measurement ID** (`G-XXXXXXX`), so enquiries and drop-offs can be measured. Until it is set,
   nothing is measured and the Privacy page says so; once set, the page switches to the analytics paragraph by itself.
 
+## Partner pitch (organisations)
+
+The organisation pages now follow the partner-pitch rules: the position line, the four moves, a free demonstration as
+the first step, then a consultation with a one-page draft roadmap, then the programme the roadmap points to. Before
+the next items can go on the site, please confirm:
+
+- **The employer edition of AI for Public** (staff count per cohort, the institution's name on the certificate, the
+  hands-on share): it is not on the site until these are confirmed; HR audiences are pointed at Custom Training.
+  - Answer: 
+- **The weekly cadence after Custom Training** ("the weekly hour": a short weekly session, written playbooks, a
+  published rubric): named on the Custom Training page as part of how it works; confirm the name and whether it is
+  priced separately.
+  - Answer: 
+- **The demonstrations** (cloned-voice drill; a classifier built and broken in twenty minutes; an assistant or
+  dashboard built live): who runs them and where they can be booked. No person is named on the site.
+  - Answer: 
+- **The figures** "58% hands-on", "50 teaching hours" and "62 labs": the site does not use them until confirmed.
+  - Answer: 
+- **Dr Ali's written yes** for the founder block (portrait, his words, "Dr Ali Abusnina, founder") on Home and About.
+  - Answer: 
+- **One email address**: the website uses info@alkhawarizmi.ai; the deck says consultant@aiswat.ai and the catalogue
+  admin@alkhawarizmi.ai. Which one stands?
+  - Answer: 
+
 ## Social accounts
 
 Full links to the academy's profiles. They appear as badges in the footer, on the Contact page and on About, and are
